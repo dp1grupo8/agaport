@@ -21,10 +21,12 @@ public class MainController {
 	@Autowired
 	private RepositorioPermiso permisosRepo;
 
-	@GetMapping(path="/addUsuario") // Map SOLO GET 
-	public @ResponseBody String agregarUsuario (@RequestParam int DNI
-                                                , @RequestParam String Password,
-												@RequestParam String Nombres, @RequestParam int idPermiso) {
+	//USUARIOS
+	//------------------------------------------------------------------------------------------------------//
+
+	@GetMapping(path="/usuarios/add") // Map SOLO GET 
+	public @ResponseBody String agregarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
+												@RequestParam int idPermiso) {
 		// @ResponseBody string es la respuesta, no el nombre
 		// @RequestParam es un parametro de la request
 		//VERIFICACION PERMISO EXISTENTE
@@ -38,7 +40,15 @@ public class MainController {
 		return "Saved";
 	}
 
-	@GetMapping(path="/addPermiso") // Map SOLO GET 
+	@GetMapping(path="/usuarios/listar")
+	public @ResponseBody Iterable<Usuario> listarUsuarios() {
+		// Regresa el JSON
+		return usuarioRepo.findAll();
+	}
+
+	//PERMISOS
+	//------------------------------------------------------------------------------------------------------//
+	@GetMapping(path="/permisos/add") // Map SOLO GET 
 	public @ResponseBody String agregarPermiso (@RequestParam String Descripcion,
 												@RequestParam int Numero) {
 		// @ResponseBody string es la respuesta, no el nombre
@@ -51,14 +61,7 @@ public class MainController {
 		return "Saved";
 	}
 
-
-	@GetMapping(path="/listarUsuarios")
-	public @ResponseBody Iterable<Usuario> listarUsuarios() {
-		// Regresa el JSON
-		return usuarioRepo.findAll();
-	}
-
-	@GetMapping(path="/listarPermisos")
+	@GetMapping(path="/permisos/listar")
 	public @ResponseBody Iterable<Permiso> listarPermisos() {
 		// Regresa el JSON
 		return permisosRepo.findAll();
