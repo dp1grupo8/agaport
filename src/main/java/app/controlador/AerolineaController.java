@@ -21,7 +21,6 @@ public class AerolineaController {
                 listaExistentes.add(a);
             }
         }
-        //filtrado
         return listaExistentes;
     }
     public String modificarAerolinea(RepositorioAerolinea aerolineaRepo,int idAerolinea, String nombre){
