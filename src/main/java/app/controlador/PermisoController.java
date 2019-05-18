@@ -14,6 +14,7 @@ public class PermisoController {
     }
     public Iterable<Permiso> listarPermisos(RepositorioPermiso permisosRepo){
         Iterable<Permiso> listaPermisos = permisosRepo.findAll();
+        //filtrado
         return listaPermisos;
     }
 

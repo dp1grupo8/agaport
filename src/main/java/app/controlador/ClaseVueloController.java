@@ -12,6 +12,11 @@ public class ClaseVueloController {
 		clasesRepo.save(c);
         return "Guardado";
     }
+    public Iterable<ClaseVuelo> listarAerolineas(RepositorioClaseVuelo clasesRepo){
+        Iterable<ClaseVuelo> listaClaseVuelo = clasesRepo.findAll();
+        //filtrado
+        return listaClaseVuelo;
+    }
     public String modificarClaseVuelo(RepositorioClaseVuelo clasesRepo,int id, String desc, int num){
         ClaseVuelo c = clasesRepo.findById(id).get();
         c.setDescripcion(desc);

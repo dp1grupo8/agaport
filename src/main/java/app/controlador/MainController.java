@@ -70,7 +70,7 @@ public class MainController {
 	}
 	@GetMapping(path="/permisos/listar")
 	public @ResponseBody Iterable<Permiso> listarPermisos() {
-		return permisosRepo.findAll();
+		return controladorPermisos.listarPermisos(permisosRepo);
 	}
 	@GetMapping(path="/permisos/modificar")
 	public @ResponseBody String modificarPermiso(@RequestParam int idPermiso, @RequestParam String Descripcion,
@@ -89,7 +89,7 @@ public class MainController {
 	}
 	@GetMapping(path="/aerolineas/listar")
 	public @ResponseBody Iterable<Aerolinea> listarAerolineas() {
-		return aerolineaRepo.findAll();
+		return controladorAerolineas.listarAerolineas(aerolineaRepo);
 	}
 	@GetMapping(path="/aerolineas/modificar")
 	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre) {
@@ -109,7 +109,7 @@ public class MainController {
 	}
 	@GetMapping(path="/aviones/listar")
 	public @ResponseBody Iterable<Avion> listarAviones() {
-		return avionRepo.findAll();
+		return controladorAviones.listarAviones(avionRepo);
 	}
 	@GetMapping(path="/aviones/modificar")
 	public @ResponseBody String modificarAvion(@RequestParam int idAvion, @RequestParam String Placa, 
@@ -129,7 +129,7 @@ public class MainController {
 	}
 	@GetMapping(path="/clasesVuelo/listar")
 	public @ResponseBody Iterable<ClaseVuelo> listarClasesVuelo() {
-		return claseVueloRepo.findAll();
+		return controladorClasesVuelo.listarAerolineas(claseVueloRepo);
 	}
 	@GetMapping(path="/clasesVuelo/modificar")
 	public @ResponseBody String modificarClaseVuelo(@RequestParam int idClaseVuelo, @RequestParam String Descripcion, 

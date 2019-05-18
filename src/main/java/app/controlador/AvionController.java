@@ -14,6 +14,11 @@ public class AvionController {
 		avionRepo.save(a);
         return "Guardado";
     }
+    public Iterable<Avion> listarAviones(RepositorioAvion avionRepo){
+        Iterable<Avion> listaAviones = avionRepo.findAll();
+        //filtrado
+        return listaAviones;
+    }
     public String modificarAvion(RepositorioAvion avionRepo,int id, String Placa, int CapacidadMax, 
                                 int CargaMax, int CombustibleMax){
         Avion a = avionRepo.findById(id).get();
