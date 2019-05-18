@@ -1,5 +1,7 @@
 package app.controlador;
 
+import java.util.ArrayList;
+
 import app.modelo.Permiso;
 import app.repositorios.RepositorioPermiso;
 
@@ -14,8 +16,13 @@ public class PermisoController {
     }
     public Iterable<Permiso> listarPermisos(RepositorioPermiso permisosRepo){
         Iterable<Permiso> listaPermisos = permisosRepo.findAll();
-        //filtrado
-        return listaPermisos;
+        ArrayList<Permiso> listaExistentes = new ArrayList<Permiso>();
+        for(Permiso a: listaPermisos){
+            if (a.getBorrado()==0){
+                listaExistentes.add(a);
+            }
+        }
+        return listaExistentes;
     }
 
     public String modificarPermiso(RepositorioPermiso permisosRepo,int idPermiso, String desc, int numero){

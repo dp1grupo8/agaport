@@ -1,5 +1,7 @@
 package app.controlador;
 
+import java.util.ArrayList;
+
 import app.modelo.ClaseVuelo;
 import app.repositorios.RepositorioClaseVuelo;;
 
@@ -14,8 +16,13 @@ public class ClaseVueloController {
     }
     public Iterable<ClaseVuelo> listarAerolineas(RepositorioClaseVuelo clasesRepo){
         Iterable<ClaseVuelo> listaClaseVuelo = clasesRepo.findAll();
-        //filtrado
-        return listaClaseVuelo;
+        ArrayList<ClaseVuelo> listaExistentes = new ArrayList<ClaseVuelo>();
+        for(ClaseVuelo a: listaClaseVuelo){
+            if (a.getBorrado()==0){
+                listaExistentes.add(a);
+            }
+        }
+        return listaExistentes;
     }
     public String modificarClaseVuelo(RepositorioClaseVuelo clasesRepo,int id, String desc, int num){
         ClaseVuelo c = clasesRepo.findById(id).get();

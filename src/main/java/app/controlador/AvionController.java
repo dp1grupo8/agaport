@@ -1,5 +1,7 @@
 package app.controlador;
 
+import java.util.ArrayList;
+
 import app.modelo.Avion;
 import app.repositorios.RepositorioAvion;
 
@@ -16,8 +18,13 @@ public class AvionController {
     }
     public Iterable<Avion> listarAviones(RepositorioAvion avionRepo){
         Iterable<Avion> listaAviones = avionRepo.findAll();
-        //filtrado
-        return listaAviones;
+        ArrayList<Avion> listaExistentes = new ArrayList<Avion>();
+        for(Avion a: listaAviones){
+            if (a.getBorrado()==0){
+                listaExistentes.add(a);
+            }
+        }
+        return listaExistentes;
     }
     public String modificarAvion(RepositorioAvion avionRepo,int id, String Placa, int CapacidadMax, 
                                 int CargaMax, int CombustibleMax){
