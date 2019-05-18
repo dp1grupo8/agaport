@@ -10,6 +10,8 @@ import app.repositorios.RepositorioPuerta;
 import app.repositorios.RepositorioAvion;
 import app.repositorios.RepositorioClaseVuelo;
 
+import java.util.ArrayList;
+
 public class VueloLlegadaController{
 
 	public String agregarVueloLlegada(RepositorioVueloLlegada vueloLlegadaRepo, RepositorioPuerta puertaRepo, RepositorioAvion avionRepo, 
@@ -34,7 +36,7 @@ public class VueloLlegadaController{
 		return "Guardado";
 	}
 
-	public String agregarVueloLlegada(RepositorioVueloLlegada vueloLlegadaRepo, RepositorioPuerta puertaRepo, RepositorioAvion avionRepo, 
+	public String modificarVueloLlegada(RepositorioVueloLlegada vueloLlegadaRepo, RepositorioPuerta puertaRepo, RepositorioAvion avionRepo, 
 										RepositorioClaseVuelo claseVueloRepo, DATE horaLlegadaProg, DATE horaLlegadaReal, int nivelCombustible, 
 										int nivelRiesgoClima, int nPersonas,int kEquipaje, int Estado, int idPuerta, int idAvion, int idClaseVuelo, int idVueloLlegada){
 
@@ -56,8 +58,20 @@ public class VueloLlegadaController{
 		return "Modificado";
 	}
 
+	public Iterable<VueloLlegada> listarVuelosLlegada(RepositorioVueloLlegada vueloLlegadaRepo){
+        Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+        ArrayList<VueloLlegada> listaExistentes = new ArrayList<VueloLlegada>();
+        for(VueloLlegada vl: listaPrioridades){
+            if (vl.getBorrado()==0){
+                listaExistentes.add(vl);
+            }
+        }
+        return listaExistentes;
+    }
+
 	public String eliminarVueloLlegada(RepositorioVueloLlegada vueloLlegadaRepo,int idVueloLlegada){
-		//implementar
+		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
+		v.setBorrado(1);
 		return "Eliminado"
 	}
 } 

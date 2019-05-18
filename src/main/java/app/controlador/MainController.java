@@ -12,10 +12,19 @@ import app.modelo.Aerolinea;
 import app.modelo.Avion;
 import app.modelo.ClaseVuelo;
 import app.modelo.Permiso;
+import app.modelo.Prioridad;
+import app.modelo.Puerta;
+import app.modelo.Usuario;
+import app.modelo.VueloLlegada;
+
 import app.repositorios.RepositorioAerolinea;
 import app.repositorios.RepositorioAvion;
 import app.repositorios.RepositorioClaseVuelo;
 import app.repositorios.RepositorioPermiso;
+import app.repositorios.RepositorioPrioridad;
+import app.repositorios.RepositorioPuerta;
+import app.repositorios.RepositorioUsuario;
+import app.repositorios.RepositorioVueloLlegada;
 import app.repositorios.RepositorioUsuario;
 
 
@@ -44,14 +53,11 @@ public class MainController {
 	private PrioridadController controladorPrioridad;
 	private PuertaController controladorPuerta;
 	private VueloLlegadaController controladorVueloLlegada;
-
-	
-
-
 	private PermisoController controladorPermisos;
 	private AerolineaController controladorAerolineas;
 	private AvionController controladorAviones;
 	private ClaseVueloController controladorClasesVuelo;
+
 	//USUARIOS
 	//------------------------------------------------------------------------------------------------------//
 
@@ -65,7 +71,7 @@ public class MainController {
 	@GetMapping(path="/usuarios/listar")
 	public @ResponseBody Iterable<Usuario> listarUsuarios() {
 		// Regresa el JSON
-		return usuarioRepo.findAll();
+		return controladorUsuario.listarUsuarios(usuarioRepo);
 	}
 
 	@GetMapping(path="/usuarios/modificar")
@@ -87,10 +93,16 @@ public class MainController {
 		return controladorPrioridad.agregarPrioridad(prioridadRepo, Descripcion, nPrioridad);
 	}
 
+	@GetMapping(path="/prioridades/listar")
+	public @ResponseBody Iterable<Prioridad> listarPrioridades() {
+		return controladorAviones.listarAviones(prioridadRepo);
+	}
+
 	@GetMapping(path="/prioridades/modificar")
 	public @ResponseBody String modificarPrioridad (@RequestParam int Descripcion, @RequestParam int nPrioridad, @RequestParam int idPrioridad){
 		return controladorPrioridad.modificarPrioridad(prioridadRepo, Descripcion, nPrioridad,idPrioridad);
 	}
+
 	@GetMapping(path="/prioridades/eliminar")
 	public @ResponseBody String eliminarPrioridad (@RequestParam int idPrioridad){
 		return controladorPrioridad.eliminarUsuario(prioridadRepo, idPrioridad);
@@ -106,6 +118,11 @@ public class MainController {
 														@RequestParam int idClaseVuelo){
 		return controladorPrioridad.agregarVueloLlegada(vueloLlegadaRepo, horaLlegadaProg, horaLlegadaReal, nivelCombustible, nivelRiesgoClima, nPersonas,
 														kEquipaje, Estado, idPuerta, idAvion, idClaseVuelo);
+	}
+
+	@GetMapping(path="/vuelosLlegada/listar")
+	public @ResponseBody Iterable<VueloLlegada> listarVuelosLlegada() {
+		return controladorVueloLlegada.listarVuelosLlegada(vueloLlegadaRepo);
 	}
 
 	@GetMapping(path="/vuelosLlegada/modificar")
@@ -127,6 +144,11 @@ public class MainController {
 	public @ResponseBody String agregarPuerta (@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
 												@RequestParam int Estado){
 		return controladorPuerta.agregarPuerta(puertaRepo, Tipo, distanciaASalida, flujoPersonas, Estado);
+	}
+
+	@GetMapping(path="/puertas/listar")
+	public @ResponseBody Iterable<Puerta> listarPuertas() {
+		return controladorPuerta.listarPuertas(puertaRepo);
 	}
 
 	@GetMapping(path="/puertas/modificar")
@@ -219,5 +241,13 @@ public class MainController {
 	public @ResponseBody String eliminarClaseVuelo(@RequestParam int idClaseVuelo) {
 		return controladorClasesVuelo.eliminarClaseVuelo(claseVueloRepo,idClaseVuelo);
 	}
-	
+	//PRIORIDADES
+	//------------------------------------------------------------------------------------------------------//
+
+	//PUERTAS
+	//------------------------------------------------------------------------------------------------------//
+
+	//VUELOS DE LLEGADA
+	//------------------------------------------------------------------------------------------------------//
+
 }

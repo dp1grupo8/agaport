@@ -6,6 +6,7 @@ import app.modelo.Permiso;
 import app.repositorios.RepositorioPermiso;
 import app.repositorios.RepositorioUsuario;
 
+import java.util.ArrayList;
 
 public class UsuarioController{
 
@@ -21,6 +22,17 @@ public class UsuarioController{
 		return "Guardado";
 	}
 
+	public Iterable<Usuario> listarUsuarios(RepositorioUsuario usuarioRepo){
+        Iterable<Usuario> listaUsuarios = usuarioRepo.findAll();
+        ArrayList<Usuario> listaExistentes = new ArrayList<Usuario>();
+        for(Usuario u: listaUsuarios){
+            if (u.getBorrado()==0){
+                listaExistentes.add(u);
+            }
+        }
+        return listaExistentes;
+    }
+
 	public String modificarUsuario(RepositorioUsuario usuarioRepo, RepositorioPermiso permisosRepo, int idUsuario, int DNI, String Password, String Nombres, int idPermiso){
 		Usuario u = usuarioRepo.findById(idUsuario).get();
 		Permiso p = permisosRepo.findbyId(idPermiso).get();
@@ -33,7 +45,8 @@ public class UsuarioController{
 	}
 
 	public String eliminarUsuario(RepositorioUsuario usuarioRepo, int idPermiso){
-		//Implementar
+		Usuario u = usuarioRepo.findById(idUsuario).get();
+		u.setBorrado(1);
 		return "Eliminado";
 
 	}
