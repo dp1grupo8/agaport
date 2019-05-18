@@ -6,7 +6,8 @@ import app.repositorios.RepositorioAerolinea;
 public class AerolineaController {
     public String agregarAerolinea(RepositorioAerolinea aerolineaRepo, String nombre){
         Aerolinea a = new Aerolinea();
-		a.setNombre(nombre);
+        a.setNombre(nombre);
+        a.setBorrado(0);
 		aerolineaRepo.save(a);
         return "Guardado";
     }
@@ -16,8 +17,8 @@ public class AerolineaController {
         return "Modificado";
     }    
     public String eliminarAerolinea(RepositorioAerolinea aerolineaRepo,int idAerolinea){
-        //Permiso p = permisosRepo.findById(idPermiso).get();	
-        //permisosRepo.delete(p);
+        Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
+        a.setBorrado(1);
         return "Eliminado";
     }    
 }

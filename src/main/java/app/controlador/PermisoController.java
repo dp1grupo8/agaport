@@ -7,10 +7,16 @@ public class PermisoController {
     public String agregarPermiso(RepositorioPermiso permisosRepo, String desc, int numero){
         Permiso p = new Permiso();
 		p.setDescripcion(desc);
-		p.setNumero(numero);
+        p.setNumero(numero);
+        p.setBorrado(0);
 		permisosRepo.save(p);
         return "Guardado";
     }
+    public Iterable<Permiso> listarPermisos(RepositorioPermiso permisosRepo){
+        Iterable<Permiso> listaPermisos = permisosRepo.findAll();
+        return listaPermisos;
+    }
+
     public String modificarPermiso(RepositorioPermiso permisosRepo,int idPermiso, String desc, int numero){
         Permiso p = permisosRepo.findById(idPermiso).get();	
         p.setDescripcion(desc);
@@ -18,8 +24,8 @@ public class PermisoController {
         return "Modificado";
     }    
     public String eliminarPermiso(RepositorioPermiso permisosRepo,int idPermiso){
-        //Permiso p = permisosRepo.findById(idPermiso).get();	
-        //permisosRepo.delete(p);
+        Permiso p = permisosRepo.findById(idPermiso).get();	
+        p.setBorrado(1);
         return "Eliminado";
     }    
 }

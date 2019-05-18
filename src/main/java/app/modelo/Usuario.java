@@ -15,28 +15,30 @@ public class Usuario {
     private int DNI;
     private String Password;
     private String Nombres;
-
-    @ManyToOne(
-        fetch = FetchType.LAZY,
-        optional = false
-    )
-    @JoinColumn(
-        name = "id_permiso",
-        nullable = false
-    )
+    private int borrado;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_permiso", nullable = false)
     @JsonIgnore
     private Permiso permiso;
 
-	/**
-	 * @return the nombres
-	 */
-	public String getNombres() {
-		return Nombres;
-	}
+    /**
+     * @return the nombres
+     */
+    public String getNombres() {
+        return Nombres;
+    }
 
-	/**
-	 * @param nombres the nombres to set
-	 */
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
+    }
+
+    /**
+     * @param nombres the nombres to set
+     */
 	public void setNombres(String nombres) {
 		this.Nombres = nombres;
 	}

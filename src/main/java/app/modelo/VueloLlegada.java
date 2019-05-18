@@ -26,7 +26,7 @@ public class VueloLlegada {
     private int NPersonas;
     private int KEquipaje;
     private int Estado;
-
+    private int borrado;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_puerta", nullable = false)
     @JsonIgnore
@@ -41,10 +41,18 @@ public class VueloLlegada {
     @JsonIgnore
     private ClaseVuelo clase;
 
-
-    public int getIdVuelo(){
+    public int getIdVuelo() {
         return idVuelo;
     }
+
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
+    }
+
     /**
      * @return the horaLlegadaProg
      */

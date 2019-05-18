@@ -21,15 +21,9 @@ public class Avion {
     private int CapacidadMax;
     private int CargaMax;
     private int CombustibleMax;
-    
-    @ManyToOne(
-        fetch = FetchType.LAZY,
-        optional = false
-    )
-    @JoinColumn(
-        name = "id_aerolinea",
-        nullable = false
-    )
+    private int borrado;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_aerolinea", nullable = false)
     @JsonIgnore
     private Aerolinea aerolinea;
 
@@ -38,6 +32,14 @@ public class Avion {
      */
     public int getIdAvion() {
         return idAvion;
+    }
+
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
     }
 
     /**

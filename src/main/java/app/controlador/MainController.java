@@ -39,7 +39,7 @@ public class MainController {
 	private ClaseVueloController controladorClasesVuelo;
 	//USUARIOS
 	//------------------------------------------------------------------------------------------------------//
-	@GetMapping(path="/usuarios/add") // Map SOLO GET 
+	@GetMapping(path="/usuarios/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
 												@RequestParam int idPermiso) {
 		// @ResponseBody string es la respuesta, no el nombre

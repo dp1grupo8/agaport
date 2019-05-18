@@ -8,6 +8,7 @@ public class ClaseVueloController {
         ClaseVuelo c = new ClaseVuelo();
         c.setDescripcion(desc);
         c.setNPrioridad(num);
+        c.setBorrado(0);
 		clasesRepo.save(c);
         return "Guardado";
     }
@@ -17,9 +18,9 @@ public class ClaseVueloController {
         c.setNPrioridad(num);
         return "Modificado";
     }    
-    public String eliminarClaseVuelo(RepositorioClaseVuelo avionRepo,int idAvion){
-        //Permiso p = permisosRepo.findById(idPermiso).get();	
-        //permisosRepo.delete(p);
+    public String eliminarClaseVuelo(RepositorioClaseVuelo clasesRepo,int idAvion){
+        ClaseVuelo c = clasesRepo.findById(idAvion).get();	
+        c.setBorrado(1);
         return "Eliminado";
     }    
 }

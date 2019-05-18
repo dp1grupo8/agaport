@@ -10,6 +10,7 @@ public class AvionController {
         a.setCapacidadMax(CapacidadMax);
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
+        a.setBorrado(0);
 		avionRepo.save(a);
         return "Guardado";
     }
@@ -23,8 +24,8 @@ public class AvionController {
         return "Modificado";
     }    
     public String eliminarAvion(RepositorioAvion avionRepo,int idAvion){
-        //Permiso p = permisosRepo.findById(idPermiso).get();	
-        //permisosRepo.delete(p);
+        Avion a = avionRepo.findById(idAvion).get();
+        a.setBorrado(1);
         return "Eliminado";
     }    
 }
