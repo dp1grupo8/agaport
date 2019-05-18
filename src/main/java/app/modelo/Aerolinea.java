@@ -17,22 +17,26 @@ public class Aerolinea {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idAerolinea;
     private String Nombre;
+    private int borrado;
 
-    @ManyToOne(
-        fetch = FetchType.LAZY,
-        optional = false
-    )
-    @JoinColumn(
-        name = "id_prioridad",
-        nullable = false
-    )
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_prioridad", nullable = false)
     @JsonIgnore
     private Prioridad prioridad;
 
-	public int getIdAerolinea(){
+    public int getIdAerolinea() {
         return idAerolinea;
     }
-    public String getNombre(){
+
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
+    }
+
+    public String getNombre() {
         return Nombre;
     }
     public void setNombre(String Nombre){

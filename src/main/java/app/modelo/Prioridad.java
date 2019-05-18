@@ -14,12 +14,21 @@ public class Prioridad {
     private int idPrioridad;
     private String Descripcion;
     private int NPrioridad;
+    private int borrado;
 
     /**
      * @return the descripcion
      */
     public String getDescripcion() {
         return Descripcion;
+    }
+
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
     }
 
     /**

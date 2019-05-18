@@ -16,12 +16,21 @@ public class Puerta {
     private double DistanciaASalida;
     private int FlujoPersonas;
     private int Estado;
+    private int borrado;
 
     /**
      * @return the tipo
      */
     public int getTipo() {
         return Tipo;
+    }
+
+    public int getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(int borrado) {
+        this.borrado = borrado;
     }
 
     /**
