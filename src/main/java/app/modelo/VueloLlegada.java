@@ -143,4 +143,24 @@ public class VueloLlegada {
         this.HoraLlegadaProg = horaLlegadaProg;
     }
 
+    public Puerta getPuertaAsignada(){
+        return puertaAsignada;
+    }
+    public void setPuertaAsignada(Puerta p){
+        puertaAsignada=p;
+    }
+
+    public Avion getAvion(){
+        return avion;
+    }
+    public void setAvion(Avion a){
+        avion=a;
+    }
+
+    public ClaseVuelo getClaseVuelo(){
+        return ClaseVuelo;
+    }
+    public void setClaseVuelo(ClaseVuelo cv){
+        clase = cv;
+    }
 }
