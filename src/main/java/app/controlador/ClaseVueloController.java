@@ -1,21 +1,33 @@
 package app.controlador;
-
 import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.ClaseVuelo;
-import app.repositorios.RepositorioClaseVuelo;;
+import app.repositorios.RepositorioClaseVuelo;
 
+@Controller    // Clase controlador
+@RequestMapping(path="/ClasesVuelos") // URL del servicio comienza con /agaport
 public class ClaseVueloController {
-    public String agregarClaseVuelo(RepositorioClaseVuelo clasesRepo,String desc, int num){
+
+	@Autowired
+	private RepositorioClaseVuelo claseVueloRepo;
+
+	@GetMapping(path="/insertar") // Map SOLO GET 
+	public @ResponseBody String agregarClaseVuelo (@RequestParam String Descripcion, @RequestParam int NPrioridad) {
         ClaseVuelo c = new ClaseVuelo();
-        c.setDescripcion(desc);
-        c.setNPrioridad(num);
+        c.setDescripcion(Descripcion);
+        c.setNPrioridad(NPrioridad);
         c.setBorrado(0);
-		clasesRepo.save(c);
+		claseVueloRepo.save(c);
         return "Guardado";
     }
-    public Iterable<ClaseVuelo> listarAerolineas(RepositorioClaseVuelo clasesRepo){
-        Iterable<ClaseVuelo> listaClaseVuelo = clasesRepo.findAll();
+	@GetMapping(path="/listar")
+	public @ResponseBody Iterable<ClaseVuelo> listarClasesVuelo() {
+        Iterable<ClaseVuelo> listaClaseVuelo = claseVueloRepo.findAll();
         ArrayList<ClaseVuelo> listaExistentes = new ArrayList<ClaseVuelo>();
         for(ClaseVuelo a: listaClaseVuelo){
             if (a.getBorrado()==0){
@@ -24,14 +36,17 @@ public class ClaseVueloController {
         }
         return listaExistentes;
     }
-    public String modificarClaseVuelo(RepositorioClaseVuelo clasesRepo,int id, String desc, int num){
-        ClaseVuelo c = clasesRepo.findById(id).get();
-        c.setDescripcion(desc);
-        c.setNPrioridad(num);
+	@GetMapping(path="/modificar")
+	public @ResponseBody String modificarClaseVuelo(@RequestParam int idClaseVuelo, @RequestParam String Descripcion, 
+													@RequestParam int NPrioridad) {
+        ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();
+        c.setDescripcion(Descripcion);
+        c.setNPrioridad(NPrioridad);
         return "Modificado";
     }    
-    public String eliminarClaseVuelo(RepositorioClaseVuelo clasesRepo,int idAvion){
-        ClaseVuelo c = clasesRepo.findById(idAvion).get();	
+	@GetMapping(path="/eliminar")
+	public @ResponseBody String eliminarClaseVuelo(@RequestParam int idClaseVuelo) {
+        ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();	
         c.setBorrado(1);
         return "Eliminado";
     }    
