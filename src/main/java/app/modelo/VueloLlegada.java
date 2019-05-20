@@ -151,4 +151,25 @@ public class VueloLlegada {
         this.HoraLlegadaProg = horaLlegadaProg;
     }
 
+    public Puerta getPuerta(){
+        return puertaAsignada;
+    }
+
+    public void setPuerta(Puerta p){
+        this.puertaAsignada = p;
+    }
+
+    public ClaseVuelo getClaseVuelo(){
+        return clase;
+    }
+    public void setClaseVuelo(ClaseVuelo c){
+        this.clase = c;
+    }
+    public Avion getAvion(){
+        return avion;
+    }
+    public void setAvion(Avion a){
+        this.avion = a;
+    }
+
 }
