@@ -1,0 +1,69 @@
+Guia de Formatos para HTTP Requests:
+
+Formato de una HTTP Request: 	"localhost:8080/clase/metodo"
+Ejemplo:						"localhost:8080/permisos/listar"
+
+Formato de una HTTP Request con Parametros: 	"localhost:8080/clase/metodo?Parametro1=valor1&Parametro2=valor2"
+Ejemplo:										"localhost:8080/permisos/insertar?Descripcion=pass&Numero=4"
+
+Para poder procesar correctamente la HTTP Request, la clase, el metodo y los nombres de lo parametros debe ser escrita perfectamente.
+A continuacion se presenta la lista de las HTTP Requests que puede recibir el servidor Spring.
+
+AEROLINEAS
+	"localhost:8080/aerolineas/insertar?Nombre=VALOR"
+	"localhost:8080/aerolineas/listar"
+	"localhost:8080/aerolineas/modificar?idAerolinea=VALOR&Nombre=VALOR"
+	"localhost:8080/aerolineas/eliminar?idAerolinea=VALOR"
+
+AVIONES
+	"localhost:8080/aviones/insertar?Placa=VALOR&CapacidadMax=VALOR&CargaMax=VALOR&CombustibleMax=VALOR&idAerolinea=VALOR"
+	"localhost:8080/aviones/listar"
+	"localhost:8080/aviones/modificar?idAvion=VALOR&Placa=VALOR&CapacidadMax=VALOR&CargaMax=VALOR&CombustibleMax=VALOR
+                                        &idAerolinea=VALOR"
+	"localhost:8080/aviones/eliminar?idAvion=VALOR"
+
+
+CLASES DE VUELO
+	"localhost:8080/ClasesVuelos/insertar?Descripcion=VALOR&NPrioridad=VALOR"
+	"localhost:8080/ClasesVuelos/listar"
+	"localhost:8080/ClasesVuelos/modificar?idClaseVuelo=VALOR&Descripcion=VALOR&NPrioridad=VALOR"
+	"localhost:8080/ClasesVuelos/eliminar?idClaseVuelo=VALOR"
+
+
+PERMISOS
+	"localhost:8080/permisos/insertar?Descripcion=VALOR&Numero=VALOR"
+	"localhost:8080/permisos/listar"
+	"localhost:8080/permisos/modificar?idPermiso=VALOR&Descripcion=VALOR&Numero=VALOR"
+	"localhost:8080/permisos/eliminar?idPermiso=VALOR"
+
+
+PRIORIDADES
+	"localhost:8080/prioridades/insertar?Descripcion=VALOR&NPrioridad=VALOR"
+	"localhost:8080/prioridades/listar"
+	"localhost:8080/prioridades/modificar?idPrioridad=VALOR&Descripcion=VALOR&NPrioridad=VALOR"
+	"localhost:8080/prioridades/eliminar?idPrioridad=VALOR"
+
+
+PUERTAS
+	"localhost:8080/puertas/insertar?Tipo=VALOR&distanciaASalida=VALOR&flujoPersonas=VALOR&Estado=VALOR"
+	"localhost:8080/puertas/listar"
+	"localhost:8080/puertas/modificar?idPuerta=VALOR&Tipo=VALOR&distanciaASalida=VALOR&flujoPersonas=VALOR&Estado=VALOR"
+	"localhost:8080/puertas/eliminar?idPuerta=VALOR"
+
+
+USUARIOS
+	"localhost:8080/usuarios/insertar?DNI=VALOR&Password=VALOR&Nombres=VALOR&idPermiso=VALOR"
+	"localhost:8080/usuarios/listar"
+	"localhost:8080/usuarios/modificar?DNI=VALOR&Password=VALOR&Nombres=VALOR&idPermiso=VALOR"
+	"localhost:8080/usuarios/eliminar?DNI=VALOR"
+
+
+VUELOS DE LLEGADA
+	"localhost:8080/VuelosLlegada/insertar?horaLlegadaProg=VALOR&horaLlegadaReal=VALOR&nivelCombustible=VALOR
+											&nivelRiesgoClima=VALOR&nPersonas=VALOR&kEquipaje=VALOR&Estado=VALOR
+											&idPuerta=VALOR&idAvion=VALOR&idClaseVuelo=VALOR"
+	"localhost:8080/VuelosLlegada/listar"
+	"localhost:8080/VuelosLlegada/modificar?idVueloLlegada=VALOR&horaLlegadaProg=VALOR&horaLlegadaReal=VALOR&nivelCombustible=VALOR
+											&nivelRiesgoClima=VALOR&nPersonas=VALOR&kEquipaje=VALOR&Estado=VALOR
+											&idPuerta=VALOR&idAvion=VALOR&idClaseVuelo=VALOR"
+	"localhost:8080/VuelosLlegada/eliminar?idVueloLlegada=VALOR"
