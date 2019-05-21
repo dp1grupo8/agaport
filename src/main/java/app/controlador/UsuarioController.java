@@ -50,4 +50,25 @@ public class UsuarioController {
         }
         return listaExistentes;
 	}
+	@GetMapping(path="/modificar") // Map SOLO GET 
+	public @ResponseBody String modificarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
+												@RequestParam int idPermiso) {
+		// @ResponseBody string es la respuesta, no el nombre
+		// @RequestParam es un parametro de la request
+		//VERIFICACION PERMISO EXISTENTE
+		Permiso p = permisosRepo.findById(idPermiso).get();								
+		Usuario a = usuarioRepo.findById(DNI).get();
+        a.setNombres(Nombres);
+		a.setPassword(Password);
+		a.setPermiso(p);
+		usuarioRepo.save(a);
+		return "Guardado";
+	}
+
+	@GetMapping(path="/eliminar")
+	public @ResponseBody String eliminarUsuario (@RequestParam int DNI){
+		Usuario u = usuarioRepo.findById(DNI).get();
+		u.setBorrado(1);
+		return "Eliminado";
+	}
 }

@@ -57,10 +57,10 @@ public class VueloLlegadaController{
 	}
 
 	@GetMapping(path="/modificar")
-	public @ResponseBody String modificarVueloLlegada (@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
+	public @ResponseBody String modificarVueloLlegada (@RequestParam int idVueloLlegada,@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
 														@RequestParam int kEquipaje, @RequestParam int Estado, @RequestParam int idPuerta, @RequestParam int idAvion,
-														@RequestParam int idClaseVuelo, @RequestParam int idVueloLlegada){
+														@RequestParam int idClaseVuelo){
 		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		Avion a = avionRepo.findById(idAvion).get();

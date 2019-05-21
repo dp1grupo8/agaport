@@ -42,8 +42,8 @@ public class PuertaController{
     }
 
 	@GetMapping(path="/modificar")
-	public @ResponseBody String modificarPuerta(@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
-												@RequestParam int Estado, @RequestParam int idPuerta){
+	public @ResponseBody String modificarPuerta(@RequestParam int idPuerta,@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
+												@RequestParam int Estado){
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		p.setTipo(Tipo);
 		p.setDistanciaASalida(distanciaASalida);
