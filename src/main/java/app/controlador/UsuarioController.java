@@ -13,6 +13,8 @@ import app.modelo.Usuario;
 import app.repositorios.RepositorioPermiso;
 import app.repositorios.RepositorioUsuario;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/usuarios") // URL del servicio comienza con /agaport
 public class UsuarioController {

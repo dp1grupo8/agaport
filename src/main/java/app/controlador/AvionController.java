@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +13,8 @@ import app.modelo.Aerolinea;
 import app.modelo.Avion;
 import app.repositorios.RepositorioAerolinea;
 import app.repositorios.RepositorioAvion;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/aviones") // URL del servicio comienza con /agaport
 public class AvionController {

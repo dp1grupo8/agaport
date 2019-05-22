@@ -11,6 +11,8 @@ import app.modelo.Prioridad;
 
 import app.repositorios.RepositorioPrioridad;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/prioridades") // URL del servicio comienza con /agaport
 public class PrioridadController{

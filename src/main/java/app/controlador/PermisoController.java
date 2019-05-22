@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Permiso;
 import app.repositorios.RepositorioPermiso;
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/permisos") // URL del servicio comienza con /agaport
 public class PermisoController {

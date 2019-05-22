@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Aerolinea;
 import app.repositorios.RepositorioAerolinea;
 
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/aerolineas") // URL del servicio comienza con /agaport
 public class AerolineaController {
@@ -17,7 +19,7 @@ public class AerolineaController {
     @Autowired
 	private RepositorioAerolinea aerolineaRepo;	
 	//AEROLINEAS
-	//------------------------------------------------------------------------------------------------------//
+    //------------------------------------------------------------------------------------------------------//
 	@GetMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre) {
         Aerolinea a = new Aerolinea();

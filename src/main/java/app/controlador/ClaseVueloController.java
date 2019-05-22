@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.ClaseVuelo;
 import app.repositorios.RepositorioClaseVuelo;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/ClasesVuelos") // URL del servicio comienza con /agaport
 public class ClaseVueloController {

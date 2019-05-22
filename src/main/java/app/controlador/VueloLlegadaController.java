@@ -19,6 +19,8 @@ import app.repositorios.RepositorioClaseVuelo;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/VuelosLlegada") // URL del servicio comienza con /agaport
 public class VueloLlegadaController{

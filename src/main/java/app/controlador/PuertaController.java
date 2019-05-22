@@ -11,6 +11,8 @@ import app.modelo.Puerta;
 
 import app.repositorios.RepositorioPuerta;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
 @Controller    // Clase controlador
 @RequestMapping(path="/puertas") // URL del servicio comienza con /agaport
 public class PuertaController{
