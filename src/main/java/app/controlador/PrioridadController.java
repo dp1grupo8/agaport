@@ -1,14 +1,27 @@
 package app.controlador;
 
+import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Prioridad;
 
 import app.repositorios.RepositorioPrioridad;
 
-import java.util.ArrayList;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
+@Controller    // Clase controlador
+@RequestMapping(path="/prioridades") // URL del servicio comienza con /agaport
 public class PrioridadController{
 
-	public String agregarPrioridad(RepositorioPrioridad prioridadRepo, String Descripcion, int nPrioridad){
+    @Autowired
+    private RepositorioPrioridad prioridadRepo;
+
+    @GetMapping(path="/insertar") // Map SOLO GET 
+	public @ResponseBody String agregarPrioridad (@RequestParam String Descripcion, @RequestParam int nPrioridad){
 		Prioridad p = new Prioridad();
 		p.setDescripcion(Descripcion);
 		p.setNPrioridad(nPrioridad);
@@ -17,7 +30,8 @@ public class PrioridadController{
 		return "Guardado";
 	}
 
-	public Iterable<Prioridad> listarPrioridades(RepositorioPrioridad prioridadRepo){
+	@GetMapping(path="/listar")
+	public @ResponseBody Iterable<Prioridad> listarPrioridades() {
         Iterable<Prioridad> listaPrioridades = prioridadRepo.findAll();
         ArrayList<Prioridad> listaExistentes = new ArrayList<Prioridad>();
         for(Prioridad p: listaPrioridades){
@@ -28,15 +42,17 @@ public class PrioridadController{
         return listaExistentes;
     }
 
-	public String modificarPrioridad(RepositorioPrioridad prioridadRepo, String Descripcion, int nPrioridad, int idPrioridad){
+    @GetMapping(path="/modificar")
+	public @ResponseBody String modificarPrioridad (@RequestParam String Descripcion, @RequestParam int nPrioridad, @RequestParam int idPrioridad){
 		Prioridad p = prioridadRepo.findById(idPrioridad).get();
 		p.setDescripcion(Descripcion);
 		p.setNPrioridad(nPrioridad);
-		prioridadRepo.saveOrUpdate(p);
+		prioridadRepo.save(p);
 		return "Modificado";
 	}
 
-	public String eliminarPrioridad(RepositorioPrioridad prioridadRepo, int idPrioridad){
+	@GetMapping(path="/eliminar")
+	public @ResponseBody String eliminarPrioridad (@RequestParam int idPrioridad){
 		Prioridad p = prioridadRepo.findById(idPrioridad).get(); 
 		p.setBorrado(1);
 		return "Eliminado";

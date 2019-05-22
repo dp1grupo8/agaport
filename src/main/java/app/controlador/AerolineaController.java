@@ -1,19 +1,35 @@
 package app.controlador;
 
 import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Aerolinea;
 import app.repositorios.RepositorioAerolinea;
 
+@CrossOrigin
+@Controller    // Clase controlador
+@RequestMapping(path="/aerolineas") // URL del servicio comienza con /agaport
 public class AerolineaController {
-    public String agregarAerolinea(RepositorioAerolinea aerolineaRepo, String nombre){
+
+    @Autowired
+	private RepositorioAerolinea aerolineaRepo;	
+	//AEROLINEAS
+    //------------------------------------------------------------------------------------------------------//
+	@GetMapping(path="/insertar") // Map SOLO GET 
+	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre) {
         Aerolinea a = new Aerolinea();
-        a.setNombre(nombre);
+        a.setNombre(Nombre);
         a.setBorrado(0);
 		aerolineaRepo.save(a);
         return "Guardado";
     }
-    public Iterable<Aerolinea> listarAerolineas(RepositorioAerolinea aerolineaRepo){
+	@GetMapping(path="/listar")
+	public @ResponseBody Iterable<Aerolinea> listarAerolineas() {
         Iterable<Aerolinea> listaAerolineas = aerolineaRepo.findAll();
         ArrayList<Aerolinea> listaExistentes = new ArrayList<Aerolinea>();
         for(Aerolinea a: listaAerolineas){
@@ -23,12 +39,14 @@ public class AerolineaController {
         }
         return listaExistentes;
     }
-    public String modificarAerolinea(RepositorioAerolinea aerolineaRepo,int idAerolinea, String nombre){
+	@GetMapping(path="/modificar")
+	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
-        a.setNombre(nombre);
+        a.setNombre(Nombre);
         return "Modificado";
     }    
-    public String eliminarAerolinea(RepositorioAerolinea aerolineaRepo,int idAerolinea){
+	@GetMapping(path="/eliminar")
+	public @ResponseBody String eliminarAerolinea(@RequestParam int idAerolinea) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setBorrado(1);
         return "Eliminado";

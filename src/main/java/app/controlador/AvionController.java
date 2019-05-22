@@ -1,12 +1,36 @@
 package app.controlador;
 
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import app.modelo.Aerolinea;
 import app.modelo.Avion;
+import app.repositorios.RepositorioAerolinea;
 import app.repositorios.RepositorioAvion;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin
+@Controller    // Clase controlador
+@RequestMapping(path="/aviones") // URL del servicio comienza con /agaport
 public class AvionController {
-    public String agregarAvion(RepositorioAvion avionRepo, String Placa, int CapacidadMax, int CargaMax, int CombustibleMax){
+
+	@Autowired
+    private RepositorioAvion avionRepo;
+
+    @Autowired
+    private RepositorioAerolinea aerolineaRepo;
+    
+    @GetMapping(path="/insertar") // Map SOLO GET 
+    public @ResponseBody String agregarAvion (@RequestParam String Placa, @RequestParam int CapacidadMax, 
+                                                @RequestParam int CargaMax, @RequestParam int CombustibleMax,
+                                                @RequestParam int idAerolinea) {        
+                                                    
+        Aerolinea p = aerolineaRepo.findById(idAerolinea).get();	
         Avion a = new Avion();
         a.setPlaca(Placa);
         a.setCapacidadMax(CapacidadMax);
@@ -16,7 +40,8 @@ public class AvionController {
 		avionRepo.save(a);
         return "Guardado";
     }
-    public Iterable<Avion> listarAviones(RepositorioAvion avionRepo){
+    @GetMapping(path="/listar")
+    public @ResponseBody Iterable<Avion> listarAviones(){
         Iterable<Avion> listaAviones = avionRepo.findAll();
         ArrayList<Avion> listaExistentes = new ArrayList<Avion>();
         for(Avion a: listaAviones){
@@ -26,16 +51,19 @@ public class AvionController {
         }
         return listaExistentes;
     }
-    public String modificarAvion(RepositorioAvion avionRepo,int id, String Placa, int CapacidadMax, 
-                                int CargaMax, int CombustibleMax){
-        Avion a = avionRepo.findById(id).get();
+    @GetMapping(path="/modificar")
+	public @ResponseBody String modificarAvion(@RequestParam int idAvion, @RequestParam String Placa, 
+												@RequestParam int CapacidadMax, @RequestParam int CargaMax, 
+												@RequestParam int CombustibleMax) {
+        Avion a = avionRepo.findById(idAvion).get();
         a.setPlaca(Placa);
         a.setCapacidadMax(CapacidadMax);
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
         return "Modificado";
     }    
-    public String eliminarAvion(RepositorioAvion avionRepo,int idAvion){
+	@GetMapping(path="/eliminar")
+	public @ResponseBody String eliminarAvion(@RequestParam int idAvion) {
         Avion a = avionRepo.findById(idAvion).get();
         a.setBorrado(1);
         return "Eliminado";
