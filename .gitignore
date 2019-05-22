@@ -30,3 +30,8 @@ HELP.md
 
 /src/main/resources/application.properties
 /target/classes/application.properties
+
+### Dependencias npm ###
+/FRONTEND/bower_components/
+/FRONTEND/node_modules/
+/FRONTEND/.npm

@@ -1,0 +1,37 @@
+<div ba-panel ba-panel-title="Lista de usuarios" ba-panel-class="with-scroll table-panel">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="vertical-scroll">
+			  <table class="table table-hover">
+			    <thead>
+			    <tr class="black-muted-bg">
+			      <th class="table-id">#</th>
+			      <th>DNI</th>
+			      <th>Nombres</th>
+			      <th>Permisos</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    <tr ng-repeat="item in smartTableData">
+			      <td class="table-id">{{item.id}}</td>
+			      <td>{{item.firstName}}</td>
+			      <td>{{item.lastName}}</td>
+			      <td>{{item.username}}</td>
+			    </tr>
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row form-inline">
+	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Usuarios/popupEliminarUsuario.html','md')">Eliminar</button></a></div>
+	<div class="col-xs-1"><a ng-href="#/agaport_gestion/usuarios/modificar"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ng-href="#/agaport_gestion/usuarios/nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
+</div>
+<div>
+	
+</div>
+<div>
+	
+</div>
