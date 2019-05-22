@@ -5,7 +5,7 @@
       .config(routeConfig);
 
   /** @ngInject */
-  function routeConfig($stateProvider) {
+  function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('agaport_gestion.usuarios', {
           url: '/usuarios',
@@ -16,15 +16,17 @@
             icon: 'ion-android-laptop',
             order: 400,
           },
-        }).state('agaport_gestion.usuarios.nuevo', {
+        }).state('agaport_gestion.usuarios.nuevoss', {
           url: '/nuevo',
           title: 'Nuevo usuario',
-          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_nuevo.html',
-        }).state('agaport_gestion.usuarios.modificar', {
+          templateUrl: 'app/pages/tables/basic/tables.html',
+        }).state('agaport_gestion.usuarios.modificars', {
           url: '/modificar',
           title: 'Modificar usuario',
-          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_modificar.html',
+          templateUrl: 'app/pages/tables/basic/tables.html',
         });
+
+        //urlRouterProvider.when('/usuarios','/usuarios/nuevo');
   }
 
 })();
