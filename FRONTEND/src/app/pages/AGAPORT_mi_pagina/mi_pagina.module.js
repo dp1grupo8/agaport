@@ -10,7 +10,7 @@
         .state('mi_pagina', {
           url: '/mi_pagina',
           templateUrl: 'app/pages/AGAPORT_mi_pagina/mi_pagina.html',
-          title: 'Mi Pagina',
+          title: 'Página principal',
           sidebarMeta: {
             icon: 'ion-android-home',
             order: 1000,

@@ -16,7 +16,7 @@
     // 'BlurAdmin.pages.charts',
     // 'BlurAdmin.pages.maps',
     // 'BlurAdmin.pages.profile',
-    // 'BlurAdmin.pages.mi_pagina',
+    'BlurAdmin.pages.mi_pagina',
     'Agaport.gestion',
     'Agaport.vistas',
   ])
