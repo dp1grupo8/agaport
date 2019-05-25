@@ -496,7 +496,7 @@
 
     $http({
       method:'GET',
-      url:'http://200.16.7.178:8080/agaport/usuarios/listar'
+      url:'http://200.16.7.178:8080/usuarios/listar'
     }).then(function successCallback(response) {
       $scope.datosUsuarios = response;
       console.log("hola");
