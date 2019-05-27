@@ -20,7 +20,7 @@
           url: '/nuevo',
           title: 'Nuevo usuario',
           templateUrl: 'app/pages/tables/basic/tables.html',
-        }).state('agaport_gestion.usuarios.modificars', {
+        }).state('agaport_gestion.usuarios.modificar', {
           url: '/modificar',
           title: 'Modificar usuario',
           templateUrl: 'app/pages/tables/basic/tables.html',
