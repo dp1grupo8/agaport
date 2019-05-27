@@ -494,15 +494,19 @@
 
     $scope.datosUsuarios='hola';
 
+    var link_header='http://200.16.7.178:8080';
+    console.log('inicio');
+    
+
     $http({
       method:'GET',
-      url:'http://200.16.7.178:8080/agaport/usuarios/listar'
+      url: link_header + '/agaport/usuarios/listar'
     }).then(function successCallback(response) {
       $scope.datosUsuarios = response;
-      console.log("hola");
+      console.log('exito');
       console.log(response);
-      console.log("hola2");
     },function errorCallback(response) {
+      console.log('error');
       console.log(response);
     });
 
