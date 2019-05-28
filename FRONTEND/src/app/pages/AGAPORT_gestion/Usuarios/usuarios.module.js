@@ -19,15 +19,15 @@
         }).state('agaport_gestion.usuarios.nuevos', {
           url: '/nuevo',
           title: 'Nuevo usuario',
-          templateUrl: 'app/pages/tables/basic/tables.html',
-          controller: 'UsuariosCtrl'
+          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_nuevo.html',
+          controller: 'UsuariosNuevoCtrl as contro'
         }).state('agaport_gestion.usuarios.modificar', {
           url: '/modificar',
           title: 'Modificar usuario',
-          templateUrl: 'app/pages/tables/basic/tables.html',
+          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_modificar.html',
+          controller: 'UsuariosModificarCtrl'
         });
-
-        //urlRouterProvider.when('/usuarios','/usuarios/nuevo');
+        
   }
 
 })();
