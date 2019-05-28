@@ -11,7 +11,7 @@
           url: '/puertas_mangas_zonas',
           title: 'Puertas, mangas y zonas',
           templateUrl: 'app/pages/AGAPORT_gestion/Puertas_mangas_zonas/puertas_mangas_zonas.html',
-          //controller: 'ProfilePageCtrl',
+          controller: 'PuertasMangasZonasCtrl',
           sidebarMeta: {
             order: 300,
           },

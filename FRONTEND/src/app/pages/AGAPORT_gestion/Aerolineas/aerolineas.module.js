@@ -11,7 +11,7 @@
           url: '/aerolineas',
           title: 'Aerolíneas',
           templateUrl: 'app/pages/AGAPORT_gestion/Aerolineas/aerolineas.html',
-          //controller: 'ProfilePageCtrl',
+          controller: 'AerolineasCtrl',
           sidebarMeta: {
             order: 200,
           },

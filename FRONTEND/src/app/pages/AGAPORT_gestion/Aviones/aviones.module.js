@@ -11,7 +11,7 @@
           url: '/aviones',
           title: 'Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones.html',
-          //controller: 'ProfilePageCtrl',
+          controller: 'AvionesCtrl',
           sidebarMeta: {
             order: 100,
           },
