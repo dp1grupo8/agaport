@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +26,7 @@ public class AvionController {
     @Autowired
     private RepositorioAerolinea aerolineaRepo;
     
-    @GetMapping(path="/insertar") // Map SOLO GET 
+    @PostMapping(path="/insertar") // Map SOLO GET 
     public @ResponseBody String agregarAvion (@RequestParam String Placa, @RequestParam int CapacidadMax, 
                                                 @RequestParam int CargaMax, @RequestParam int CombustibleMax,
                                                 @RequestParam int idAerolinea) {        
@@ -51,7 +52,7 @@ public class AvionController {
         }
         return listaExistentes;
     }
-    @GetMapping(path="/modificar")
+    @PostMapping(path="/modificar")
 	public @ResponseBody String modificarAvion(@RequestParam int idAvion, @RequestParam String Placa, 
 												@RequestParam int CapacidadMax, @RequestParam int CargaMax, 
 												@RequestParam int CombustibleMax) {
@@ -62,7 +63,7 @@ public class AvionController {
         a.setCombustibleMax(CombustibleMax);
         return "Modificado";
     }    
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarAvion(@RequestParam int idAvion) {
         Avion a = avionRepo.findById(idAvion).get();
         a.setBorrado(1);

@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Aerolinea;
+import app.modelo.Prioridad;
 import app.repositorios.RepositorioAerolinea;
+import app.repositorios.RepositorioPrioridad;
 
 @CrossOrigin
 @Controller    // Clase controlador
@@ -17,13 +20,19 @@ import app.repositorios.RepositorioAerolinea;
 public class AerolineaController {
 
     @Autowired
-	private RepositorioAerolinea aerolineaRepo;	
+    private RepositorioAerolinea aerolineaRepo;	
+    
+    @Autowired
+    private RepositorioPrioridad prioridadRepo;
 	//AEROLINEAS
     //------------------------------------------------------------------------------------------------------//
-	@GetMapping(path="/insertar") // Map SOLO GET 
-	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre) {
+	@PostMapping(path="/insertar") // Map SOLO GET 
+	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre, @RequestParam int idPrioridad) {
+
+        Prioridad p = prioridadRepo.findById(idPrioridad).get();		
         Aerolinea a = new Aerolinea();
         a.setNombre(Nombre);
+        a.setPrioridad(p);
         a.setBorrado(0);
 		aerolineaRepo.save(a);
         return "Guardado";
@@ -39,13 +48,15 @@ public class AerolineaController {
         }
         return listaExistentes;
     }
-	@GetMapping(path="/modificar")
-	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre) {
+	@PostMapping(path="/modificar")
+	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre, @RequestParam int idPrioridad) {
+        Prioridad p = prioridadRepo.findById(idPrioridad).get();		
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setNombre(Nombre);
+        a.setPrioridad(p);
         return "Modificado";
     }    
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarAerolinea(@RequestParam int idAerolinea) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setBorrado(1);

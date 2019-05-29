@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Puerta;
@@ -19,7 +20,7 @@ public class PuertaController{
 
     @Autowired
     private RepositorioPuerta puertaRepo;
-	@GetMapping(path="/insertar") // Map SOLO GET 
+	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarPuerta (@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
 												@RequestParam int Estado){
 		Puerta p = new Puerta();
@@ -43,7 +44,7 @@ public class PuertaController{
         return listaExistentes;
     }
 
-	@GetMapping(path="/modificar")
+	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarPuerta(@RequestParam int idPuerta,@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
 												@RequestParam int Estado){
 		Puerta p = puertaRepo.findById(idPuerta).get();
@@ -54,7 +55,7 @@ public class PuertaController{
 		puertaRepo.save(p);
 		return "Modificado";
 	}
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarPuerta(@RequestParam int idPuerta){
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		p.setBorrado(1);

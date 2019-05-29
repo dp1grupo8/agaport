@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Prioridad;
@@ -20,7 +21,7 @@ public class PrioridadController{
     @Autowired
     private RepositorioPrioridad prioridadRepo;
 
-    @GetMapping(path="/insertar") // Map SOLO GET 
+    @PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarPrioridad (@RequestParam String Descripcion, @RequestParam int nPrioridad){
 		Prioridad p = new Prioridad();
 		p.setDescripcion(Descripcion);
@@ -42,7 +43,7 @@ public class PrioridadController{
         return listaExistentes;
     }
 
-    @GetMapping(path="/modificar")
+    @PostMapping(path="/modificar")
 	public @ResponseBody String modificarPrioridad (@RequestParam String Descripcion, @RequestParam int nPrioridad, @RequestParam int idPrioridad){
 		Prioridad p = prioridadRepo.findById(idPrioridad).get();
 		p.setDescripcion(Descripcion);
@@ -51,7 +52,7 @@ public class PrioridadController{
 		return "Modificado";
 	}
 
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarPrioridad (@RequestParam int idPrioridad){
 		Prioridad p = prioridadRepo.findById(idPrioridad).get(); 
 		p.setBorrado(1);

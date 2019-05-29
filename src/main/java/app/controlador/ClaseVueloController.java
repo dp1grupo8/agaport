@@ -1,9 +1,11 @@
 package app.controlador;
+
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.ClaseVuelo;
@@ -18,7 +20,7 @@ public class ClaseVueloController {
 	@Autowired
 	private RepositorioClaseVuelo claseVueloRepo;
 
-	@GetMapping(path="/insertar") // Map SOLO GET 
+	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarClaseVuelo (@RequestParam String Descripcion, @RequestParam int NPrioridad) {
         ClaseVuelo c = new ClaseVuelo();
         c.setDescripcion(Descripcion);
@@ -38,7 +40,7 @@ public class ClaseVueloController {
         }
         return listaExistentes;
     }
-	@GetMapping(path="/modificar")
+	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarClaseVuelo(@RequestParam int idClaseVuelo, @RequestParam String Descripcion, 
 													@RequestParam int NPrioridad) {
         ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();
@@ -46,7 +48,7 @@ public class ClaseVueloController {
         c.setNPrioridad(NPrioridad);
         return "Modificado";
     }    
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarClaseVuelo(@RequestParam int idClaseVuelo) {
         ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();	
         c.setBorrado(1);
