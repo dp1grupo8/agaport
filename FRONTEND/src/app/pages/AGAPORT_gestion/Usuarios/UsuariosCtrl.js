@@ -494,16 +494,15 @@
 
     $scope.datosUsuarios='hola';
 
+    var link_header='http://200.16.7.178:8080';
+
     $http({
       method:'GET',
-      url:'http://200.16.7.178:8080/usuarios/listar'
+      url: link_header + '/usuarios/listar'
     }).then(function successCallback(response) {
-      $scope.datosUsuarios = response;
-      console.log("hola");
-      console.log(response);
-      console.log("hola2");
+      $scope.datosUsuarios = response.data;
     },function errorCallback(response) {
-      console.log(response);
+      console.log('error en obtener usuarios de '+link_header);
     });
 
     $scope.removeUser = function(index) {
@@ -537,6 +536,49 @@
       });
     };
     $scope.openProgressDialog = baProgressModal.open; 
+  }
+
+  angular.module('Agaport.gestion.usuarios')
+      .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
+
+  /** @ngInject */
+  function UsuariosNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    console.log('controlador nuevo');
+    
+    var contro = this;
+
+    $scope.disabled = undefined;
+    $scope.hols='hola';
+
+    $scope.standardItem = {};
+    $scope.standardSelectItems = [
+      {label: 'Option 1', value: 1},
+      {label: 'Option 2', value: 2},
+      {label: 'Option 3', value: 3},
+      {label: 'Option 4', value: 4}
+    ];
+
+  }
+
+  angular.module('Agaport.gestion.usuarios')
+      .controller('UsuariosModificarCtrl', UsuariosModificarCtrl);
+
+  /** @ngInject */
+  function UsuariosModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    console.log('controlador modificar');
+    
+    var contro = this;
+
+    $scope.disabled = undefined;
+    $scope.hols='hola';
+
+    $scope.standardItem = {};
+    $scope.standardSelectItems = [
+      {label: 'Option 1', value: 1},
+      {label: 'Option 2', value: 2},
+      {label: 'Option 3', value: 3},
+      {label: 'Option 4', value: 4}
+    ];
   }
 
 })();

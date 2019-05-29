@@ -2,6 +2,8 @@
   'use strict';
 
   angular.module('Agaport.gestion', [
+      'ui.select',
+      'ngSanitize',
       'Agaport.gestion.aerolineas',
       'Agaport.gestion.aviones',
       'Agaport.gestion.puertas_mangas_zonas',

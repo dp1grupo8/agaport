@@ -16,17 +16,18 @@
             icon: 'ion-android-laptop',
             order: 400,
           },
-        }).state('agaport_gestion.usuarios.nuevoss', {
+        }).state('agaport_gestion.usuarios.nuevo', {
           url: '/nuevo',
           title: 'Nuevo usuario',
-          templateUrl: 'app/pages/tables/basic/tables.html',
-        }).state('agaport_gestion.usuarios.modificars', {
+          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_nuevo.html',
+          controller: 'UsuariosNuevoCtrl'
+        }).state('agaport_gestion.usuarios.modificar', {
           url: '/modificar',
           title: 'Modificar usuario',
-          templateUrl: 'app/pages/tables/basic/tables.html',
+          templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_modificar.html',
+          controller: 'UsuariosModificarCtrl'
         });
-
-        //urlRouterProvider.when('/usuarios','/usuarios/nuevo');
+        
   }
 
 })();
