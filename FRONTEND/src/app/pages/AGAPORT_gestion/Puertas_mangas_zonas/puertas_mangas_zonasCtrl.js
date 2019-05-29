@@ -70,20 +70,15 @@
   
       $scope.datosUsuarios='hola';
   
-      var link_header='http://200.16.7.178:8080';
-      console.log('inicio');
-      
+      var link_header='http://200.16.7.178:8080';      
   
       $http({
         method:'GET',
-        url: link_header + '/usuarios/listar'
+        url: link_header + '/puertas/listar'
       }).then(function successCallback(response) {
-        $scope.datosUsuarios = response;
-        console.log('exito');
-        console.log(response);
+        $scope.datosUsuarios = response.data;
       },function errorCallback(response) {
-        console.log('error');
-        console.log(response);
+        console.log('error al obtener datos de puertas en ' + link_header);
       });
   
       $scope.removePuerta = function(index) {

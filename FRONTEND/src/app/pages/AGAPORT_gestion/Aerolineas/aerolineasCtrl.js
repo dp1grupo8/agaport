@@ -71,19 +71,14 @@
       $scope.datosUsuarios='hola';
   
       var link_header='http://200.16.7.178:8080';
-      console.log('inicio');
-      
   
       $http({
         method:'GET',
-        url: link_header + '/agaport/usuarios/listar'
+        url: link_header + '/aerolineas/listar'
       }).then(function successCallback(response) {
-        $scope.datosUsuarios = response;
-        console.log('exito');
-        console.log(response);
+        $scope.datosUsuarios = response.data;
       },function errorCallback(response) {
-        console.log('error');
-        console.log(response);
+        console.log('error en obtener data de aerolineas de ' + link_header);
       });
   
       $scope.removePuerta = function(index) {

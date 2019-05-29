@@ -4,7 +4,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="vertical-scroll">
-			  <table class="table table-hover">
+				<h1 ng-show="datosUsuarios.length==0">No hay usuarios registrados aún</h1>
+			  <table ng-show="datosUsuarios.length>0" class="table table-hover">
 			    <thead>
 			    <tr class="black-muted-bg">
 			      <th class="table-id">#</th>
@@ -14,10 +15,10 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in smartTableData">
-			      <td class="table-id">{{item.id}}</td>
-			      <td>{{item.firstName}}</td>
-			      <td>{{item.lastName}}</td>
+			    <tr ng-repeat="item in datosUsuarios">
+			      <td class="table-id">{{$index + 1}}</td>
+			      <td>{{item.dni}}</td>
+			      <td>{{item.nombres}}</td>
 			      <td>{{item.username}}</td>
 			    </tr>
 			    </tbody>
