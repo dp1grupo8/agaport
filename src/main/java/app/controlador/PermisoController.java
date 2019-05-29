@@ -1,9 +1,11 @@
 package app.controlador;
+
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Permiso;
@@ -17,7 +19,7 @@ public class PermisoController {
     @Autowired
 	private RepositorioPermiso permisosRepo;
 
-    @GetMapping(path="/insertar") // Map SOLO GET 
+    @PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarPermiso (@RequestParam String Descripcion,
 												@RequestParam int Numero) {
         Permiso p = new Permiso();
@@ -38,7 +40,7 @@ public class PermisoController {
         }
         return listaExistentes;
     }
-	@GetMapping(path="/modificar")
+	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarPermiso(@RequestParam int idPermiso, @RequestParam String Descripcion,
 															@RequestParam int Numero) {
         Permiso p = permisosRepo.findById(idPermiso).get();	
@@ -46,7 +48,7 @@ public class PermisoController {
         p.setNumero(Numero);
         return "Modificado";
     }    
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarPermiso(@RequestParam int idPermiso) {
         Permiso p = permisosRepo.findById(idPermiso).get();	
         p.setBorrado(1);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Permiso;
@@ -24,7 +25,7 @@ public class UsuarioController {
 	private RepositorioPermiso permisosRepo;
 	//USUARIOS
 	//------------------------------------------------------------------------------------------------------//
-	@GetMapping(path="/insertar") // Map SOLO GET 
+	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
 												@RequestParam int idPermiso) {
 		// @ResponseBody string es la respuesta, no el nombre
@@ -52,7 +53,7 @@ public class UsuarioController {
         }
         return listaExistentes;
 	}
-	@GetMapping(path="/modificar") // Map SOLO GET 
+	@PostMapping(path="/modificar") // Map SOLO GET 
 	public @ResponseBody String modificarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
 												@RequestParam int idPermiso) {
 		// @ResponseBody string es la respuesta, no el nombre
@@ -67,7 +68,7 @@ public class UsuarioController {
 		return "Guardado";
 	}
 
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarUsuario (@RequestParam int DNI){
 		Usuario u = usuarioRepo.findById(DNI).get();
 		u.setBorrado(1);

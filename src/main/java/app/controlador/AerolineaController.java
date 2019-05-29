@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.Aerolinea;
@@ -20,7 +21,7 @@ public class AerolineaController {
 	private RepositorioAerolinea aerolineaRepo;	
 	//AEROLINEAS
     //------------------------------------------------------------------------------------------------------//
-	@GetMapping(path="/insertar") // Map SOLO GET 
+	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre) {
         Aerolinea a = new Aerolinea();
         a.setNombre(Nombre);
@@ -39,13 +40,13 @@ public class AerolineaController {
         }
         return listaExistentes;
     }
-	@GetMapping(path="/modificar")
+	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setNombre(Nombre);
         return "Modificado";
     }    
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarAerolinea(@RequestParam int idAerolinea) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setBorrado(1);

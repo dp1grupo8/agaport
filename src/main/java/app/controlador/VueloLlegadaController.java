@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import app.modelo.VueloLlegada;
@@ -34,7 +35,7 @@ public class VueloLlegadaController{
     @Autowired
     private RepositorioClaseVuelo claseVueloRepo;
 
-    @GetMapping(path="/insertar")
+    @PostMapping(path="/insertar")
 	public @ResponseBody String agregarVueloLlegada (@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
 														@RequestParam int kEquipaje, @RequestParam int Estado, @RequestParam int idPuerta, @RequestParam int idAvion,
@@ -58,7 +59,7 @@ public class VueloLlegadaController{
 		return "Guardado";
 	}
 
-	@GetMapping(path="/modificar")
+	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarVueloLlegada (@RequestParam int idVueloLlegada,@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
 														@RequestParam int kEquipaje, @RequestParam int Estado, @RequestParam int idPuerta, @RequestParam int idAvion,
@@ -91,7 +92,7 @@ public class VueloLlegadaController{
         }
         return listaExistentes;
     }
-	@GetMapping(path="/eliminar")
+	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarVueloLlegada (@RequestParam int idVueloLlegada){
 		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
 		v.setBorrado(1);
