@@ -500,7 +500,7 @@
 
     $http({
       method:'GET',
-      url: link_header + '/agaport/usuarios/listar'
+      url: link_header + '/usuarios/listar'
     }).then(function successCallback(response) {
       $scope.datosUsuarios = response;
       console.log('exito');

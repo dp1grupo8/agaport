@@ -16,11 +16,11 @@
             icon: 'ion-android-laptop',
             order: 400,
           },
-        }).state('agaport_gestion.usuarios.nuevos', {
+        }).state('agaport_gestion.usuarios.nuevo', {
           url: '/nuevo',
           title: 'Nuevo usuario',
           templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_nuevo.html',
-          controller: 'UsuariosNuevoCtrl as contro'
+          controller: 'UsuariosNuevoCtrl'
         }).state('agaport_gestion.usuarios.modificar', {
           url: '/modificar',
           title: 'Modificar usuario',

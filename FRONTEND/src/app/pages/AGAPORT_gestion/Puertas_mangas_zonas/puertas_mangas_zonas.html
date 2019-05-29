@@ -1,3 +1,5 @@
+<ui-view autoscroll="true" autoscroll-body-top>
+
 <div ba-panel ba-panel-title="Lista de Puertas, Mangas y Zonas" ba-panel-class="with-scroll table-panel">
 	<div class="row">
 		<div class="col-md-12">
@@ -27,6 +29,8 @@
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Puertas_mangas_zonas/popupEliminarPuerta.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ng-href="#/agaport_gestion/aviones/modificar"><button type="button" class="btn btn-default">Modificar</button></a></div>
-	<div class="col-xs-1"><a ng-href="#/agaport_gestion/aviones/nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.puertas_mangas_zonas.modificar"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.puertas_mangas_zonas.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
+
+</ui-view>

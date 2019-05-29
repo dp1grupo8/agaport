@@ -1,7 +1,7 @@
 <div class="col-sm-offset-3 col-sm-6">
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="tipoNuevoPuerta" class="col-sm-4">Tipo: </label>
+            <label for="aerolineaModificarAvion" class="col-sm-4">Aerolínea: </label>
             <div class="col-sm-8">
                 <ui-select ng-model="selectedItem.selected"
                 class="btn-group bootstrap-select form-control"
@@ -18,34 +18,29 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="distanciaNuevoPuerta" class="col-sm-4">Distancia: </label>
+            <label for="placaModificarAvion" class="col-sm-4">Placa: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="distanciaNuevoPuerta" placeholder="Distancia a la puerta">
+                <input type="text" class="form-control" id="distanciaModificarAvion" placeholder="Placa del avión">
             </div>
         </div>
         <div class="form-group">
-            <label for="flujoNuevoPuerta" class="col-sm-4">Flujo de personas: </label>
+            <label for="maxPasajerosModificarAvion" class="col-sm-4">Máximo de Pasajeros: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="flujoNuevoPuerta" placeholder="Cantidad de personas">
+                <input type="text" class="form-control" id="maxPasajerosModificarAvion" placeholder="Cantidad de pasajeros máxima">
             </div>
         </div>
         <div class="form-group">
-            <label for="estadoNuevoPuerta" class="col-sm-4">Estado: </label>
+            <label for="cargaMaximaModificarAvion" class="col-sm-4">Carga Máxima (ton): </label>
             <div class="col-sm-8">
-                <ui-select ng-model="selectedItem.selected"
-                class="btn-group bootstrap-select form-control"
-                ng-disabled="false"
-                append-to-body="true"
-                search-enabled="false">
-                    <ui-select-match placeholder="Estado de puerta">
-                        <span> {{$select.selected.label}}</span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="standardItem in standardSelectItems | filter: $select.search">
-                        <span ng-bind-html="standardItem.label"></span>
-                    </ui-select-choices>
-                </ui-select>
+                <input type="text" class="form-control" id="cargaMaximaModificarAvion" placeholder="Carga máxima del avión">
             </div>
+        </div>
+        <div class="form-group">
+            <label for="combustibleModificarAvion" class="col-sm-4">Combustible Máximo: </label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="combustibleMaximoModificarAvion" placeholder="Combustible máximo del avión">
             </div>
+        </div>
 
         <div class="row">
             <div class="col-xs-offset-4 col-xs-2"><a ui-sref="agaport_gestion.puertas_mangas_zonas"><button type="button" class="btn btn-default">Aceptar</button></a></div>

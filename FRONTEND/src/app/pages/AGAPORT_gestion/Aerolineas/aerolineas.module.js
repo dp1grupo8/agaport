@@ -15,6 +15,18 @@
           sidebarMeta: {
             order: 200,
           },
+        })
+        .state('agaport_gestion.aerolineas.nuevo', {
+          url: '/nuevo',
+          title: 'Aerolíneas',
+          templateUrl: 'app/pages/AGAPORT_gestion/Aerolineas/aerolineas_nuevo.html',
+          controller: 'AerolineasNuevoCtrl',
+        })
+        .state('agaport_gestion.aerolineas.modificar', {
+          url: '/modificar',
+          title: 'Aerolíneas',
+          templateUrl: 'app/pages/AGAPORT_gestion/Aerolineas/aerolineas_modificar.html',
+          controller: 'AerolineasModificarCtrl',
         });
   }
 
