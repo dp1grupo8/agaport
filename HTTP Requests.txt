@@ -10,9 +10,9 @@ Para poder procesar correctamente la HTTP Request, la clase, el metodo y los nom
 A continuacion se presenta la lista de las HTTP Requests que puede recibir el servidor Spring.
 
 AEROLINEAS
-	"localhost:8080/aerolineas/insertar?Nombre=VALOR"
+	"localhost:8080/aerolineas/insertar?Nombre=VALOR&idPrioridad=VALOR"
 	"localhost:8080/aerolineas/listar"
-	"localhost:8080/aerolineas/modificar?idAerolinea=VALOR&Nombre=VALOR"
+	"localhost:8080/aerolineas/modificar?idAerolinea=VALOR&Nombre=VALOR&idPrioridad=VALOR"
 	"localhost:8080/aerolineas/eliminar?idAerolinea=VALOR"
 
 AVIONES
