@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import app.modelo.Aerolinea;
 import app.modelo.Prioridad;
 import app.repositorios.RepositorioAerolinea;
 import app.repositorios.RepositorioPrioridad;
 
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/aerolineas") // URL del servicio comienza con /agaport
 public class AerolineaController {
 
@@ -26,7 +28,8 @@ public class AerolineaController {
     private RepositorioPrioridad prioridadRepo;
 	//AEROLINEAS
     //------------------------------------------------------------------------------------------------------//
-	@PostMapping(path="/insertar") // Map SOLO GET 
+    @CrossOrigin
+    @PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarAerolinea (@RequestParam String Nombre, @RequestParam int idPrioridad) {
 
         Prioridad p = prioridadRepo.findById(idPrioridad).get();		
@@ -37,7 +40,8 @@ public class AerolineaController {
 		aerolineaRepo.save(a);
         return "Guardado";
     }
-	@GetMapping(path="/listar")
+    @CrossOrigin
+    @GetMapping(path="/listar")
 	public @ResponseBody Iterable<Aerolinea> listarAerolineas() {
         Iterable<Aerolinea> listaAerolineas = aerolineaRepo.findAll();
         ArrayList<Aerolinea> listaExistentes = new ArrayList<Aerolinea>();
@@ -48,7 +52,8 @@ public class AerolineaController {
         }
         return listaExistentes;
     }
-	@PostMapping(path="/modificar")
+    @CrossOrigin
+    @PostMapping(path="/modificar")
 	public @ResponseBody String modificarAerolinea(@RequestParam int idAerolinea, @RequestParam String Nombre, @RequestParam int idPrioridad) {
         Prioridad p = prioridadRepo.findById(idPrioridad).get();		
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
@@ -56,7 +61,8 @@ public class AerolineaController {
         a.setPrioridad(p);
         return "Modificado";
     }    
-	@PostMapping(path="/eliminar")
+    @CrossOrigin
+    @PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarAerolinea(@RequestParam int idAerolinea) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setBorrado(1);

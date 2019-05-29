@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import app.modelo.Aerolinea;
 import app.modelo.Avion;
@@ -16,7 +17,7 @@ import app.repositorios.RepositorioAerolinea;
 import app.repositorios.RepositorioAvion;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/aviones") // URL del servicio comienza con /agaport
 public class AvionController {
 
@@ -25,7 +26,7 @@ public class AvionController {
 
     @Autowired
     private RepositorioAerolinea aerolineaRepo;
-    
+    @CrossOrigin
     @PostMapping(path="/insertar") // Map SOLO GET 
     public @ResponseBody String agregarAvion (@RequestParam String Placa, @RequestParam int CapacidadMax, 
                                                 @RequestParam int CargaMax, @RequestParam int CombustibleMax,
@@ -41,6 +42,7 @@ public class AvionController {
 		avionRepo.save(a);
         return "Guardado";
     }
+    @CrossOrigin
     @GetMapping(path="/listar")
     public @ResponseBody Iterable<Avion> listarAviones(){
         Iterable<Avion> listaAviones = avionRepo.findAll();
@@ -52,6 +54,7 @@ public class AvionController {
         }
         return listaExistentes;
     }
+    @CrossOrigin
     @PostMapping(path="/modificar")
 	public @ResponseBody String modificarAvion(@RequestParam int idAvion, @RequestParam String Placa, 
 												@RequestParam int CapacidadMax, @RequestParam int CargaMax, 
@@ -62,7 +65,8 @@ public class AvionController {
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
         return "Modificado";
-    }    
+    }
+    @CrossOrigin    
 	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarAvion(@RequestParam int idAvion) {
         Avion a = avionRepo.findById(idAvion).get();
