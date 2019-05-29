@@ -11,7 +11,7 @@
           url: '/estado_puertas',
           title: 'Estado de puertas',
           templateUrl: 'app/pages/AGAPORT_vistas/estado_puertas/estado_puertas.html',
-          //controller: 'ProfilePageCtrl',
+          controller: 'estado_puertasCtrl',
           sidebarMeta: {
             order: 300,
           },
