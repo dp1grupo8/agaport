@@ -60,7 +60,7 @@ public class VueloLlegadaController{
 	}
 
 	@PostMapping(path="/modificar")
-	public @ResponseBody String modificarVueloLlegada (@RequestParam int idVueloLlegada,@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
+	public @ResponseBody String modificarVueloLlegada (@RequestParam int idVueloLlegada,@RequestParam String horaLlegadaProg, @RequestParam String horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
 														@RequestParam int kEquipaje, @RequestParam int Estado, @RequestParam int idPuerta, @RequestParam int idAvion,
 														@RequestParam int idClaseVuelo){
@@ -68,8 +68,10 @@ public class VueloLlegadaController{
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		Avion a = avionRepo.findById(idAvion).get();
 		ClaseVuelo cv = claseVueloRepo.findById(idClaseVuelo).get();
-		v.setHoraLlegadaProg(horaLlegadaProg);
-		v.setHoraLlegadaReal(horaLlegadaReal);
+		Date horaProg = Date.valueOf(horaLlegadaProg);
+		Date horaReal = Date.valueOf(horaLlegadaReal);
+		v.setHoraLlegadaProg(horaProg);
+		v.setHoraLlegadaReal(horaReal);
 		v.setNivelCombustible(nivelCombustible);
 		v.setNivelRiesgoClima(nivelRiesgoClima);
 		v.setNPersonas(nPersonas);

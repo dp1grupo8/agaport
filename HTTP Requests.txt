@@ -59,6 +59,8 @@ USUARIOS
 
 
 VUELOS DE LLEGADA
+	Nota: los valores de horaLlegadaProg y horaLlegadaReal tienen el formato "AAAA-MM-DD". Ej. "2018-03-31"
+
 	"localhost:8080/VuelosLlegada/insertar?horaLlegadaProg=VALOR&horaLlegadaReal=VALOR&nivelCombustible=VALOR
 											&nivelRiesgoClima=VALOR&nPersonas=VALOR&kEquipaje=VALOR&Estado=VALOR
 											&idPuerta=VALOR&idAvion=VALOR&idClaseVuelo=VALOR"
