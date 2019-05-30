@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import app.modelo.Permiso;
 import app.modelo.Usuario;
 import app.repositorios.RepositorioPermiso;
@@ -16,7 +18,7 @@ import app.repositorios.RepositorioUsuario;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/usuarios") // URL del servicio comienza con /agaport
 public class UsuarioController {
 	@Autowired // Bean llamado RepositorioUsuarios
@@ -25,6 +27,7 @@ public class UsuarioController {
 	private RepositorioPermiso permisosRepo;
 	//USUARIOS
 	//------------------------------------------------------------------------------------------------------//
+	@CrossOrigin
 	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
 												@RequestParam int idPermiso) {
@@ -40,7 +43,7 @@ public class UsuarioController {
 		usuarioRepo.save(n);
 		return "Guardado";
 	}
-
+	@CrossOrigin
 	@GetMapping(path="/listar")
 	public @ResponseBody Iterable<Usuario> listarUsuarios() {
 		// Regresa el JSON
@@ -53,6 +56,7 @@ public class UsuarioController {
         }
         return listaExistentes;
 	}
+	@CrossOrigin
 	@PostMapping(path="/modificar") // Map SOLO GET 
 	public @ResponseBody String modificarUsuario (@RequestParam int DNI, @RequestParam String Password, @RequestParam String Nombres, 
 												@RequestParam int idPermiso) {
@@ -67,7 +71,7 @@ public class UsuarioController {
 		usuarioRepo.save(a);
 		return "Guardado";
 	}
-
+	@CrossOrigin
 	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarUsuario (@RequestParam int DNI){
 		Usuario u = usuarioRepo.findById(DNI).get();

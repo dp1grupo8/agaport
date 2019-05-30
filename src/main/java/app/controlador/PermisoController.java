@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import app.modelo.Permiso;
 import app.repositorios.RepositorioPermiso;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/permisos") // URL del servicio comienza con /agaport
 public class PermisoController {
 
     @Autowired
 	private RepositorioPermiso permisosRepo;
-
+    @CrossOrigin
     @PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarPermiso (@RequestParam String Descripcion,
 												@RequestParam int Numero) {
@@ -29,6 +31,7 @@ public class PermisoController {
 		permisosRepo.save(p);
         return "Guardado";
     }
+    @CrossOrigin
     @GetMapping(path="/listar")
 	public @ResponseBody Iterable<Permiso> listarPermisos() {
         Iterable<Permiso> listaPermisos = permisosRepo.findAll();
@@ -40,6 +43,7 @@ public class PermisoController {
         }
         return listaExistentes;
     }
+    @CrossOrigin
 	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarPermiso(@RequestParam int idPermiso, @RequestParam String Descripcion,
 															@RequestParam int Numero) {
@@ -47,7 +51,8 @@ public class PermisoController {
         p.setDescripcion(Descripcion);
         p.setNumero(Numero);
         return "Modificado";
-    }    
+    }   
+    @CrossOrigin 
 	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarPermiso(@RequestParam int idPermiso) {
         Permiso p = permisosRepo.findById(idPermiso).get();	

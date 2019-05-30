@@ -8,18 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import app.modelo.Puerta;
 
 import app.repositorios.RepositorioPuerta;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/puertas") // URL del servicio comienza con /agaport
 public class PuertaController{
 
     @Autowired
-    private RepositorioPuerta puertaRepo;
+	private RepositorioPuerta puertaRepo;
+	@CrossOrigin
 	@PostMapping(path="/insertar") // Map SOLO GET 
 	public @ResponseBody String agregarPuerta (@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
 												@RequestParam int Estado){
@@ -31,7 +34,7 @@ public class PuertaController{
 		puertaRepo.save(p);
 		return "Guardado";
 	}
-
+	@CrossOrigin
 	@GetMapping(path="/listar")
 	public @ResponseBody Iterable<Puerta> listarPuertas() {
         Iterable<Puerta> listaPuertas = puertaRepo.findAll();
@@ -43,7 +46,7 @@ public class PuertaController{
         }
         return listaExistentes;
     }
-
+	@CrossOrigin
 	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarPuerta(@RequestParam int idPuerta,@RequestParam int Tipo, @RequestParam double distanciaASalida, @RequestParam int flujoPersonas,
 												@RequestParam int Estado){
@@ -55,6 +58,7 @@ public class PuertaController{
 		puertaRepo.save(p);
 		return "Modificado";
 	}
+	@CrossOrigin
 	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarPuerta(@RequestParam int idPuerta){
 		Puerta p = puertaRepo.findById(idPuerta).get();

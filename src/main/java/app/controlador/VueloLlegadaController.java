@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import app.modelo.VueloLlegada;
 import app.modelo.Puerta;
 import app.modelo.Avion;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-@Controller    // Clase controlador
+@RestController    // Clase controlador
 @RequestMapping(path="/VuelosLlegada") // URL del servicio comienza con /agaport
 public class VueloLlegadaController{
 
@@ -34,7 +36,7 @@ public class VueloLlegadaController{
     private RepositorioAvion avionRepo;
     @Autowired
     private RepositorioClaseVuelo claseVueloRepo;
-
+	@CrossOrigin
     @PostMapping(path="/insertar")
 	public @ResponseBody String agregarVueloLlegada (@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
@@ -58,7 +60,7 @@ public class VueloLlegadaController{
 		vueloLlegadaRepo.save(v);
 		return "Guardado";
 	}
-
+	@CrossOrigin
 	@PostMapping(path="/modificar")
 	public @ResponseBody String modificarVueloLlegada (@RequestParam int idVueloLlegada,@RequestParam String horaLlegadaProg, @RequestParam String horaLlegadaReal,
 														@RequestParam int nivelCombustible, @RequestParam int nivelRiesgoClima, @RequestParam int nPersonas,
@@ -83,6 +85,7 @@ public class VueloLlegadaController{
 		vueloLlegadaRepo.save(v);
 		return "Modificado";
 	}
+	@CrossOrigin
 	@GetMapping(path="/listar")
 	public @ResponseBody Iterable<VueloLlegada> listarVuelosLlegada() {
         Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
@@ -93,7 +96,8 @@ public class VueloLlegadaController{
             }
         }
         return listaExistentes;
-    }
+	}
+	@CrossOrigin
 	@PostMapping(path="/eliminar")
 	public @ResponseBody String eliminarVueloLlegada (@RequestParam int idVueloLlegada){
 		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
