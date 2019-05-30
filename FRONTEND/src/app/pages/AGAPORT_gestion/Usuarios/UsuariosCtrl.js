@@ -564,7 +564,7 @@
       var link_header='http://200.16.7.178:8080';
 
       var variable_entrega={DNI: dni,Password: contrasena,Nombres: nombres,idPermiso: idPermiso};
-      $http.post(link_header+'/usuarios/listar',variable_entrega).success(function(response){
+      $http.post(link_header+'/usuarios/insertar',variable_entrega).success(function(response){
         console.log(response);
         $state.go('agaport_gestion.usuarios');
       });
