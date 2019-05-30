@@ -558,6 +558,18 @@
       {label: 'Option 4', value: 4}
     ];
 
+    $scope.registrarUsuario=function(dni,idPermiso,nombres,contrasena){
+      console.log('hola ' + dni + nombres + contrasena);
+
+      var link_header='http://200.16.7.178:8080';
+
+      var variable_entrega={DNI: dni,Password: contrasena,Nombres: nombres,idPermiso: idPermiso};
+      $http.post(link_header+'/usuarios/listar',variable_entrega).success(function(response){
+        console.log(response);
+        $state.go('agaport_gestion.usuarios');
+      });
+    }
+
   }
 
   angular.module('Agaport.gestion.usuarios')
