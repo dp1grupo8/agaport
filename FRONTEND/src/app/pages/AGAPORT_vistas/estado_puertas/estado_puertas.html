@@ -2,7 +2,8 @@
     <div class="mapa">
         <img src="/../../../../assets/pictures/mapa-aeropuerto-no-text2.png" id="mapa-img" alt="Mapa del Jorge Chavez">
         <div ng-repeat="a in range(19) track by $index"
-        ng-attr-id = "{{ 'gate-' + ($index+8) }}">
+        ng-attr-id = "{{ 'gate-' + ($index+8) }}"
+        ng-click="detalle('gate', $index+8)">
             Gate {{$index + 8}}
         </div>
         <div class=text-der>
@@ -14,19 +15,22 @@
         </div>
         <div class="zonas-izq">
             <div ng-repeat="a in range(4) track by $index"
-            ng-attr-id = "{{ 'zona-' + ($index+29) }}">
+            ng-attr-id = "{{ 'zona-' + ($index+29) }}"
+            ng-click="detalle('zona', $index+29)">
                 Zona {{$index + 29}}
             </div>
         </div>
         <div class="zonas-der1">
             <div ng-repeat="a in range(7) track by $index"
-            ng-attr-id = "{{ 'zona-' + (7-$index) }}">
+            ng-attr-id = "{{ 'zona-' + (7-$index) }}"
+            ng-click="detalle('zona', 7-$index)">
                 Zona {{7-$index}}
             </div>
         </div>
         <div class="zonas-der2">
             <div ng-repeat="a in range(6) track by $index"
-            ng-attr-id = "{{ 'zona-' + (39-$index) }}">
+            ng-attr-id = "{{ 'zona-' + (39-$index) }}"
+            ng-click="detalle('zona', 39-$index)">
                 Zona {{39-$index}}
             </div>
         </div>

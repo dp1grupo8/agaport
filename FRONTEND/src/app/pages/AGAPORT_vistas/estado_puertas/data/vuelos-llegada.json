@@ -1,76 +1,74 @@
-{
-    "data":[
-        {
-            "estado":1,
-            "nPersonas":220,
-            "Puerta":{
-                "idPuerta":1,
-                "tipo":0,
-                "distanciaASalida":20,
-                "flujoPersonas":10,
-                "estado":2                 
-            },
-            "Avion":{
-                "placa":"av-005",
-                "aerolinea":"LATAM"
-            },
-            "Clase":{
-                "descripcion":"Economico"
-            }
+[
+    {
+        "estado": 1,
+        "nPersonas": 220,
+        "Puerta": {
+            "idPuerta": 1,
+            "tipo": 0,
+            "distanciaASalida": 20,
+            "flujoPersonas": 10,
+            "estado": 2
         },
-        {
-            "estado":1,
-            "nPersonas":220,
-            "Puerta":{
-                "idPuerta":5,
-                "tipo":0,
-                "distanciaASalida":20,
-                "flujoPersonas":10,
-                "estado":3                 
-            },
-            "Avion":{
-                "placa":"mex-051",
-                "aerolinea":"Aeroméxico"
-            },
-            "Clase":{
-                "descripcion":"Economico"
-            }
+        "Avion": {
+            "placa": "av-005",
+            "aerolinea": "LATAM"
         },
-        {
-            "estado":0,
-            "nPersonas":220,
-            "Puerta":{
-                "idPuerta":8,
-                "tipo":0,
-                "distanciaASalida":20,
-                "flujoPersonas":10,
-                "estado":3                 
-            },
-            "Avion":{
-                "placa":"av-010",
-                "aerolinea":"LATAM"
-            },
-            "Clase":{
-                "descripcion":"Economico"
-            }
-        },
-        {
-            "estado":1,
-            "nPersonas":80,
-            "Puerta":{
-                "idPuerta":30,
-                "tipo":1,
-                "distanciaASalida":200,
-                "flujoPersonas":2,
-                "estado":2                 
-            },
-            "Avion":{
-                "placa":"av-157",
-                "aerolinea":"LATAM"
-            },
-            "Clase":{
-                "descripcion":"Economico"
-            }
+        "Clase": {
+            "descripcion": "Economico"
         }
-    ]
-}
+    },
+    {
+        "estado": 1,
+        "nPersonas": 220,
+        "Puerta": {
+            "idPuerta": 5,
+            "tipo": 0,
+            "distanciaASalida": 20,
+            "flujoPersonas": 10,
+            "estado": 3
+        },
+        "Avion": {
+            "placa": "mex-051",
+            "aerolinea": "Aeroméxico"
+        },
+        "Clase": {
+            "descripcion": "Economico"
+        }
+    },
+    {
+        "estado": 0,
+        "nPersonas": 220,
+        "Puerta": {
+            "idPuerta": 8,
+            "tipo": 0,
+            "distanciaASalida": 20,
+            "flujoPersonas": 10,
+            "estado": 3
+        },
+        "Avion": {
+            "placa": "av-010",
+            "aerolinea": "LATAM"
+        },
+        "Clase": {
+            "descripcion": "Economico"
+        }
+    },
+    {
+        "estado": 1,
+        "nPersonas": 80,
+        "Puerta": {
+            "idPuerta": 30,
+            "tipo": 1,
+            "distanciaASalida": 200,
+            "flujoPersonas": 2,
+            "estado": 2
+        },
+        "Avion": {
+            "placa": "av-157",
+            "aerolinea": "LATAM"
+        },
+        "Clase": {
+            "descripcion": "Economico"
+        }
+    }
+]
