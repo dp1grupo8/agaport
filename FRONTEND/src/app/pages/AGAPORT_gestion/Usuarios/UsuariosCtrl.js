@@ -8,6 +8,7 @@
   function UsuariosCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 
     $scope.smartTablePageSize = 10;
+    $scope.usuarioSeleccionado=[];
 
     $scope.smartTableData = [
       {
@@ -536,6 +537,10 @@
       });
     };
     $scope.openProgressDialog = baProgressModal.open; 
+
+    $scope.seleccionarUsuario = function(usuario){
+      $scope.usuarioSeleccionado=usuario;
+    }
   }
 
   angular.module('Agaport.gestion.usuarios')
@@ -562,7 +567,7 @@
       var link_header='http://200.16.7.178:8080';
       var dni_aux= parseInt(dni);
       console.log(dni_aux);
-      var variable_entrega={DNI:dni_aux,Password: contrasena,Nombres: nombres,idPermiso: idPermiso};
+      var variable_entrega={"DNI":1,"Password": contrasena,"Nombres": nombres,"idPermiso": idPermiso};
       console.log(variable_entrega);
       // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
       //   console.log('post usuario success');
@@ -571,7 +576,7 @@
       // });
 
       $http({
-        url: link_header + '/usuarios/insertar',
+        url: link_header + '/usuarios/insertar/',
         method: 'POST',
         data: variable_entrega,
         headers:{

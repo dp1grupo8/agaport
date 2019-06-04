@@ -15,7 +15,7 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in datosUsuarios">
+			    <tr ng-repeat="item in datosUsuarios" ng-click="seleccionarUsuario(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.dni}}</td>
 			      <td>{{item.nombres}}</td>
@@ -26,6 +26,10 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div>
+	<div>Dni del usuario seleccionado: {{usuarioSeleccionado.dni}}</div>
+	<div>Nombres del usuario seleccionado: {{usuarioSeleccionado.nombres}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Usuarios/popupEliminarUsuario.html','md')">Eliminar</button></a></div>
