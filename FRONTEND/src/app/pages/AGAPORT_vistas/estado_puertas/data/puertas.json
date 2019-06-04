@@ -2,7 +2,7 @@
     {
         "Puerta": {
             "idPuerta": 3,
-            "tipo": 0,
+            "tipo": 1,
             "distanciaASalida": 20,
             "flujoPersonas": 10,
             "estado": 1
@@ -29,7 +29,7 @@
     {
         "Puerta": {
             "idPuerta": 33,
-            "tipo": 0,
+            "tipo": 1,
             "distanciaASalida": 20,
             "flujoPersonas": 10,
             "estado": 1

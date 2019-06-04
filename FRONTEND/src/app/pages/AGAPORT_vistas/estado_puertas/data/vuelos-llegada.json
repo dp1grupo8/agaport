@@ -4,7 +4,7 @@
         "nPersonas": 220,
         "Puerta": {
             "idPuerta": 1,
-            "tipo": 0,
+            "tipo": 1,
             "distanciaASalida": 20,
             "flujoPersonas": 10,
             "estado": 2
@@ -22,7 +22,7 @@
         "nPersonas": 220,
         "Puerta": {
             "idPuerta": 5,
-            "tipo": 0,
+            "tipo": 1,
             "distanciaASalida": 20,
             "flujoPersonas": 10,
             "estado": 3
