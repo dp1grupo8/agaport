@@ -15,17 +15,25 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in smartTableData">
-			      <td class="table-id">{{item.id}}</td>
-			      <td>{{item.firstName}}</td>
-			      <td>{{item.lastName}}</td>
-			      <td>{{item.username}}</td>
+			    <tr ng-repeat="item in datosPuertas ng-click="seleccionarAvion(item);">
+			      <td class="table-id">{{$index + 1}}</td>
+			      <td>{{item.tipo}}</td>
+			      <td>{{item.distanciaASalida}}</td>
+			      <td>{{item.flujoPersonas}}</td>
 			    </tr>
 			    </tbody>
 			  </table>
+			   <div ng-show="datosPuertas.length==0">
+					No hay Puertas ni Mangas 				
+			  </div>
 			</div>
 		</div>
 	</div>
+</div>
+<div>
+	<div>Tipo de la puerta seleccionada: {{puertaseleccionada.tipo}}</div>
+	<div>Estado de la puerta seleccionada: {{puertaseleccionada.estado}}</div>
+	<div>:Cantidad de personas que salen por la Puerta {{puertaseleccionada.FlujoPersonas}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Puertas_mangas_zonas/popupEliminarPuertaMangaZona.html','md')">Eliminar</button></a></div>

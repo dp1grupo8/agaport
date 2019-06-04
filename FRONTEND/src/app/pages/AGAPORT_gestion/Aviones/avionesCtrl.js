@@ -8,7 +8,7 @@
     function AvionesCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-  
+ 	  $scope.avionSeleccionado=[];
       $scope.smartTableData = [
         {
           id: 1,
@@ -68,7 +68,7 @@
         },
       ];
   
-      $scope.datosAviones='hola';
+      $scope.datosAviones='';
   
       var link_header='http://200.16.7.178:8080';      
   
@@ -76,7 +76,7 @@
         method:'GET',
         url: link_header + '/aviones/listar'
       }).then(function successCallback(response) {
-        $scope.datosAviones = response;
+        $scope.datosAviones = response.data;
       },function errorCallback(response) {
         console.log('error al obtener datos de aviones de ' + link_header);
       });
@@ -112,6 +112,9 @@
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
+	  $scope.seleccionarAvion=function(avion){
+		  $scope.avionseleccionado=avion;
+	  }
     }
   
   })();
