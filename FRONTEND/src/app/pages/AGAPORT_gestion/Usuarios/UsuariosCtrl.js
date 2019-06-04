@@ -559,15 +559,32 @@
     ];
 
     $scope.registrarUsuario=function(dni,idPermiso,nombres,contrasena){
-      console.log('hola ' + dni + nombres + contrasena);
-
       var link_header='http://200.16.7.178:8080';
+      var dni_aux= parseInt(dni);
+      console.log(dni_aux);
+      var variable_entrega={DNI:dni_aux,Password: contrasena,Nombres: nombres,idPermiso: idPermiso};
+      console.log(variable_entrega);
+      // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+      //   console.log('post usuario success');
+      //   console.log(response);
+      //   $state.go('agaport_gestion.usuarios');
+      // });
 
-      var variable_entrega={DNI: dni,Password: contrasena,Nombres: nombres,idPermiso: idPermiso};
-      $http.post(link_header+'/usuarios/insertar',variable_entrega).success(function(response){
-        console.log(response);
+      $http({
+        url: link_header + '/usuarios/insertar',
+        method: 'POST',
+        data: variable_entrega,
+        headers:{
+          'Content-Type':undefined
+        }
+      }).then(function() {
+        console.log('post usuario success');
         $state.go('agaport_gestion.usuarios');
+      },function(response){
+        console.log('error POST');
+        console.log(response);
       });
+
     }
 
   }
