@@ -55,7 +55,7 @@ public class UsuarioController {
         		n.setDNI(a.getDNI());
 		        n.setNombres(a.getNombres());
 				n.setPassword(a.getPassword());
-				n.setPermiso(a.getPermiso())
+				n.setPermiso(a.getPermiso());
 				n.setBorrado(0);
 				listaExistentes.add(n);
                 //listaExistentes.add(a);
