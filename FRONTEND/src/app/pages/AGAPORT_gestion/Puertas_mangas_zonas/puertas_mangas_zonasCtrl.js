@@ -68,7 +68,7 @@
         },
       ];
   
-      $scope.datosPuertas='hola';
+      $scope.datosPuertas='';
   
       var link_header='http://200.16.7.178:8080';      
   

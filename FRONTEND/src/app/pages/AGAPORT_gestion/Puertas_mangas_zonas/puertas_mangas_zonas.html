@@ -15,11 +15,12 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in datosPuertas ng-click="seleccionarAvion(item);">
+			    <tr ng-repeat="item in datosPuertas" ng-click="seleccionarPuerta(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.tipo}}</td>
 			      <td>{{item.distanciaASalida}}</td>
 			      <td>{{item.flujoPersonas}}</td>
+				  <td>{{item.estado==1? 'Disponible':'Ocupado'}}</td>
 			    </tr>
 			    </tbody>
 			  </table>
@@ -33,7 +34,7 @@
 <div>
 	<div>Tipo de la puerta seleccionada: {{puertaseleccionada.tipo}}</div>
 	<div>Estado de la puerta seleccionada: {{puertaseleccionada.estado}}</div>
-	<div>:Cantidad de personas que salen por la Puerta {{puertaseleccionada.FlujoPersonas}}</div>
+	<div>Cantidad de personas que salen por la Puerta {{puertaseleccionada.FlujoPersonas}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Puertas_mangas_zonas/popupEliminarPuertaMangaZona.html','md')">Eliminar</button></a></div>
