@@ -20,7 +20,7 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_permiso", nullable = false)
     @JsonIgnore
-    @Embedded
+    
     private Permiso permiso;
 
     /**

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="permisos")
-@Embeddable
+
 public class Permiso {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
