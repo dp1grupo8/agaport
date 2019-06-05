@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity // Le dice a Hibernate hacer una tabla de esta clase
 @Table(name="usuarios")
-@Embeddable
+
 public class Usuario {
     @Id
     private int DNI;
