@@ -5,7 +5,7 @@
       .controller('UsuariosCtrl', UsuariosCtrl);
 
   /** @ngInject */
-  function UsuariosCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosCtrl($scope, $scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 
     $scope.smartTablePageSize = 10;
     $scope.usuarioSeleccionado=[];
@@ -547,7 +547,7 @@
       .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
 
   /** @ngInject */
-  function UsuariosNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosNuevoCtrl($scope, $location, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador nuevo');
     
     var contro = this;
@@ -579,12 +579,16 @@
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
-      }).then(function() {
+      }).success(function(data, status, headers, config) {
         console.log('post usuario success');
         $state.go('agaport_gestion.usuarios');
-      },function(response){
-        console.log('error POST');
-        console.log(response);
+      }).error(function(data, status, headers, config){
+        console.log("data");
+        console.log(data);
+        console.log("status");
+        console.log(status);
+        //$state.go('agaport_gestion.usuarios');
+        
       });
 
     }
