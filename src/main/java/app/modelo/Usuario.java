@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 @Entity // Le dice a Hibernate hacer una tabla de esta clase
 @Table(name="usuarios")
+@Embeddable
 public class Usuario {
     @Id
     private int DNI;
@@ -19,6 +20,7 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_permiso", nullable = false)
     @JsonIgnore
+    @Embedded
     private Permiso permiso;
 
     /**
