@@ -8,7 +8,7 @@
     function AvionesCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-  
+ 	  $scope.avionSeleccionado=[];
       $scope.smartTableData = [
         {
           id: 1,
@@ -68,7 +68,7 @@
         },
       ];
   
-      $scope.datosAviones='hola';
+      $scope.datosAviones='';
   
       var link_header='http://200.16.7.178:8080';      
   
@@ -76,7 +76,7 @@
         method:'GET',
         url: link_header + '/aviones/listar'
       }).then(function successCallback(response) {
-        $scope.datosAviones = response;
+        $scope.datosAviones = response.data;
       },function errorCallback(response) {
         console.log('error al obtener datos de aviones de ' + link_header);
       });
@@ -112,7 +112,81 @@
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
+	  $scope.seleccionarAvion=function(avion){
+		  $scope.avionseleccionado=avion;
+	  }
     }
-  
-  })();
+	/*cambios desde aqui*/
+	angular.module('Agaport.gestion.aviones')
+		  .controller('AvionesNuevoCtrl', AvionesNuevoCtrl);
+
+	  /** @ngInject */
+	  function AvionesNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+		console.log('controlador nuevo');
+		
+		var contro = this;
+
+		$scope.disabled = undefined;
+		$scope.hols='hola';
+
+		$scope.standardItem = {};
+		$scope.standardSelectItems = [
+		  {label: 'Option 1', value: 1},
+		  {label: 'Option 2', value: 2},
+		  {label: 'Option 3', value: 3},
+		  {label: 'Option 4', value: 4}
+		];
+/*placaAvion,maxPasajero,maxNuevoAv,combNuevoAv,23*/
+		$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAvion){
+		  var link_header='http://200.16.7.178:8080';
+		  var variable_entrega={"Placa":placa,"MaxPasajeros": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAvion":idAvion};
+		  // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+		  //   console.log('post usuario success');
+		  //   console.log(response);
+		  //   $state.go('agaport_gestion.usuarios');
+		  // });
+
+		  $http({
+			url: link_header + '/aviones/insertar',
+			method: 'POST',
+			data: $.param(variable_entrega),
+			headers:{
+			  'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+			}
+		  }).then(function() {
+			console.log('post avion success');
+			$state.go('agaport_gestion.aviones');
+		  },function(response){
+			console.log('error POST');
+			console.log(response);
+		  });
+
+		}
+
+	  }
+
+	  angular.module('Agaport.gestion.aviones')
+		  .controller('AvionModificarCtrl', AvionModificarCtrl);
+
+	  /** @ngInject */
+	  function AvionModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+		console.log('controlador modificar');
+		
+		var contro = this;
+
+		$scope.disabled = undefined;
+		$scope.hols='hola';
+
+		$scope.standardItem = {};
+		$scope.standardSelectItems = [
+		  {label: 'Option 1', value: 1},
+		  {label: 'Option 2', value: 2},
+		  {label: 'Option 3', value: 3},
+		  {label: 'Option 4', value: 4}
+		];
+	  }
+
+})(); 
+	  
+
   
