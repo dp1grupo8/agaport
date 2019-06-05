@@ -19,7 +19,7 @@ public class Usuario {
     private int borrado;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_permiso", nullable = false)
-    @JsonIgnore
+    //@JsonIgnore
     
     private Permiso permiso;
 
