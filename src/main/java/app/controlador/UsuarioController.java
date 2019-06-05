@@ -51,7 +51,14 @@ public class UsuarioController {
         ArrayList<Usuario> listaExistentes = new ArrayList<Usuario>();
         for(Usuario a: listaUsuarios){
             if (a.getBorrado()==0){
-                listaExistentes.add(a);
+            	Usuario n = new Usuario();
+        		n.setDNI(a.getDNI());
+		        n.setNombres(a.getNombres());
+				n.setPassword(a.getPassword());
+				n.setPermiso(a.getPermiso())
+				n.setBorrado(0);
+				listaExistentes.add(n);
+                //listaExistentes.add(a);
             }
         }
         return listaExistentes;
