@@ -1,17 +1,19 @@
 package app.modelo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity // Le dice a Hibernate hacer una tabla de esta clase
 @Table(name="usuarios")
 
-public class Usuario {
+public class Usuario implements Serializable{
     @Id
     private int DNI;
     private String Password;
@@ -19,9 +21,13 @@ public class Usuario {
     private int borrado;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_permiso", nullable = false)
-    @JsonIgnore
-    
+    //@JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})     
     private Permiso permiso;
+
+    public Usuario(){
+        Permiso permiso = new Permiso();
+    }
 
     /**
      * @return the nombres
