@@ -4,29 +4,39 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="vertical-scroll">
-				<h1 ng-show="datosAviones.length==0">No hay aviones registrados aún</h1>
-			  <table ng-show="datosAviones.length>0" class="table table-hover">
+				
+			  <table class="table table-hover">
 			    <thead>
 			    <tr class="black-muted-bg">
 			      <th class="table-id">#</th>
 			      <th>Placa</th>
 			      <th>Aerolínea</th>
-						<th>Máximo de Pasajeros</th>
-						<th>Carga máxima (ton)</th>
+				  <th>Máximo de Pasajeros</th>
+				  <th>Carga máxima (ton)</th>
+				  <th>Combustible máximo (litros)</th>
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in datosAviones">
+			    <tr ng-repeat="item in datosAviones" ng-click="seleccionarAvion(item);">
 			      <td class="table-id">{{$index + 1}}</td>
-			      <td>{{item.firstName}}</td>
-			      <td>{{item.lastName}}</td>
-			      <td>{{item.username}}</td>
+			      <td>{{item.Placa}}</td>
+			      <td>{{item.Placa}}</td>
+			      <td>{{item.capacidadMax}}</td>
+				  <td>{{item.cargaMax}}</td>
+				  <td>{{item.combustibleMax}}</td>
 			    </tr>
 			    </tbody>
 			  </table>
+			  <div ng-show="datosAviones.length==0">
+					No hay aviones				
+			  </div>
 			</div>
 		</div>
 	</div>
+</div>
+<div>
+	<div>Placa avion seleccionado: {{avionSeleccionado.placa}}</div>
+	<div>Capacidad Maxima del avion seleccionado: {{avionSeleccionado.capacidadMax}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aviones/popupEliminarAvion.html','md')">Eliminar</button></a></div>

@@ -20,7 +20,7 @@
           url: '/nuevo',
           title: 'Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones_nuevo.html',
-          controller: 'AvionesCtrl',
+          controller: 'AvionesNuevoCtrl',
           sidebarMeta: {
             order: 100,
           },
