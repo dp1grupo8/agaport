@@ -8,24 +8,31 @@
 			    <thead>
 			    <tr class="black-muted-bg">
 			      <th class="table-id">#</th>
-			      <th>Tipo</th>
-			      <th>Distancia a Salida (m)</th>
-                  <th>Flujo de Personas</th>
-                  <th>Estado</th>
+			      <th>Aerolinea</th>
+			      <th>Prioridad</th>
+                  <th>Máximo No. de Pasajeros</th>
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in smartTableData">
-			      <td class="table-id">{{item.id}}</td>
-			      <td>{{item.firstName}}</td>
-			      <td>{{item.lastName}}</td>
-			      <td>{{item.username}}</td>
+			    <tr ng-repeat="item in datosAerolineas" ng-click="seleccionarAerolinea(item);">
+			      <td class="table-id">{{$index + 1}}</td>
+			      <td>{{item.Nombre}}</td>
+				  <td>{{item.prioridad}}</td>
+			      <td>{{item.borrado}}</td>
 			    </tr>
+				
 			    </tbody>
 			  </table>
+			  <div ng-show="datosAerolineas.length==0">
+					No hay aerolineas				
+			  </div>
 			</div>
 		</div>
 	</div>
+</div>
+<div>
+	<div>Nombres de la aerolinea seleccionada: {{aerolineaSeleccionado.firstName}}</div>
+	<div>Flujo de Personas de la Aerolinea: {{aerolineaSeleccionado.lastName}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aerolineas/popupEliminarAerolinea.html','md')">Eliminar</button></a></div>

@@ -8,7 +8,7 @@
     function PuertasMangasZonasCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-  
+	  $scope.puertaseleccionada=[];
       $scope.smartTableData = [
         {
           id: 1,
@@ -68,7 +68,7 @@
         },
       ];
   
-      $scope.datosUsuarios='hola';
+      $scope.datosPuertas='';
   
       var link_header='http://200.16.7.178:8080';      
   
@@ -76,7 +76,7 @@
         method:'GET',
         url: link_header + '/puertas/listar'
       }).then(function successCallback(response) {
-        $scope.datosUsuarios = response.data;
+        $scope.datosPuertas = response.data;
       },function errorCallback(response) {
         console.log('error al obtener datos de puertas en ' + link_header);
       });
@@ -112,6 +112,9 @@
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
+	  $scope.seleccionarPuerta=function(puerta){
+		  $scope.puertaseleccionada=puerta;
+	  }
     }
 
     angular.module('Agaport.gestion.puertas_mangas_zonas')

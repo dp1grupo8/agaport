@@ -8,7 +8,7 @@
     function AerolineasCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-  
+	  $scope.aerolineaSeleccionado=[];
       $scope.smartTableData = [
         {
           id: 1,
@@ -76,7 +76,7 @@
         method:'GET',
         url: link_header + '/aerolineas/listar'
       }).then(function successCallback(response) {
-        $scope.datosUsuarios = response.data;
+        $scope.datosAerolineas = response.data;
       },function errorCallback(response) {
         console.log('error en obtener data de aerolineas de ' + link_header);
       });
@@ -98,7 +98,7 @@
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
       editableThemes['bs3'].cancelTpl = '<button type="button" ng-click="$form.$cancel()" class="btn btn-default btn-with-icon"><i class="ion-close-round"></i></button>';
-  
+		
       $scope.open = function (page, size) {
         $uibModal.open({
           animation: true,
@@ -112,8 +112,12 @@
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
+	  $scope.seleccionarAerolinea=function(aerolinea){
+		  $scope.aerolineaseleccionada=aerolinea;
+	  }
+	  
     }
-  
+	
     angular.module('Agaport.gestion.puertas_mangas_zonas')
         .controller('AerolineasNuevoCtrl', AerolineasNuevoCtrl);
   
