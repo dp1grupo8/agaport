@@ -5,7 +5,7 @@
       .controller('UsuariosCtrl', UsuariosCtrl);
 
   /** @ngInject */
-  function UsuariosCtrl($scope, $scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 
     $scope.smartTablePageSize = 10;
     $scope.usuarioSeleccionado=[];
