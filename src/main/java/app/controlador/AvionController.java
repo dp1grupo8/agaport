@@ -38,6 +38,7 @@ public class AvionController {
         a.setCapacidadMax(CapacidadMax);
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
+        a.setAerolinea(p);
         a.setBorrado(0);
 		avionRepo.save(a);
         return "Guardado";
