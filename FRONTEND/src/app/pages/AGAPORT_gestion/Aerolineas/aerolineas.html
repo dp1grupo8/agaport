@@ -17,7 +17,9 @@
 			    <tr ng-repeat="item in datosAerolineas" ng-click="seleccionarAerolinea(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.Nombre}}</td>
-				  <td>{{item.prioridad}}</td>
+			       var Prioridad p = new Prioridad()
+			       p= item.prioridad
+				  <td>{{p.getPrioridad()}}</td>
 			      <td>{{item.borrado}}</td>
 			    </tr>
 				
