@@ -40,8 +40,9 @@
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aviones/popupEliminarAvion.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.modificar"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.modificar({avionSeleccionado:avionSeleccionado})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 
 </ui-view>
+

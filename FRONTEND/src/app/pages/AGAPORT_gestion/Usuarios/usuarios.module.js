@@ -22,7 +22,12 @@
           templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_nuevo.html',
           controller: 'UsuariosNuevoCtrl'
         }).state('agaport_gestion.usuarios.modificar', {
-          url: '/modificar',
+          url: '/modificar:usuarioSeleccionado',
+          params:{
+            usuarioSeleccionado:{
+              array:true,
+            }
+          },
           title: 'Modificar usuario',
           templateUrl: 'app/pages/AGAPORT_gestion/Usuarios/usuarios_modificar.html',
           controller: 'UsuariosModificarCtrl'

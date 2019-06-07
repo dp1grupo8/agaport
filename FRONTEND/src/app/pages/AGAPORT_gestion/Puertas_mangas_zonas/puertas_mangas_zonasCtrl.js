@@ -94,6 +94,22 @@
         };
         $scope.users.push($scope.inserted);
       };
+
+      $scope.eliminarAerolinea = function(idPuerta) {
+      var variable_entrega={"idPuerta":idPuerta};
+      $http({
+        method:'POST',
+        url: link_header + '/puertas/eliminar',
+        data: $.param(variable_entrega),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }).then(function successCallback(response) {
+        console.log("exito");
+      },function errorCallback(response) {
+        console.log('error en obtener puertas de '+link_header);
+      });
+      };
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
