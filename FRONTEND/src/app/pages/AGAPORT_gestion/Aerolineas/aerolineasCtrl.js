@@ -94,6 +94,22 @@
         };
         $scope.users.push($scope.inserted);
       };
+
+      $scope.eliminarAerolinea = function(idAerolinea) {
+      var variable_entrega={"idAerolinea":idAerolinea};
+      $http({
+        method:'POST',
+        url: link_header + '/aerolineas/eliminar',
+        data: $.param(variable_entrega),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }).then(function successCallback(response) {
+        console.log("exito");
+      },function errorCallback(response) {
+        console.log('error en obtener aerolinea de '+link_header);
+      });
+      };
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';

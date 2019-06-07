@@ -94,6 +94,22 @@
         };
         $scope.users.push($scope.inserted);
       };
+
+      $scope.eliminarUsuario = function(idAvion) {
+      var variable_entrega={"idAvion":idAvion};
+      $http({
+        method:'POST',
+        url: link_header + '/aviones/eliminar',
+        data: $.param(variable_entrega),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }).then(function successCallback(response) {
+        console.log("exito");
+      },function errorCallback(response) {
+        console.log('error en obtener aviones de '+link_header);
+      });
+      };
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
@@ -137,9 +153,9 @@
 		  {label: 'Option 4', value: 4}
 		];
 /*placaAvion,maxPasajero,maxNuevoAv,combNuevoAv,23*/
-		$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAvion){
+		$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAerolinea){
 		  var link_header='http://200.16.7.178:8080';
-		  var variable_entrega={"Placa":placa,"MaxPasajeros": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAvion":idAvion};
+		  var variable_entrega={"Placa":placa,"CapacidadMax": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAerolinea":idAerolinea};
 		  // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
 		  //   console.log('post usuario success');
 		  //   console.log(response);

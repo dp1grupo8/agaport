@@ -26,8 +26,13 @@
           },
         })
         .state('agaport_gestion.aviones.modificar', {
-          url: '/modificar',
-          title: 'Aviones',
+          url: '/modificar:avionSeleccionado',
+          params:{
+            avionSeleccionado:{
+              array:true,
+            }
+          },
+          title: 'Modificar Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones_modificar.html',
           controller: 'AvionesCtrl',
           sidebarMeta: {
@@ -63,7 +68,7 @@
   
   /** @ngInject */
   function PuertasMangasZonasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-    console.log('controlador nuevo');
+    console.log('controlador modificar');
     
     var contro = this;
 
