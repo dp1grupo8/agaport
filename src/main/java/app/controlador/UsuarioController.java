@@ -56,8 +56,9 @@ public class UsuarioController {
         		n.setDNI(a.getDNI());
 		        n.setNombres(a.getNombres());
 				//n.setPassword(a.getPassword());
-				BCryptPasswordEncoder encodePassword = new BCryptPasswordEncoder(a.getPassword());
-				n.setPassword(encodePassword);
+				BCryptPasswordEncoder encoderPassword = new BCryptPasswordEncoder();
+
+				n.setPassword(enconderPassword.encode(a.getPassword));
 				n.setPermiso(a.getPermiso());
 				n.setBorrado(0);
 				listaExistentes.add(n);
