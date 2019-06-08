@@ -16,6 +16,7 @@ import app.modelo.Usuario;
 import app.repositorios.RepositorioPermiso;
 import app.repositorios.RepositorioUsuario;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @RestController    // Clase controlador
@@ -85,4 +86,13 @@ public class UsuarioController {
 		u.setBorrado(1);
 		return "Eliminado";
 	}
+
+	@CrossOrigin
+	@PostMapping(path="/ingreso")
+	public @ResponseBody Boolean ingresoUsuario(@RequestParam int DNI, @RequestParam String password){
+		Usuario a = usuarioRepo.findById(DNI).get();
+
+		
+	}
+
 }
