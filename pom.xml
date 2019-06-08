@@ -15,6 +15,22 @@
     </parent>
 
     <dependencies>
+
+        <properties>
+            <spring-security.version>5.0.6.RELEASE</spring-security.version>
+            <spring.version>5.0.6.RELEASE</spring.version>
+        </properties>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
