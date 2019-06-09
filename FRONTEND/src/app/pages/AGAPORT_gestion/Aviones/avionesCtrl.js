@@ -8,77 +8,16 @@
     function AvionesCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
- 	  $scope.avionSeleccionado=[];
-      $scope.smartTableData = [
-        {
-          id: 1,
-          firstName: '77591264',
-          lastName: 'Otto',
-          username: 'Operador',
-          email: 'mdo@gmail.com',
-          age: '28'
-        },
-        {
-          id: 2,
-          firstName: '12345678',
-          lastName: 'Thornton',
-          username: 'Operador',
-          email: 'fat@yandex.ru',
-          age: '45'
-        },
-        {
-          id: 3,
-          firstName: '65945632',
-          lastName: 'Bird',
-          username: 'Operador',
-          email: 'twitter@outlook.com',
-          age: '18'
-        },
-        {
-          id: 4,
-          firstName: '65923545',
-          lastName: 'Snow',
-          username: 'Operador',
-          email: 'snow@gmail.com',
-          age: '20'
-        },
-        {
-          id: 5,
-          firstName: '35659858',
-          lastName: 'Sparrow',
-          username: 'Operador',
-          email: 'jack@yandex.ru',
-          age: '30'
-        },
-        {
-          id: 6,
-          firstName: '08063264',
-          lastName: 'Smith',
-          username: 'Operador',
-          email: 'ann@gmail.com',
-          age: '21'
-        },
-        {
-          id: 7,
-          firstName: '10652154',
-          lastName: 'Black',
-          username: 'Operador',
-          email: 'barbara@yandex.ru',
-          age: '43'
-        },
-      ];
-  
-      $scope.datosAviones='';
-  
-      var link_header='http://200.16.7.178:8080';      
+ 	    $scope.avionSeleccionado=[];
+      $scope.datosAviones='';           
   
       $http({
         method:'GET',
-        url: link_header + '/aviones/listar'
+        url: globalBackendLink + '/aviones/listar'
       }).then(function successCallback(response) {
         $scope.datosAviones = response.data;
       },function errorCallback(response) {
-        console.log('error al obtener datos de aviones de ' + link_header);
+        console.log('error al obtener datos de aviones de ' + globalBackendLink);
       });
   
       $scope.removePuerta = function(index) {
@@ -99,7 +38,7 @@
       var variable_entrega={"idAvion":idAvion};
       $http({
         method:'POST',
-        url: link_header + '/aviones/eliminar',
+        url: globalBackendLink + '/aviones/eliminar',
         data: $.param(variable_entrega),
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
@@ -107,7 +46,7 @@
       }).then(function successCallback(response) {
         console.log("exito");
       },function errorCallback(response) {
-        console.log('error en obtener aviones de '+link_header);
+        console.log('error en obtener aviones de '+globalBackendLink);
       });
       };
   
@@ -154,16 +93,16 @@
 		];
 /*placaAvion,maxPasajero,maxNuevoAv,combNuevoAv,23*/
 		$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAerolinea){
-		  var link_header='http://200.16.7.178:8080';
+		  var globalBackendLink='http://200.16.7.178:8080';
 		  var variable_entrega={"Placa":placa,"CapacidadMax": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAerolinea":idAerolinea};
-		  // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+		  // $http.post(globalBackendLink+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
 		  //   console.log('post usuario success');
 		  //   console.log(response);
 		  //   $state.go('agaport_gestion.usuarios');
 		  // });
 
 		  $http({
-			url: link_header + '/aviones/insertar',
+			url: globalBackendLink + '/aviones/insertar',
 			method: 'POST',
 			data: $.param(variable_entrega),
 			headers:{
