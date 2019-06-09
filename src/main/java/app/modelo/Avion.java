@@ -11,10 +11,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="aviones")
-public class Avion {
+public class Avion implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idAvion;
