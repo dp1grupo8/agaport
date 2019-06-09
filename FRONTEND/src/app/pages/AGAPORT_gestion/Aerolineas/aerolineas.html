@@ -10,14 +10,14 @@
 			      <th class="table-id">#</th>
 			      <th>Aerolinea</th>
 			      <th>Prioridad</th>
-                  <th>Máximo No. de Pasajeros</th>
+            <th>Máximo No. de Pasajeros</th>
 			    </tr>
 			    </thead>
 			    <tbody>
 			    <tr ng-repeat="item in datosAerolineas" ng-click="seleccionarAerolinea(item);">
 			      <td class="table-id">{{$index + 1}}</td>
-			      <td>{{item.Nombre}}</td>
-				  <td>{{item.prioridad}}</td>
+			      <td>{{item.nombre}}</td>
+				  	<td>{{item.prioridad.descripcion}}</td>
 			      <td>{{item.borrado}}</td>
 			    </tr>
 				

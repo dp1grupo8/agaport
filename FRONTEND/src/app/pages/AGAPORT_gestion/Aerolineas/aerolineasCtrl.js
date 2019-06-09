@@ -76,7 +76,10 @@
         method:'GET',
         url: link_header + '/aerolineas/listar'
       }).then(function successCallback(response) {
+        console.log('CARLOS');
+        console.log(response.data);
         $scope.datosAerolineas = response.data;
+
       },function errorCallback(response) {
         console.log('error en obtener data de aerolineas de ' + link_header);
       });
