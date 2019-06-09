@@ -8,7 +8,7 @@
     function AerolineasCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-	  $scope.aerolineaSeleccionado=[];
+	    $scope.aerolineaSeleccionado=[];
       $scope.smartTableData = [
         {
           id: 1,
@@ -68,7 +68,7 @@
         },
       ];
   
-      $scope.datosUsuarios='hola';
+      $scope.datosUsuarios='';
   
       var link_header='http://200.16.7.178:8080';
   
