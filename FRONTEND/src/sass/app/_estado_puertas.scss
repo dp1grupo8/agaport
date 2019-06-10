@@ -1,3 +1,6 @@
+.info{
+  text-align: center;
+}
 .mapa {
   width: 80%;
   border: 1px solid black;
@@ -145,28 +148,25 @@
   }
   .zonas-izq {
     top: 83%;
-    left: 3.5%;
+    left: 4%;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 50%;
   }
   .zonas-der1 {
     top: 83%;
     right: 0.74%;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 50%;
   }
   .zonas-der2 {
     top: 90%;
     right: 0.74%;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 50%;
   }
 
   div[id^="zona-"] {
-    width: 4.49%;
+    width: 8.98%;
     height: 6%;
     border: 1px solid black;
     box-sizing: border-box;

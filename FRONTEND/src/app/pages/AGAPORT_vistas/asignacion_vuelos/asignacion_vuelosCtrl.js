@@ -7,9 +7,7 @@
     /** @ngInject */
     function asignacion_vuelosCtrl($scope) {
         
-        $scope.range = function(num) {
-            return new Array(num);   
-        }
+        
         
     }
   
