@@ -78,13 +78,10 @@
       .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
 
   /** @ngInject */
-  function UsuariosNuevoCtrl($scope, $location, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosNuevoCtrl($scope, $state, $location, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador nuevo');
     
-    var contro = this;
-
     $scope.disabled = undefined;
-    $scope.hols='hola';
 
     $scope.standardItem = {};
     $scope.standardSelectItems = [
@@ -97,11 +94,6 @@
     $scope.registrarUsuario=function(dni,idPermiso,nombres,contrasena){
       var globalBackendLink='http://200.16.7.178:8080';
       var variable_entrega={"DNI":dni,"Password": contrasena,"Nombres": nombres,"idPermiso": idPermiso};
-      // $http.post(globalBackendLink+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
-      //   console.log('post usuario success');
-      //   console.log(response);
-      //   $state.go('agaport_gestion.usuarios');
-      // });
 
       $http({
         url: globalBackendLink + '/usuarios/insertar',
@@ -112,14 +104,15 @@
         }
       }).success(function(data, status, headers, config) {
         console.log('post usuario success');
+
         $state.go('agaport_gestion.usuarios');
       }).error(function(data, status, headers, config){
         console.log("data");
         console.log(data);
         console.log("status");
         console.log(status);
-        //$state.go('agaport_gestion.usuarios');
-        
+        console.log($uibModal);
+        $state.go('agaport_gestion.usuarios');
       });
 
     }
