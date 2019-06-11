@@ -33,8 +33,8 @@
 </div>
 <div>
 	<div>Tipo de la puerta seleccionada: {{puertaseleccionada.tipo}}</div>
-	<div>Estado de la puerta seleccionada: {{puertaseleccionada.estado}}</div>
-	<div>Cantidad de personas que salen por la Puerta {{puertaseleccionada.FlujoPersonas}}</div>
+	<div>Estado de la puerta seleccionada: {{puertaseleccionada.estado==1?'Disponible':'Ocupado'}}</div>
+	<div>Cantidad de personas que salen por la Puerta {{puertaseleccionada.flujoPersonas}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Puertas_mangas_zonas/popupEliminarPuertaMangaZona.html','md')">Eliminar</button></a></div>

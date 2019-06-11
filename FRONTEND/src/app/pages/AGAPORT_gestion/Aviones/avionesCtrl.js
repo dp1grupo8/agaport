@@ -68,7 +68,7 @@
       };
       $scope.openProgressDialog = baProgressModal.open; 
 	  $scope.seleccionarAvion=function(avion){
-		  $scope.avionseleccionado=avion;
+		  $scope.avionSeleccionado=avion;
 	  }
     }
 	/*cambios desde aqui*/

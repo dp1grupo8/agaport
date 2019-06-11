@@ -92,8 +92,32 @@
         {label: 'Option 3', value: 3},
         {label: 'Option 4', value: 4}
       ];
+        $scope.registrarPuertas=function(tipo,distancia,flujoPer,estado){
+        var link_header='http://200.16.7.178:8080';
+        var variable_entrega={"Tipo":tipo,"distanciaASalida": distancia,"flujoPersonas": flujoPer,"Estado": estado};
+        // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+        //   console.log('post usuario success');
+        //   console.log(response);
+        //   $state.go('agaport_gestion.usuarios');
+        // });
 
-    }
+        $http({
+          url: link_header + '/puertas/insertar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).then(function() {
+          console.log('post puertas success');
+          $state.go('agaport_gestion.puertas');
+        },function(response){
+          console.log('error POST');
+          console.log(response);
+        });
+
+      }
+    };
 
     angular.module('Agaport.gestion.puertas_mangas_zonas')
         .controller('PuertasMangasZonasModificarCtrl', PuertasMangasZonasModificarCtrl);

@@ -72,7 +72,7 @@
       };
       $scope.openProgressDialog = baProgressModal.open; 
 	  $scope.seleccionarAerolinea=function(aerolinea){
-		  $scope.aerolineaseleccionada=aerolinea;
+		  $scope.aerolineaSeleccionado=aerolinea;
 	  }
 	  
     }
