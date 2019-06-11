@@ -23,6 +23,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+
+import org.json.*;
+
+
 @CrossOrigin
 @RestController    // Clase controlador
 @RequestMapping(path="/VuelosLlegada") // URL del servicio comienza con /agaport
@@ -104,4 +113,54 @@ public class VueloLlegadaController{
 		v.setBorrado(1);
 		return "Eliminado";
 	}
+
+	@CrossOrigin
+	@GetMapping(path="/pruebaAPI")
+	public @ResponseBody Iterable<Integer> prueba (){
+		//con esto se lee el json que manda python
+		RestTemplate restTemplate = new RestTemplate();
+		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
+		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
+		String jsonInput = response.getBody();
+		
+		ArrayList<Integer> prueba = new ArrayList<Integer>();
+		ArrayList<VueloLlegada> vuelosAsignados = new ArrayList<VueloLlegada>();
+		
+		JSONObject outerObject = new JSONObject(jsonInput);
+		JSONArray jsonArray = outerObject.getJSONArray("asignaciones");
+
+		for (int i = 0, size = jsonArray.length(); i < size; i++){
+      		JSONObject objectInArray = jsonArray.getJSONObject(i);	      
+	    	String[] elementNames = JSONObject.getNames(objectInArray);
+	    	prueba.add(elementNames.length);
+
+	    	Integer idPuerta;
+	    	Integer idVueloAsignado;
+	    	Puerta p = new Puerta();
+	    	VueloLlegada v = new VueloLlegada();
+
+	      	for (String elementName : elementNames){
+	      		/*
+	      		String valueString = objectInArray.getString(elementName);
+	      		Integer value = Integer.parseInt(valueString);
+	      		if(elementName == "idPuerta"){
+	      			idPuerta = value;
+	      			p = puertaRepo.findById(idPuerta).get();
+	      		}
+	      		if(elementName == "idVueloAsignado"){
+	      			idVueloAsignado = value;
+	      			v = vueloLlegadaRepo.findById(idVueloAsignado).get();
+	      			v.setPuerta(p);
+	      			vueloLlegadaRepo.save(v);
+	      			vuelosAsignados.add(v);
+	      		}
+	      		*/
+	        //System.out.printf("name=%s, value=%s\n", elementName, value);
+	      	}
+	      //System.out.println();
+    	}
+
+		return prueba;
+	}
+
 } 
