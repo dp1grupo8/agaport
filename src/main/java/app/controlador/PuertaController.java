@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.*;
+
+import java.io.IOException;
 
 @CrossOrigin
 @RestController    // Clase controlador
@@ -70,22 +73,43 @@ public class PuertaController{
 		p.setBorrado(1);
 		return "Eliminado";
 	}
+	/*
 	@CrossOrigin
-	@GetMapping(path="/lsitarPuertasAsignadas")(){
+	@GetMapping(path="/listarPuertasAsignadas") Iterable<Puerta> listado(){
 		RestTemplate restTemplate = new RestTemplate();
-		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarPuertas"
+		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarPuertas";
 		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 		String jsonInput = response.getBody();
 
-		ArrayList<Puerta> = new ArrayList<Puerta> ();
+		ArrayList<Puerta> puertas= new ArrayList<Puerta> ();
 
 		JSONObject outerObject = new JSONObject(jsonInput);
 		JSONArray jsonArray = outerObject.getJSONArray("Puertas");
 
-		for (int i = 0, size = jsonArray.length(); i < size; i++){
-			
-		}
 
+		ObjectMapper mapper = new ObjectMapper();
+		
+		for (int i = 0, size = jsonArray.length(); i < size; i++){
+			JSONObject objectInArray = jsonArray.getJSONObject(i);
+			String jasonString = objectInArray.toString();
+			try {
+				System.out.println(jasonString);
+				Puerta p = mapper.readValue(jasonString, Puerta.class);
+				puertas.add(p);
+			}
+			catch (IOException e) {
+            	e.printStackTrace();
+        	}
+		}
+		
+		return puertas;
 
 	}
+	*/
+	@CrossOrigin
+	@GetMapping(path="/listarTodasPuertas")
+	public @ResponseBody Iterable<Puerta> listarPuertasCompleto() {
+        Iterable<Puerta> listaPuertas = puertaRepo.findAll();
+        return listaPuertas;
+    }
 }

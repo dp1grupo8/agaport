@@ -115,6 +115,27 @@ public class VueloLlegadaController{
 	}
 
 	@CrossOrigin
+	@GetMapping(path="/enviarVuelo")
+	public @ResponseBody String envioVuelos (){
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+        ArrayList<VueloLlegada> listaVuelosNoAsignados = new ArrayList<VueloLlegada>();
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getEstado()==0){
+                listaVuelosNoAsignados.add(vl);
+            }
+        }
+
+        
+
+
+
+
+		RestTemplate restTemplate = new RestTemplate();
+
+	}
+	
+
+	@CrossOrigin
 	@GetMapping(path="/listarAsignaciones")
 	public @ResponseBody Iterable<VueloLlegada> prueba (){
 		//con esto se lee el json que manda python
@@ -171,6 +192,7 @@ public class VueloLlegadaController{
 	      			//System.out.println("puerta");
 	      			//System.out.println(idPuerta);
 	      			p = puertaRepo.findById(idPuerta).get();
+	      			v.setEstado(1);
 	      			v.setPuerta(p);
 	      			vueloLlegadaRepo.save(v);
 	      			vuelosAsignados.add(v);
