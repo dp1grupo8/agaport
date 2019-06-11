@@ -55,7 +55,7 @@
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
     editableThemes['bs3'].cancelTpl = '<button type="button" ng-click="$form.$cancel()" class="btn btn-default btn-with-icon"><i class="ion-close-round"></i></button>';
 
-    $scope.open = function (page, size) {
+    $scope.open = function (page, size,dni) {
       $uibModal.open({
         animation: true,
         templateUrl: page,
@@ -92,7 +92,6 @@
     ];
 
     $scope.registrarUsuario=function(dni,idPermiso,nombres,contrasena){
-      var globalBackendLink='http://200.16.7.178:8080';
       var variable_entrega={"DNI":dni,"Password": contrasena,"Nombres": nombres,"idPermiso": idPermiso};
 
       $http({
@@ -123,12 +122,29 @@
       .controller('UsuariosModificarCtrl', UsuariosModificarCtrl);
 
   /** @ngInject */
-  function UsuariosModificarCtrl($scope, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosModificarCtrl($scope, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador modificar');
-    var usuarioSeleccionado=$stateParams;
-    console.log(usuarioSeleccionado);
-    var contro = this;
+    $scope.usuarioSeleccionadoModificar=angular.copy($stateParams);
 
+    $scope.modificarUsuario= function (dniNuevo,idPermiso,nombresNuevo,contrasenaNuevo){
+
+      var variable_entrega={"DNI":dniNuevo,"Password": contrasenaNuevo,"Nombres": nombresNuevo,"idPermiso": idPermiso};
+
+      $http({
+        url: globalBackendLink + '/usuarios/modificar',
+        method: 'POST',
+        data: $.param(variable_entrega),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }).success(function(data, status, headers, config) {
+        console.log('post usuario success');
+
+        $state.go('agaport_gestion.usuarios');
+      }).error(function(data, status, headers, config){
+        $state.go('agaport_gestion.usuarios');
+      });
+    }
     $scope.disabled = undefined;
     $scope.hols='hola';
 
