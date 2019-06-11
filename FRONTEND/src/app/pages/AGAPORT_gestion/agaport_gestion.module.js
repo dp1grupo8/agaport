@@ -4,6 +4,7 @@
   angular.module('Agaport.gestion', [
       'ui.select',
       'ngSanitize',
+      'ui.router',
       'Agaport.gestion.aerolineas',
       'Agaport.gestion.aviones',
       'Agaport.gestion.puertas_mangas_zonas',
