@@ -1,3 +1,26 @@
-<div ba-panel ba-panel-title="Asignación de vuelos">
-          
+<div ba-panel ba-panel-title="Asignación de vuelos" ba-panel-class="with-scroll table-panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="vertical-scroll">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="black-muted-bg">
+                            <th class="table-id">#</th>
+                            <th>Ubicación</th>
+                            <th>Vuelo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vuelos">
+                            <td class="table-id">{{$index}}</td>
+                            <td>{{item.strPuerta}}</td>
+                            <td>{{item.idVuelo}}</td>
+                            <td>{{item.strEstado}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
