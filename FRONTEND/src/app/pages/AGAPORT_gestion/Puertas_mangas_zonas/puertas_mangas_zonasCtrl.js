@@ -10,6 +10,7 @@
       $scope.smartTablePageSize = 10;
 	    $scope.puertaseleccionada=[];
       $scope.datosPuertas='';
+      
   
       $http({
         method:'GET',
