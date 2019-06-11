@@ -50,6 +50,7 @@ public class PermisoController {
         Permiso p = permisosRepo.findById(idPermiso).get();	
         p.setDescripcion(Descripcion);
         p.setNumero(Numero);
+        permisosRepo.save(p);
         return "Modificado";
     }   
     @CrossOrigin 

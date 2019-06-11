@@ -65,6 +65,7 @@ public class AvionController {
         a.setCapacidadMax(CapacidadMax);
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
+        avionRepo.save(a);
         return "Modificado";
     }
     @CrossOrigin    

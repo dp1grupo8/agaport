@@ -15,6 +15,11 @@ import app.modelo.Puerta;
 import app.repositorios.RepositorioPuerta;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+
+import org.json.*;
+
 @CrossOrigin
 @RestController    // Clase controlador
 @RequestMapping(path="/puertas") // URL del servicio comienza con /agaport
@@ -64,5 +69,23 @@ public class PuertaController{
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		p.setBorrado(1);
 		return "Eliminado";
+	}
+	@CrossOrigin
+	@GetMapping(path="/lsitarPuertasAsignadas")(){
+		RestTemplate restTemplate = new RestTemplate();
+		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarPuertas"
+		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
+		String jsonInput = response.getBody();
+
+		ArrayList<Puerta> = new ArrayList<Puerta> ();
+
+		JSONObject outerObject = new JSONObject(jsonInput);
+		JSONArray jsonArray = outerObject.getJSONArray("Puertas");
+
+		for (int i = 0, size = jsonArray.length(); i < size; i++){
+			
+		}
+
+
 	}
 }
