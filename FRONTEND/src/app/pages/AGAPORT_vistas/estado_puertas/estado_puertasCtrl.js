@@ -53,7 +53,7 @@
       for (var i = 0; i < 40; i++) {
         $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
       }
-      $http.get('http://demo4498234.mockable.io/puertasAsignadas').then(function successCallback(response) {
+      $http.get('/app/pages/AGAPORT_vistas/estado_puertas/data/puertas1.json').then(function successCallback(response) {
         // var div_zonas = document.getElementsByClassName("zona");
         // for (var i = 0; i < div_zonas.length; i++) {
         //   div_zonas[i].style.backgroundColor = "#E9E9E9";
@@ -65,7 +65,7 @@
         $scope.puertas = response.data;
         var puertas = $scope.puertas;
         for (var i = 0; i < puertas.length; i++) {
-          var puerta = puertas[i].Puerta;
+          var puerta = puertas[i];
           var tipo;
           if (puerta.tipo == 0) {
             tipo = 'gate';
@@ -117,50 +117,84 @@
       $scope.puertaSeleccionada = true;
       $scope.puerta = $scope.vuelos.filter(function (e) { return e.Puerta.idPuerta === idPuerta; })[0];
       if ($scope.puerta == undefined) {
-        $scope.puerta = $scope.puertas.filter(function (e) { return e.Puerta.idPuerta === idPuerta; })[0];
-      }
-      // console.log($scope.puerta);
+        $scope.puerta = $scope.puertas.filter(function (e) { return e.idPuerta === idPuerta; })[0];
+        // console.log($scope.puerta);
 
-      switch ($scope.puerta.Puerta.tipo) {
-        case 0:
-          $scope.puerta.strTipo = 'Gate';
-          break;
-        case 1:
-          $scope.puerta.strTipo = 'Zona';
-          break;
-      }
+        switch ($scope.puerta.tipo) {
+          case 0:
+            $scope.puerta.strTipo = 'Gate';
+            break;
+          case 1:
+            $scope.puerta.strTipo = 'Zona';
+            break;
+        }
 
-      switch ($scope.puerta.Puerta.estado) {
-        case 0:
-          $scope.puerta.strEstadoPuerta = 'Deshabilitado';
-          break;
-        case 1:
-          $scope.puerta.strEstadoPuerta = 'Habilitado';
-          break;
-        case 2:
-          $scope.puerta.strEstadoPuerta = 'En uso';
-          break;
-        case 3:
-          $scope.puerta.strEstadoPuerta = 'Uso programado';
-          break;
-      }
+        switch ($scope.puerta.estado) {
+          case 0:
+            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
+            break;
+          case 1:
+            $scope.puerta.strEstadoPuerta = 'Habilitado';
+            break;
+          case 2:
+            $scope.puerta.strEstadoPuerta = 'En uso';
+            break;
+          case 3:
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            break;
+        }
 
-      if ($scope.puerta.distanciaSalida !== undefined) {
-        $scope.puerta.strDistancia = $scope.puerta.distanciaSalida + ' ' + 'metros';
+        if ($scope.puerta.distanciaSalida !== undefined) {
+          $scope.puerta.strDistancia = $scope.puerta.distanciaSalida + ' ' + 'metros';
+        } else {
+          $scope.puerta.strDistancia = '';
+        }
+        if ($scope.puerta.flujoPersonas !== undefined) {
+          $scope.puerta.strFlujo = $scope.puerta.flujoPersonas + ' ' + 'personas por minuto';
+        } else {
+          $scope.puerta.strFlujo = '';
+        }
+
       } else {
-        $scope.puerta.strDistancia = '';
-      }
-      if ($scope.puerta.flujoPersonas !== undefined) {
-        $scope.puerta.strFlujo = $scope.puerta.flujoPersonas + ' ' + 'personas por minuto';
-      } else {
-        $scope.puerta.strFlujo = '';
-      }
+        // console.log($scope.puerta);
 
+        switch ($scope.puerta.Puerta.tipo) {
+          case 0:
+            $scope.puerta.strTipo = 'Gate';
+            break;
+          case 1:
+            $scope.puerta.strTipo = 'Zona';
+            break;
+        }
+
+        switch ($scope.puerta.Puerta.estado) {
+          case 0:
+            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
+            break;
+          case 1:
+            $scope.puerta.strEstadoPuerta = 'Habilitado';
+            break;
+          case 2:
+            $scope.puerta.strEstadoPuerta = 'En uso';
+            break;
+          case 3:
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            break;
+        }
+
+        if ($scope.puerta.distanciaSalida !== undefined) {
+          $scope.puerta.strDistancia = $scope.puerta.distanciaSalida + ' ' + 'metros';
+        } else {
+          $scope.puerta.strDistancia = '';
+        }
+        if ($scope.puerta.flujoPersonas !== undefined) {
+          $scope.puerta.strFlujo = $scope.puerta.flujoPersonas + ' ' + 'personas por minuto';
+        } else {
+          $scope.puerta.strFlujo = '';
+        }
+      }
     }
 
-    $scope.avionEstacionado = function (idPuerta) {
-      return $scope.vuelos.filter(function (e) { return (e.Puerta.idPuerta === idPuerta) && (e.Puerta.estado == 2); }).length > 0;
-    }
   }
 
 })();
