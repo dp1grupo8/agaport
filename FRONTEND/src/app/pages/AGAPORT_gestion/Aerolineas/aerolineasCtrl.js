@@ -157,6 +157,30 @@
         {label: 'Option 4', value: 4}
       ];
 
+      $scope.registrarAerolinea=function(nombres,prioridad){
+        var link_header='http://200.16.7.178:8080';
+        var variable_entrega={"Nombre": nombres,"idPrioridad":prioridad};
+        // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+        //   console.log('post usuario success');
+        //   console.log(response);
+        //   $state.go('agaport_gestion.usuarios');
+        // });
+        $http({
+          url: link_header + '/aerolineas/insertar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).then(function() {
+          console.log('post aerolinea success');
+          $state.go('agaport_gestion.aerolineas');
+        },function(response){
+          console.log('error POST');
+          console.log(response);
+        });
+      }
+
     }
 
     angular.module('Agaport.gestion.puertas_mangas_zonas')

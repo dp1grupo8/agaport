@@ -10,17 +10,16 @@
 			      <th class="table-id">#</th>
 			      <th>Aerolinea</th>
 			      <th>Prioridad</th>
-                  <th>Máximo No. de Pasajeros</th>
 			    </tr>
 			    </thead>
 			    <tbody>
 			    <tr ng-repeat="item in datosAerolineas" ng-click="seleccionarAerolinea(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.nombre}}</td>
-			       var Prioridad p = new Prioridad()
-			       p= item.prioridad 
-				  <td>{{p.getPrioridad()}}</td>
-			      <td>{{item.borrado}}</td>
+			    <!--    var Prioridad p = new Prioridad()
+			       p= item.prioridad --> 
+				  <td>{{item.borrado}}</td>
+			    
 			    </tr>
 				
 				
@@ -35,8 +34,8 @@
 	</div>
 </div>
 <div>
-	<div>Nombres de la aerolinea seleccionada: {{aerolineaSeleccionado.firstName}}</div>
-	<div>Flujo de Personas de la Aerolinea: {{aerolineaSeleccionado.lastName}}</div>
+	<div>Nombres de la aerolinea seleccionada: {{aerolineaSeleccionado.nombre}}</div>
+	<div>Flujo de Personas de la Aerolinea: {{aerolineaSeleccionado.borrado}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aerolineas/popupEliminarAerolinea.html','md')">Eliminar</button></a></div>
