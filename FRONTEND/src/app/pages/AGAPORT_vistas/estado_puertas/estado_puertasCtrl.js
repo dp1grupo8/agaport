@@ -41,8 +41,18 @@
     //     div_gates[i].style.backgroundColor = "#E9E9E9";
     //   }
     // });
-    var leerData = function () {
-      console.log('leyendo data');
+
+    $scope.vuelos = [];
+    $scope.puertas = [];
+    $scope.urlImagen = [];
+
+    $scope.leerData = function () {
+      // console.log('leyendo data');
+      // console.log($scope.vuelos);
+      // console.log($scope.puertas);
+      for (var i = 0; i < 40; i++) {
+        $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
+      }
       $http.get('http://demo4498234.mockable.io/puertasAsignadas').then(function successCallback(response) {
         // var div_zonas = document.getElementsByClassName("zona");
         // for (var i = 0; i < div_zonas.length; i++) {
@@ -54,8 +64,7 @@
         // }
         $scope.puertas = response.data;
         var puertas = $scope.puertas;
-        var i;
-        for (i = 0; i < puertas.length; i++) {
+        for (var i = 0; i < puertas.length; i++) {
           var puerta = puertas[i].Puerta;
           var tipo;
           if (puerta.tipo == 0) {
@@ -77,8 +86,7 @@
       $http.get('/app/pages/AGAPORT_vistas/estado_puertas/data/vuelos-llegada.json').then(function successCallback(response) {
         $scope.vuelos = response.data;
         var vuelos = $scope.vuelos;
-        var i;
-        for (i = 0; i < vuelos.length; i++) {
+        for (var i = 0; i < vuelos.length; i++) {
           var puerta = vuelos[i].Puerta;
           var tipo;
           if (puerta.tipo == 0) {
@@ -90,15 +98,8 @@
           if (puerta.estado == 2) {
             var src = document.getElementById(divId);
             src.style.backgroundColor = "#F1C232";
-            //agregar icono de avion          
-            var img = document.createElement("img");
-            var width = Math.floor(src.offsetWidth * 0.5);
-            console.log(width);
-            img.width = width;
-            img.height = width;
-            img.src = "/../../../../assets/pictures/aiga_departingflights-512.png";
-
-            src.appendChild(img);
+            //agregar icono de avion
+            $scope.urlImagen[puerta.idPuerta] = '/../../../../assets/pictures/aiga_departingflights-512.png'
           } else {
             document.getElementById(divId).style.backgroundColor = "#F1C232";
           }
@@ -109,7 +110,8 @@
     }
 
     //función que llama a otra función cada 30 seg
-    setInterval(leerData, 10000);
+    $scope.leerData();
+    setInterval($scope.leerData, 30000);
 
     $scope.detalle = function (tipo, idPuerta) {
       $scope.puertaSeleccionada = true;
@@ -154,6 +156,10 @@
         $scope.puerta.strFlujo = '';
       }
 
+    }
+
+    $scope.avionEstacionado = function (idPuerta) {
+      return $scope.vuelos.filter(function (e) { return (e.Puerta.idPuerta === idPuerta) && (e.Puerta.estado == 2); }).length > 0;
     }
   }
 

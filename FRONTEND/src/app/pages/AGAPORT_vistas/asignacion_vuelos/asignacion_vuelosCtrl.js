@@ -36,7 +36,7 @@
       });
     }
 
-    //$scope.leerVuelos();
+    $scope.leerVuelos();
     setInterval($scope.leerVuelos, 30000);
 
     // $http.get('/app/pages/AGAPORT_vistas/asignacion_vuelos/data/vuelos-llegada.json').then(function successCallback(response) {

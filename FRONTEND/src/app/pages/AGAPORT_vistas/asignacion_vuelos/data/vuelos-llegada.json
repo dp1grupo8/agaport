@@ -46,7 +46,7 @@
             "tipo": 0,
             "distanciaASalida": 20,
             "flujoPersonas": 10,
-            "estado": 3
+            "estado": 2
         },
         "Avion": {
             "placa": "av-010",

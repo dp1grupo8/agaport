@@ -6,6 +6,7 @@
             <div ng-repeat="a in range(19) track by $index" ng-attr-id="{{ 'gate-' + ($index+8) }}"
                 ng-click="detalle('gate', $index+8)" class="gate">
                 Gate {{$index + 8}}
+                <img class="imagen-avion" ng-src="{{urlImagen[$index+8]}}" alt="avion" />
             </div>
             <div class=text-der>
                 <p>Zonas del 29-33</p>
@@ -18,18 +19,21 @@
                 <div ng-repeat="a in range(5) track by $index" ng-attr-id="{{ 'zona-' + ($index+29) }}"
                     ng-click="detalle('zona', 29+$index)" class="zona">
                     Zona {{$index + 29}}
+                    <img class="imagen-avion" ng-src="{{urlImagen[$index + 29]}}" alt="avion" />
                 </div>
             </div>
             <div class="zonas-der1">
                 <div ng-repeat="a in range(7) track by $index" ng-attr-id="{{ 'zona-' + (7-$index) }}"
                     ng-click="detalle('zona', 7-$index)" class="zona">
                     Zona {{7-$index}}
+                    <img class="imagen-avion" ng-src="{{urlImagen[7-$index]}}" alt="avion" />
                 </div>
             </div>
             <div class="zonas-der2">
                 <div ng-repeat="a in range(6) track by $index" ng-attr-id="{{ 'zona-' + (39-$index) }}"
                     ng-click="detalle('zona', 39-$index)" class="zona">
                     Zona {{39-$index}}
+                    <img class="imagen-avion" ng-src="{{urlImagen[39-$index]}}" alt="avion" />
                 </div>
             </div>
         </div>
