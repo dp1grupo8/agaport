@@ -23,6 +23,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+
+import org.json.*;
+
+
 @CrossOrigin
 @RestController    // Clase controlador
 @RequestMapping(path="/VuelosLlegada") // URL del servicio comienza con /agaport
@@ -104,4 +113,108 @@ public class VueloLlegadaController{
 		v.setBorrado(1);
 		return "Eliminado";
 	}
+
+	@CrossOrigin
+	@GetMapping(path="/enviarVuelo")
+	public @ResponseBody String envioVuelos (){
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+        ArrayList<VueloLlegada> listaVuelosNoAsignados = new ArrayList<VueloLlegada>();
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getEstado()==0){
+                listaVuelosNoAsignados.add(vl);
+            }
+        }
+
+        
+
+
+
+
+		RestTemplate restTemplate = new RestTemplate();
+
+	}
+	
+
+	@CrossOrigin
+	@GetMapping(path="/listarAsignaciones")
+	public @ResponseBody Iterable<VueloLlegada> prueba (){
+		//con esto se lee el json que manda python
+		RestTemplate restTemplate = new RestTemplate();
+		//String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
+		String fooResourceUrl = "http://demo4498234.mockable.io/listarAsignaciones/";
+		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
+		String jsonInput = response.getBody();
+		
+		ArrayList<Integer> prueba = new ArrayList<Integer>();
+		ArrayList<VueloLlegada> vuelosAsignados = new ArrayList<VueloLlegada>();
+		
+		JSONObject outerObject = new JSONObject(jsonInput);
+		JSONArray jsonArray = outerObject.getJSONArray("asignaciones");
+
+		for (int i = 0, size = jsonArray.length(); i < size; i++){
+      		JSONObject objectInArray = jsonArray.getJSONObject(i);	      
+	    	String[] elementNames = JSONObject.getNames(objectInArray);
+	    	prueba.add(elementNames.length);
+
+	    	Integer idPuerta;
+	    	Integer idVueloAsignado;
+	    	Puerta p = new Puerta();
+	    	VueloLlegada v = new VueloLlegada();
+
+	      	for (String elementName : elementNames){
+	      		
+	      		Integer value = objectInArray.getInt(elementName);
+	      		System.out.println(elementName);
+	      		System.out.println(value);
+	      		
+	      		/*
+	      		//Integer value = Integer.parseInt(valueString);
+	      		if(elementName.equals("idPuerta")){
+	      			idPuerta = value;
+	      			System.out.println("puerta");
+	      			System.out.println(idPuerta);
+	      			p = puertaRepo.findById(idPuerta).get();
+
+	      		}
+	      		if(elementName.equals("idVueloAsignado")){
+	      			idVueloAsignado = value;
+	      			System.out.println("vuelo");
+	      			System.out.println(idVueloAsignado);
+	      			v = vueloLlegadaRepo.findById(idVueloAsignado).get();
+	      			v.setPuerta(p);
+	      			vueloLlegadaRepo.save(v);
+	      			vuelosAsignados.add(v);
+	      		}
+	      		*/
+	      	
+	      		if(elementName.equals("idPuerta")){
+	      			idPuerta = value;
+	      			//System.out.println("puerta");
+	      			//System.out.println(idPuerta);
+	      			p = puertaRepo.findById(idPuerta).get();
+	      			v.setEstado(1);
+	      			v.setPuerta(p);
+	      			vueloLlegadaRepo.save(v);
+	      			vuelosAsignados.add(v);
+
+	      		}
+
+	      		if(elementName.equals("idVueloAsignado")){
+	      			idVueloAsignado = value;
+	      			System.out.println("vuelo");
+	      			System.out.println(idVueloAsignado);
+	      			v = vueloLlegadaRepo.findById(idVueloAsignado).get();
+	      			System.out.println("vueloEncontrado");
+	      			
+	      		}
+
+	      		
+	        //System.out.printf("name=%s, value=%s\n", elementName, value);
+	      	}
+	      //System.out.println();
+    	}
+
+		return vuelosAsignados;
+	}
+
 } 

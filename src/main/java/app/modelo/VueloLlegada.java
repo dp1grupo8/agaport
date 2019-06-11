@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="vuelosLlegada")
-public class VueloLlegada {
+public class VueloLlegada implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idVuelo;
@@ -29,16 +29,16 @@ public class VueloLlegada {
     private int KEquipaje;
     private int Estado;
     private int borrado;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_puerta", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
     private Puerta puertaAsignada;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_avion", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
     private Avion avion;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_clase", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
     private ClaseVuelo clase;
