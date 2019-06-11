@@ -16,3 +16,4 @@ angular.module('BlurAdmin', [
   'BlurAdmin.theme',
   'BlurAdmin.pages'
 ]);
+var globalBackendLink = 'http://200.16.7.178/backendAGAPORT';

@@ -16,6 +16,7 @@ import app.modelo.Usuario;
 import app.repositorios.RepositorioPermiso;
 import app.repositorios.RepositorioUsuario;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @RestController    // Clase controlador
@@ -38,7 +39,9 @@ public class UsuarioController {
 		Usuario n = new Usuario();
         n.setDNI(DNI);
         n.setNombres(Nombres);
-		n.setPassword(Password);
+        BCryptPasswordEncoder encoderPassword = new BCryptPasswordEncoder();
+		n.setPassword(encoderPassword.encode(Password));
+		//n.setPassword(Password);
 		n.setPermiso(p);
 		usuarioRepo.save(n);
 		return "Guardado";
@@ -51,7 +54,14 @@ public class UsuarioController {
         ArrayList<Usuario> listaExistentes = new ArrayList<Usuario>();
         for(Usuario a: listaUsuarios){
             if (a.getBorrado()==0){
-                listaExistentes.add(a);
+            	Usuario n = new Usuario();
+        		n.setDNI(a.getDNI());
+		        n.setNombres(a.getNombres());
+				n.setPassword(a.getPassword());				
+				n.setPermiso(a.getPermiso());
+				n.setBorrado(0);
+				listaExistentes.add(n);
+                //listaExistentes.add(a);
             }
         }
         return listaExistentes;
@@ -78,4 +88,16 @@ public class UsuarioController {
 		u.setBorrado(1);
 		return "Eliminado";
 	}
+	@CrossOrigin
+	@PostMapping(path="/ingreso")
+	public @ResponseBody Usuario ingresoUsuario (@RequestParam int DNI, @RequestParam String Password){
+		Boolean existeUsuario = usuarioRepo.existsById(DNI);
+		if(!existeUsuario) return null;
+		Usuario a = usuarioRepo.findById(DNI).get();
+		BCryptPasswordEncoder encoderPassword = new BCryptPasswordEncoder();
+		if (encoderPassword.matches(Password,a.getPassword()) == false) return null;
+		return a;
+	}
+	
+
 }

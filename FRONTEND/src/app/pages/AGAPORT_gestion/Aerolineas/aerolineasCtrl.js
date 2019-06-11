@@ -8,80 +8,20 @@
     function AerolineasCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
   
       $scope.smartTablePageSize = 10;
-	  $scope.aerolineaSeleccionado=[];
-      $scope.smartTableData = [
-        {
-          id: 1,
-          firstName: '77591264',
-          lastName: 'Otto',
-          username: 'Operador',
-          email: 'mdo@gmail.com',
-          age: '28'
-        },
-        {
-          id: 2,
-          firstName: '12345678',
-          lastName: 'Thornton',
-          username: 'Operador',
-          email: 'fat@yandex.ru',
-          age: '45'
-        },
-        {
-          id: 3,
-          firstName: '65945632',
-          lastName: 'Bird',
-          username: 'Operador',
-          email: 'twitter@outlook.com',
-          age: '18'
-        },
-        {
-          id: 4,
-          firstName: '65923545',
-          lastName: 'Snow',
-          username: 'Operador',
-          email: 'snow@gmail.com',
-          age: '20'
-        },
-        {
-          id: 5,
-          firstName: '35659858',
-          lastName: 'Sparrow',
-          username: 'Operador',
-          email: 'jack@yandex.ru',
-          age: '30'
-        },
-        {
-          id: 6,
-          firstName: '08063264',
-          lastName: 'Smith',
-          username: 'Operador',
-          email: 'ann@gmail.com',
-          age: '21'
-        },
-        {
-          id: 7,
-          firstName: '10652154',
-          lastName: 'Black',
-          username: 'Operador',
-          email: 'barbara@yandex.ru',
-          age: '43'
-        },
-      ];
-  
-      $scope.datosUsuarios='hola';
-  
-      var link_header='http://200.16.7.178:8080';
-  
+      $scope.aerolineaSeleccionado=[];
+      
+      $scope.datosUsuarios='';
+
       $http({
         method:'GET',
-        url: link_header + '/aerolineas/listar'
+        url: globalBackendLink + '/aerolineas/listar'
       }).then(function successCallback(response) {
         console.log('CARLOS');
         console.log(response.data);
         $scope.datosAerolineas = response.data;
 
       },function errorCallback(response) {
-        console.log('error en obtener data de aerolineas de ' + link_header);
+        console.log('error en obtener data de aerolineas de ' + globalBackendLink);
       });
   
       $scope.removePuerta = function(index) {
@@ -102,7 +42,7 @@
       var variable_entrega={"idAerolinea":idAerolinea};
       $http({
         method:'POST',
-        url: link_header + '/aerolineas/eliminar',
+        url: globalBackendLink + '/aerolineas/eliminar',
         data: $.param(variable_entrega),
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
@@ -110,7 +50,7 @@
       }).then(function successCallback(response) {
         console.log("exito");
       },function errorCallback(response) {
-        console.log('error en obtener aerolinea de '+link_header);
+        console.log('error en obtener aerolinea de '+globalBackendLink);
       });
       };
   
