@@ -121,17 +121,18 @@ public class VueloLlegadaController{
         ArrayList<VueloLlegada> listaVuelosNoAsignados = new ArrayList<VueloLlegada>();
         for(VueloLlegada vl: listarVuelosLlegada){
             if (vl.getEstado()==0){
+
                 listaVuelosNoAsignados.add(vl);
             }
         }
 
-        
+
 
 
 
 
 		RestTemplate restTemplate = new RestTemplate();
-
+		return "hola";
 	}
 	
 
