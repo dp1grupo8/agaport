@@ -20,30 +20,30 @@
         <div class="form-group">
             <label for="placaModificarAvion" class="col-sm-4">Placa: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="distanciaModificarAvion" placeholder="Placa del avión">
+                <input ng-init="placanuevo=avionSeleccionadoModificar.placa" ng-model="placanuevo" type="text" class="form-control" id="distanciaModificarAvion" placeholder="Placa del avión">
             </div>
         </div>
         <div class="form-group">
             <label for="maxPasajerosModificarAvion" class="col-sm-4">Máximo de Pasajeros: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="maxPasajerosModificarAvion" placeholder="Cantidad de pasajeros máxima">
+                <input ng-init="maxpasajerosnuevo=avionSeleccionadoModificar.maxpasajeros" ng-model="maxpasajerosnuevo" type="text" class="form-control" id="maxPasajerosModificarAvion" placeholder="Cantidad de pasajeros máxima">
             </div>
         </div>
         <div class="form-group">
             <label for="cargaMaximaModificarAvion" class="col-sm-4">Carga Máxima (ton): </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="cargaMaximaModificarAvion" placeholder="Carga máxima del avión">
+                <input ng-init="cargamaxnuevo=avionSeleccionadoModificar.cargamaxima" ng-model="cargamaxnuevo" type="text" class="form-control" id="cargaMaximaModificarAvion" placeholder="Carga máxima del avión">
             </div>
         </div>
         <div class="form-group">
             <label for="combustibleModificarAvion" class="col-sm-4">Combustible Máximo: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="combustibleMaximoModificarAvion" placeholder="Combustible máximo del avión">
+                <input ng-init="combustiblemaxnuevo=avionSeleccionadoModificar.combustiblemax" ng-model="combustiblemaxnuevo" type="text" class="form-control" id="combustibleMaximoModificarAvion" placeholder="Combustible máximo del avión">
             </div>
         </div>
 
         <div class="row">
-            <div class="col-xs-offset-4 col-xs-2"><a ui-sref="agaport_gestion.puertas_mangas_zonas"><button type="button" class="btn btn-default">Aceptar</button></a></div>
+            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarAvion(2,placanuevo,maxpasajerosnuevo,cargamaxnuevo,combustiblemaxnuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
             <div class="col-xs-2"><a ui-sref="agaport_gestion.puertas_mangas_zonas"><button type="button" class="btn btn-default">Cancelar</button></a></div>
         </div>
     </form>

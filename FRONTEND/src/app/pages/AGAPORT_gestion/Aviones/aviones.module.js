@@ -26,11 +26,12 @@
           },
         })
         .state('agaport_gestion.aviones.modificar', {
-          url: '/modificar:avionSeleccionado',
+          url: '/modificar',
           params:{
-            avionSeleccionado:{
-              array:true,
-            }
+            placa: null,
+            maxpasajeros: null,
+            cargamaxima:null,
+            combustiblemax:null,
           },
           title: 'Modificar Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones_modificar.html',

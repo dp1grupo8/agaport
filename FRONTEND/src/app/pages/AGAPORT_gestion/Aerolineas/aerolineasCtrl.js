@@ -81,7 +81,7 @@
         .controller('AerolineasNuevoCtrl', AerolineasNuevoCtrl);
   
     /** @ngInject */
-    function AerolineasNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    function AerolineasNuevoCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
       
       var contro = this;
@@ -129,7 +129,27 @@
     /** @ngInject */
     function AerolineasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
-      
+      $scope.aerolineaSeleccionadoModificar=angular.copy($stateParams);
+
+      $scope.modificarAerolinea= function (idAerolinea,  nombre, idPrioridad){
+
+        var variable_entrega={"idAerolinea":idAerolinea,"idPrioridad": idPrioridad,"Nombre":nombre};
+
+        $http({
+          url: globalBackendLink + '/aerolineas/modificar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post aerolinea success');
+
+          $state.go('agaport_gestion.aerolineas');
+        }).error(function(data, status, headers, config){
+          $state.go('agaport_gestion.aerolineas');
+        });
+      }
       var contro = this;
 
       $scope.disabled = undefined;

@@ -124,9 +124,31 @@
 		  .controller('AvionModificarCtrl', AvionModificarCtrl);
 
 	  /** @ngInject */
-	  function AvionModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 		console.log('controlador modificar');
 		
+		$scope.avionSeleccionadoModificar=angular.copy($stateParams);
+
+	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax){
+
+	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax};
+
+	      $http({
+	        url: globalBackendLink + '/aviones/modificar',
+	        method: 'POST',
+	        data: $.param(variable_entrega),
+	        headers:{
+	          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+	        }
+	      }).success(function(data, status, headers, config) {
+	        console.log('post aviones success');
+
+	        $state.go('agaport_gestion.aviones');
+	      }).error(function(data, status, headers, config){
+	        $state.go('agaport_gestion.aviones');
+	      });
+	    }
+
 		var contro = this;
 
 		$scope.disabled = undefined;

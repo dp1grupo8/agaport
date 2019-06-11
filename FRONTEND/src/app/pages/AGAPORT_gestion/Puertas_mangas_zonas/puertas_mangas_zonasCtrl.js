@@ -123,9 +123,30 @@
         .controller('PuertasMangasZonasModificarCtrl', PuertasMangasZonasModificarCtrl);
 
     /** @ngInject */
-    function PuertasMangasZonasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    function PuertasMangasZonasModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador modificar');
-      
+      $scope.puertaSeleccionadoModificar=angular.copy($stateParams);
+
+      $scope.modificarPuerta= function (idPuerta,idPermiso,distanciaASalida,flujoPersonas,estado){
+
+        var variable_entrega={"idPuerta":idPuerta,"Tipo": tipo,"distanciaASalida": distanciaASalida,"flujoPersonas": flujoPersonas,"Estado":estado};
+
+        $http({
+          url: globalBackendLink + '/puertas/modificar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post puertas success');
+
+          $state.go('agaport_gestion.puertas');
+        }).error(function(data, status, headers, config){
+          $state.go('agaport_gestion.puertas');
+        });
+      }
+
       var contro = this;
 
       $scope.disabled = undefined;

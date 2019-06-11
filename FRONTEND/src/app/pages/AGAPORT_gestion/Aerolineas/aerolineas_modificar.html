@@ -3,24 +3,24 @@
         <div class="form-group">
             <label for="nombreModificarAerolinea" class="col-sm-4">Nombre de Aerolínea: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="distanciaModificarAerolinea" placeholder="Placa del avión">
+                <input ng-init="nombAerolineanuevo=aerolineaSeleccionadoModificar.nombreaerolinea" ng-model="nombAerolineanuevo" type="text" class="form-control" id="distanciaModificarAerolinea" placeholder="Placa del avión">
             </div>
         </div>
         <div class="form-group">
             <label for="prioridadModificarAerolinea" class="col-sm-4">Prioridad: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="maxPasajerosModificarAerolinea" placeholder="Cantidad de pasajeros máxima">
+                <input ng-init="prioridadnuevo=aerolineaSeleccionadoModificar.prioridad" ng-model="prioridadnuevo" type="text" class="form-control" id="maxPasajerosModificarAerolinea" placeholder="Cantidad de pasajeros máxima">
             </div>
         </div>
         <div class="form-group">
             <label for="maximoPasajerosModificarAerolinea" class="col-sm-4">Máximo No. de Pasajeros: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="cargaMaximaModificarAerolinea" placeholder="Carga máxima del avión">
+                <input ng-init="maxpasajerosnuevo=aerolineaSeleccionadoModificar.maxpasajeros" ng-model="maxpasajerosnuevo" type="text" class="form-control" id="cargaMaximaModificarAerolinea" placeholder="Carga máxima del avión">
             </div>
         </div>
 
         <div class="row">
-            <div class="col-xs-offset-4 col-xs-2"><a ui-sref="agaport_gestion.aerolineas"><button type="button" class="btn btn-default">Aceptar</button></a></div>
+            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarAerolinea(2,  nombAerolineanuevo, prioridadnuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
             <div class="col-xs-2"><a ui-sref="agaport_gestion.aerolineas"><button type="button" class="btn btn-default">Cancelar</button></a></div>
         </div>
     </form>
