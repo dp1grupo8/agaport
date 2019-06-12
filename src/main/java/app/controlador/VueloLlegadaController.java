@@ -154,8 +154,8 @@ public class VueloLlegadaController{
 	public @ResponseBody Iterable<VueloLlegada> prueba (){
 		//con esto se lee el json que manda python
 		RestTemplate restTemplate = new RestTemplate();
+		String fooResourceUrl = "http://demo4498234.mockable.io/listarAsignaciones/";
 		//String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
-		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
 		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 		String jsonInput = response.getBody();
 		
