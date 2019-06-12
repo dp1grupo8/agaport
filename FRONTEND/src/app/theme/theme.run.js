@@ -24,7 +24,7 @@
         whatToWait.unshift(preloader.loadImg(layoutPaths.images.root + 'blur-bg-blurred.jpg'));
       }
     }
-
+    $rootScope.$logedIn=false;
     $q.all(whatToWait).then(function () {
       $rootScope.$pageFinishedLoading = true;
     });
