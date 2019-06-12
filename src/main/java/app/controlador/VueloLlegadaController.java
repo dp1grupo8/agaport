@@ -111,6 +111,7 @@ public class VueloLlegadaController{
 	public @ResponseBody String eliminarVueloLlegada (@RequestParam int idVueloLlegada){
 		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
 		v.setBorrado(1);
+		vueloLlegadaRepo.save(v);
 		return "Eliminado";
 	}
 

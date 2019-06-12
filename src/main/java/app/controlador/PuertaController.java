@@ -71,6 +71,7 @@ public class PuertaController{
 	public @ResponseBody String eliminarPuerta(@RequestParam int idPuerta){
 		Puerta p = puertaRepo.findById(idPuerta).get();
 		p.setBorrado(1);
+		puertaRepo.save(p);
 		return "Eliminado";
 	}
 	/*
@@ -112,4 +113,5 @@ public class PuertaController{
         Iterable<Puerta> listaPuertas = puertaRepo.findAll();
         return listaPuertas;
     }
+
 }
