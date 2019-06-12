@@ -59,6 +59,7 @@ public class AerolineaController {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setNombre(Nombre);
         a.setPrioridad(p);
+        aerolineaRepo.save(a);
         return "Modificado";
     }    
     @CrossOrigin
