@@ -23,6 +23,10 @@ public class ClaseVuelo {
         return Descripcion;
     }
 
+    public int getIdClaseVuelo() {
+        return idClase;
+    }
+
     public int getBorrado() {
         return borrado;
     }

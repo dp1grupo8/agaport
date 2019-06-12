@@ -119,9 +119,17 @@ public class VueloLlegadaController{
 	public @ResponseBody String envioVuelos (){
 		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
         ArrayList<VueloLlegada> listaVuelosNoAsignados = new ArrayList<VueloLlegada>();
+        System.out.println("sadfadsf");
         for(VueloLlegada vl: listarVuelosLlegada){
+        	System.out.println("entro1");
+        	int estates = vl.getEstado();
+        	System.out.println(estates);
             if (vl.getEstado()==0){
-
+            	RestTemplate restTemplate = new RestTemplate();
+            	String url = "http://200.16.7.178/AGAPYTHON/agapython/encolarVuelo";
+            	System.out.println("entrada2");
+            	String respuesta = restTemplate.postForObject(url,vl,String.class);
+            	System.out.println("entrada3");
                 listaVuelosNoAsignados.add(vl);
             }
         }
@@ -131,7 +139,7 @@ public class VueloLlegadaController{
 
 
 
-		RestTemplate restTemplate = new RestTemplate();
+		
 		return "hola";
 	}
 	

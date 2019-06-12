@@ -24,6 +24,7 @@ public class Permiso {
         return Descripcion;
     }
 
+
     public int getBorrado() {
         return borrado;
     }
