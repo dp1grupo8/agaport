@@ -38,7 +38,7 @@
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Puertas_mangas_zonas/popupEliminarPuertaMangaZona.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.puertas_mangas_zonas.modificar({puertaSeleccionada:puertaSeleccionada})"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.puertas_mangas_zonas.modificar({idPuerta:puertaseleccionada.idPuerta,tipo:puertaseleccionada.tipo,distancia:puertaseleccionada.distanciaASalida,flujoPersonas:puertaseleccionada.flujoPersonas,estado:puertaseleccionada.estado})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.puertas_mangas_zonas.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 

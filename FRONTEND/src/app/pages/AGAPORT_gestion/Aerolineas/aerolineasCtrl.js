@@ -16,7 +16,7 @@
         method:'GET',
         url: globalBackendLink + '/aerolineas/listar'
       }).then(function successCallback(response) {
-        console.log('CARLOS');
+
         console.log(response.data);
         $scope.datosAerolineas = response.data;
 
@@ -127,13 +127,14 @@
         .controller('AerolineasModificarCtrl', AerolineasModificarCtrl);
   
     /** @ngInject */
-    function AerolineasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-      console.log('controlador nuevo');
+    function AerolineasModificarCtrl($scope, $state, $stateParams,  $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+      console.log('controlador modificar');
+      
       $scope.aerolineaSeleccionadoModificar=angular.copy($stateParams);
-
+      console.log($scope.aerolineaSeleccionadoModificar);
       $scope.modificarAerolinea= function (idAerolinea,  nombre, idPrioridad){
 
-        var variable_entrega={"idAerolinea":idAerolinea,"idPrioridad": idPrioridad,"Nombre":nombre};
+        var variable_entrega={"idAerolinea":idAerolinea,"Nombre":nombre,"idPrioridad": idPrioridad};
 
         $http({
           url: globalBackendLink + '/aerolineas/modificar',

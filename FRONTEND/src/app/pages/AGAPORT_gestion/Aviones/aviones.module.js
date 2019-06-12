@@ -28,14 +28,15 @@
         .state('agaport_gestion.aviones.modificar', {
           url: '/modificar',
           params:{
+            idAvion:null,
             placa: null,
-            maxpasajeros: null,
-            cargamaxima:null,
-            combustiblemax:null,
+            capacidadMax: null,
+            cargaMax:null,
+            combustibleMax:null,
           },
           title: 'Modificar Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones_modificar.html',
-          controller: 'AvionesCtrl',
+          controller: 'AvionModificarCtrl',
           sidebarMeta: {
             order: 100,
           },

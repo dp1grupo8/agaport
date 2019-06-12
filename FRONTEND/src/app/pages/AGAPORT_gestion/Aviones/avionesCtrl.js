@@ -128,11 +128,13 @@
 		console.log('controlador modificar');
 		
 		$scope.avionSeleccionadoModificar=angular.copy($stateParams);
+		console.log($scope.avionSeleccionadoModificar);
 
 	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax){
 
 	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax};
-
+	      console.log("se envia la variable ");
+	      console.log(variable_entrega);
 	      $http({
 	        url: globalBackendLink + '/aviones/modificar',
 	        method: 'POST',
@@ -148,8 +150,6 @@
 	        $state.go('agaport_gestion.aviones');
 	      });
 	    }
-
-		var contro = this;
 
 		$scope.disabled = undefined;
 		$scope.hols='hola';

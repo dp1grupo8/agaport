@@ -29,6 +29,8 @@
           url: '/modificar',
           title: 'Puertas, mangas y zonas',
           params:{
+            idPuerta:null,
+            tipo:null,
             distancia: null,
             flujoPersonas: null,
             estado:null,

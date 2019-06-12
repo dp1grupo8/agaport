@@ -25,9 +25,9 @@
         .state('agaport_gestion.aerolineas.modificar', {
           url: '/modificar',
           params:{
+            idAerolinea: null,
             nombreaerolinea: null,
-            prioridad: null,
-            maxpasajeros:null,
+            idprioridad: null,
           },
           title: 'Aerolíneas',
           templateUrl: 'app/pages/AGAPORT_gestion/Aerolineas/aerolineas_modificar.html',

@@ -18,8 +18,6 @@
 			      <td>{{item.nombre}}</td>
 				  <td>{{item.prioridad.descripcion}}</td>
 			    </tr>
-				
-				
 
 			    </tbody>
 			  </table>
@@ -36,7 +34,7 @@
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aerolineas/popupEliminarAerolinea.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.modificar({aerolineaSeleccionada:aerolineaSeleccionada})"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.modificar({idAerolinea:aerolineaSeleccionado.idAerolinea,nombreaerolinea:aerolineaSeleccionado.nombre,idprioridad:aerolineaSeleccionado.prioridad.nprioridad})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 

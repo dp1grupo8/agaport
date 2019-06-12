@@ -126,8 +126,8 @@
     function PuertasMangasZonasModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador modificar');
       $scope.puertaSeleccionadoModificar=angular.copy($stateParams);
-
-      $scope.modificarPuerta= function (idPuerta,idPermiso,distanciaASalida,flujoPersonas,estado){
+      console.log($scope.puertaSeleccionadoModificar);
+      $scope.modificarPuerta= function (idPuerta,tipo,distanciaASalida,flujoPersonas,estado){
 
         var variable_entrega={"idPuerta":idPuerta,"Tipo": tipo,"distanciaASalida": distanciaASalida,"flujoPersonas": flujoPersonas,"Estado":estado};
 
@@ -146,8 +146,6 @@
           $state.go('agaport_gestion.puertas');
         });
       }
-
-      var contro = this;
 
       $scope.disabled = undefined;
       $scope.hols='hola';
