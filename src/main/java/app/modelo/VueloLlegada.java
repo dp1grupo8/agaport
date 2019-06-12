@@ -47,6 +47,10 @@ public class VueloLlegada implements Serializable{
         return idVuelo;
     }
 
+    public void setIdVuelo(int idVuelo) {
+        this.idVuelo = idVuelo;
+    }
+
     public int getBorrado() {
         return borrado;
     }
