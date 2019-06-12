@@ -16,8 +16,6 @@
         method:'GET',
         url: globalBackendLink + '/aerolineas/listar'
       }).then(function successCallback(response) {
-        console.log('CARLOS');
-        console.log(response.data);
         $scope.datosAerolineas = response.data;
 
       },function errorCallback(response) {
@@ -37,22 +35,6 @@
         };
         $scope.users.push($scope.inserted);
       };
-
-      $scope.eliminarAerolinea = function(idAerolinea) {
-      var variable_entrega={"idAerolinea":idAerolinea};
-      $http({
-        method:'POST',
-        url: globalBackendLink + '/aerolineas/eliminar',
-        data: $.param(variable_entrega),
-        headers:{
-          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-      }).then(function successCallback(response) {
-        console.log("exito");
-      },function errorCallback(response) {
-        console.log('error en obtener aerolinea de '+globalBackendLink);
-      });
-      };
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
@@ -60,31 +42,31 @@
 		
       $scope.open = function (page, size) {
         $uibModal.open({
+          controller: 'AerolineasEliminarCtrl',
           animation: true,
           templateUrl: page,
           size: size,
           resolve: {
-            items: function () {
-              return $scope.items;
+            aerolineaBorrar: function () {
+              return $scope.aerolineaSeleccionado;
             }
           }
         });
       };
-      $scope.openProgressDialog = baProgressModal.open; 
-	  $scope.seleccionarAerolinea=function(aerolinea){
-		  $scope.aerolineaseleccionada=aerolinea;
-	  }
+      $scope.openProgressDialog = baProgressModal.open;
+
+      $scope.seleccionarAerolinea=function(aerolinea){
+        $scope.aerolineaSeleccionado=aerolinea;
+      }
 	  
     }
 	
-    angular.module('Agaport.gestion.puertas_mangas_zonas')
+    angular.module('Agaport.gestion.aerolineas')
         .controller('AerolineasNuevoCtrl', AerolineasNuevoCtrl);
   
     /** @ngInject */
     function AerolineasNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
-      
-      var contro = this;
 
       $scope.disabled = undefined;
       $scope.hols='hola';
@@ -99,15 +81,13 @@
 
     }
 
-    angular.module('Agaport.gestion.puertas_mangas_zonas')
+    angular.module('Agaport.gestion.aerolineas')
         .controller('AerolineasModificarCtrl', AerolineasModificarCtrl);
   
     /** @ngInject */
     function AerolineasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
       
-      var contro = this;
-
       $scope.disabled = undefined;
       $scope.hols='hola';
 
@@ -120,6 +100,39 @@
       ];
 
     }
+
+    angular.module('Agaport.gestion.aerolineas')
+        .controller('AerolineasEliminarCtrl', AerolineasEliminarCtrl);
+
+    /** @ngInject */
+    function AerolineasEliminarCtrl($scope,aerolineaBorrar, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+      console.log('controlador eliminar');
+
+      $scope.confirmarEliminado = function(){
+        console.log(aerolineaBorrar);
+
+        $http({
+          url: globalBackendLink + '/usuarios/insertar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post usuario success');
+  
+          $state.go('agaport_gestion.usuarios');
+        }).error(function(data, status, headers, config){
+          console.log("data");
+          console.log(data);
+          console.log("status");
+          console.log(status);
+          console.log($uibModal);
+          $state.go('agaport_gestion.usuarios');
+        });
+      }
+    }
+
 
   })();
   

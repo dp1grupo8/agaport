@@ -36,19 +36,19 @@
       };
 
       $scope.eliminarAerolinea = function(idPuerta) {
-      var variable_entrega={"idPuerta":idPuerta};
-      $http({
-        method:'POST',
-        url: globalBackendLink + '/puertas/eliminar',
-        data: $.param(variable_entrega),
-        headers:{
-          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-      }).then(function successCallback(response) {
-        console.log("exito");
-      },function errorCallback(response) {
-        console.log('error en obtener puertas de '+globalBackendLink);
-      });
+        var variable_entrega={"idPuerta":idPuerta};
+        $http({
+          method:'POST',
+          url: globalBackendLink + '/puertas/eliminar',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).then(function successCallback(response) {
+          console.log("exito");
+        },function errorCallback(response) {
+          console.log('error en obtener puertas de '+globalBackendLink);
+        });
       };
   
       editableOptions.theme = 'bs3';
@@ -57,20 +57,23 @@
   
       $scope.open = function (page, size) {
         $uibModal.open({
+          controller:'PuertasMangasZonasEliminarCtrl',
           animation: true,
           templateUrl: page,
           size: size,
           resolve: {
-            items: function () {
-              return $scope.items;
+            puertaEliminar: function () {
+              return $scope.puertaseleccionada;
             }
           }
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
-	  $scope.seleccionarPuerta=function(puerta){
-		  $scope.puertaseleccionada=puerta;
-	  }
+      
+      $scope.seleccionarPuerta=function(puerta){
+        $scope.puertaseleccionada=puerta;
+      };
+
     }
 
     angular.module('Agaport.gestion.puertas_mangas_zonas')
@@ -115,6 +118,19 @@
         {label: 'Option 4', value: 4}
       ];
     }
-  
+
+    angular.module('Agaport.gestion.puertas_mangas_zonas')
+        .controller('PuertasMangasZonasEliminarCtrl', PuertasMangasZonasEliminarCtrl);
+    
+    /** @ngInject */
+    function PuertasMangasZonasEliminarCtrl($scope, puertaEliminar, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+      console.log('controlador eliminar');
+      
+      $scope.confirmarEliminado = function () {
+        console.log(puertaEliminar);
+      }
+    }
+
   })();
   
+
