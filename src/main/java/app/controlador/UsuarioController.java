@@ -86,6 +86,7 @@ public class UsuarioController {
 	public @ResponseBody String eliminarUsuario (@RequestParam int DNI){
 		Usuario u = usuarioRepo.findById(DNI).get();
 		u.setBorrado(1);
+		usuarioRepo.save(n);
 		return "Eliminado";
 	}
 	@CrossOrigin

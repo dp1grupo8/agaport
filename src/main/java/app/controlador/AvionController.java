@@ -73,6 +73,7 @@ public class AvionController {
 	public @ResponseBody String eliminarAvion(@RequestParam int idAvion) {
         Avion a = avionRepo.findById(idAvion).get();
         a.setBorrado(1);
+        avionRepo.save(a);
         return "Eliminado";
     }    
 }
