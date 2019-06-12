@@ -167,11 +167,33 @@
 			.controller('AvionesEliminarCtrl', AvionesEliminarCtrl);
 			
 		/** @ngInject */
-	  function AvionesEliminarCtrl($scope, avionEliminar, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionesEliminarCtrl($scope, avionEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 			console.log('controlador eliminar');
 			
 			$scope.confirmarEliminado=function(){
 				console.log(avionEliminar);
+
+				var variable_entrega={"idAvion":avionEliminar.idAvion};
+
+        $http({
+          url: globalBackendLink + '/aviones/eliminar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post aviones success');
+  
+          $state.go('agaport_gestion.usuarios');
+        }).error(function(data, status, headers, config){
+          console.log("data");
+          console.log(data);
+          console.log("status");
+          console.log(status);
+          console.log($uibModal);
+          $state.go('agaport_gestion.aviones');
+        });
 			}
 	  }
 		

@@ -152,30 +152,30 @@
         .controller('AerolineasEliminarCtrl', AerolineasEliminarCtrl);
 
     /** @ngInject */
-    function AerolineasEliminarCtrl($scope,aerolineaBorrar, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    function AerolineasEliminarCtrl($scope,aerolineaBorrar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador eliminar');
 
       $scope.confirmarEliminado = function(){
-        console.log(aerolineaBorrar);
+        var variable_entrega={"idAerolinea":aerolineaBorrar.idAerolinea};
 
         $http({
-          url: globalBackendLink + '/usuarios/insertar',
+          url: globalBackendLink + '/aerolineas/eliminar',
           method: 'POST',
           data: $.param(variable_entrega),
           headers:{
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
           }
         }).success(function(data, status, headers, config) {
-          console.log('post usuario success');
+          console.log('post aerolineas success');
   
-          $state.go('agaport_gestion.usuarios');
+          $state.go('agaport_gestion.aerolineas');
         }).error(function(data, status, headers, config){
           console.log("data");
           console.log(data);
           console.log("status");
           console.log(status);
           console.log($uibModal);
-          $state.go('agaport_gestion.usuarios');
+          $state.go('agaport_gestion.aerolineas');
         });
       }
     }

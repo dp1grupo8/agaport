@@ -166,11 +166,35 @@
         .controller('PuertasMangasZonasEliminarCtrl', PuertasMangasZonasEliminarCtrl);
     
     /** @ngInject */
-    function PuertasMangasZonasEliminarCtrl($scope, puertaEliminar, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    function PuertasMangasZonasEliminarCtrl($scope, puertaEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador eliminar');
       
       $scope.confirmarEliminado = function () {
         console.log(puertaEliminar);
+
+        $scope.confirmarEliminado = function(){
+          var variable_entrega={"idPuerta":puertaEliminar.idPuerta};
+  
+          $http({
+            url: globalBackendLink + '/puertas/eliminar',
+            method: 'POST',
+            data: $.param(variable_entrega),
+            headers:{
+              'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+          }).success(function(data, status, headers, config) {
+            console.log('post puertas success');
+    
+            $state.go('agaport_gestion.puertas');
+          }).error(function(data, status, headers, config){
+            console.log("data");
+            console.log(data);
+            console.log("status");
+            console.log(status);
+            console.log($uibModal);
+            $state.go('agaport_gestion.puertas');
+          });
+        }
       }
     }
 
