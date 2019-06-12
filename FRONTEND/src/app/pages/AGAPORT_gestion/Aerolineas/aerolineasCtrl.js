@@ -65,7 +65,7 @@
         .controller('AerolineasNuevoCtrl', AerolineasNuevoCtrl);
   
     /** @ngInject */
-    function AerolineasNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+    function AerolineasNuevoCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
 
       $scope.disabled = undefined;
@@ -79,15 +79,62 @@
         {label: 'Option 4', value: 4}
       ];
 
+      $scope.registrarAerolinea=function(nombres,prioridad){
+        var link_header='http://200.16.7.178:8080';
+        var variable_entrega={"Nombre": nombres,"idPrioridad":prioridad};
+        // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+        //   console.log('post usuario success');
+        //   console.log(response);
+        //   $state.go('agaport_gestion.usuarios');
+        // });
+        $http({
+          url: link_header + '/aerolineas/insertar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).then(function() {
+          console.log('post aerolinea success');
+          $state.go('agaport_gestion.aerolineas');
+        },function(response){
+          console.log('error POST');
+          console.log(response);
+        });
+      }
+
     }
 
     angular.module('Agaport.gestion.aerolineas')
         .controller('AerolineasModificarCtrl', AerolineasModificarCtrl);
   
     /** @ngInject */
-    function AerolineasModificarCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-      console.log('controlador nuevo');
+    function AerolineasModificarCtrl($scope, $state, $stateParams,  $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+      console.log('controlador modificar');
       
+      $scope.aerolineaSeleccionadoModificar=angular.copy($stateParams);
+      console.log($scope.aerolineaSeleccionadoModificar);
+      $scope.modificarAerolinea= function (idAerolinea,  nombre, idPrioridad){
+
+        var variable_entrega={"idAerolinea":idAerolinea,"Nombre":nombre,"idPrioridad": idPrioridad};
+
+        $http({
+          url: globalBackendLink + '/aerolineas/modificar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post aerolinea success');
+
+          $state.go('agaport_gestion.aerolineas');
+        }).error(function(data, status, headers, config){
+          $state.go('agaport_gestion.aerolineas');
+        });
+      }
+      var contro = this;
+
       $scope.disabled = undefined;
       $scope.hols='hola';
 

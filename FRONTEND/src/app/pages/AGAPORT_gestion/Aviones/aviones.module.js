@@ -26,15 +26,17 @@
           },
         })
         .state('agaport_gestion.aviones.modificar', {
-          url: '/modificar:avionSeleccionado',
+          url: '/modificar',
           params:{
-            avionSeleccionado:{
-              array:true,
-            }
+            idAvion:null,
+            placa: null,
+            capacidadMax: null,
+            cargaMax:null,
+            combustibleMax:null,
           },
           title: 'Modificar Aviones',
           templateUrl: 'app/pages/AGAPORT_gestion/Aviones/aviones_modificar.html',
-          controller: 'AvionesCtrl',
+          controller: 'AvionModificarCtrl',
           sidebarMeta: {
             order: 100,
           },

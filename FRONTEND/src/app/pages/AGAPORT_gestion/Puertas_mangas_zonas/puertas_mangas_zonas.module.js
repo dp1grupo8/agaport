@@ -28,6 +28,13 @@
         .state('agaport_gestion.puertas_mangas_zonas.modificar', {
           url: '/modificar',
           title: 'Puertas, mangas y zonas',
+          params:{
+            idPuerta:null,
+            tipo:null,
+            distancia: null,
+            flujoPersonas: null,
+            estado:null,
+          },
           templateUrl: 'app/pages/AGAPORT_gestion/Puertas_mangas_zonas/puertas_mangas_zonas_modificar.html',
           controller: 'PuertasMangasZonasModificarCtrl',
           sidebarMeta: {
