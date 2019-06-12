@@ -36,6 +36,11 @@ public class Usuario implements Serializable{
         return Nombres;
     }
 
+    public int getIdUsuario() {
+        return DNI;
+    }
+
+
     public int getBorrado() {
         return borrado;
     }
