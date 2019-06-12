@@ -10,19 +10,14 @@
 			      <th class="table-id">#</th>
 			      <th>Aerolinea</th>
 			      <th>Prioridad</th>
-            <th>Máximo No. de Pasajeros</th>
 			    </tr>
 			    </thead>
 			    <tbody>
 			    <tr ng-repeat="item in datosAerolineas" ng-click="seleccionarAerolinea(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.nombre}}</td>
-				  	<td>{{item.prioridad.descripcion}}</td>
-			      <td>{{item.borrado}}</td>
+				  <td>{{item.prioridad.descripcion}}</td>
 			    </tr>
-				
-				
-
 			    </tbody>
 			  </table>
 			  <div ng-show="datosAerolineas.length==0">
@@ -33,12 +28,12 @@
 	</div>
 </div>
 <div>
-	<div>Nombres de la aerolinea seleccionada: {{aerolineaSeleccionado.firstName}}</div>
-	<div>Flujo de Personas de la Aerolinea: {{aerolineaSeleccionado.lastName}}</div>
+	<div>Nombres de la aerolinea seleccionada: {{aerolineaSeleccionado.nombre}}</div>
+	<div>Flujo de Personas de la Aerolinea: {{aerolineaSeleccionado.prioridad.descripcion}}</div>
 </div>
 <div class="row form-inline">
 	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aerolineas/popupEliminarAerolinea.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.modificar({aerolineaSeleccionada:aerolineaSeleccionada})"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.modificar({idAerolinea:aerolineaSeleccionado.idAerolinea,nombreaerolinea:aerolineaSeleccionado.nombre,idprioridad:aerolineaSeleccionado.prioridad.nprioridad})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.aerolineas.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 

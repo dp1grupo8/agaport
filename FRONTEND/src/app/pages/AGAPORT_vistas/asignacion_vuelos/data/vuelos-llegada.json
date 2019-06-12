@@ -1,5 +1,6 @@
 [
     {
+        "idVuelo": 601,
         "estado": 1,
         "nPersonas": 220,
         "Puerta": {
@@ -18,6 +19,7 @@
         }
     },
     {
+        "idVuelo": 602,
         "estado": 1,
         "nPersonas": 220,
         "Puerta": {
@@ -36,6 +38,7 @@
         }
     },
     {
+        "idVuelo": 501,
         "estado": 0,
         "nPersonas": 220,
         "Puerta": {
@@ -54,6 +57,7 @@
         }
     },
     {
+        "idVuelo": 201,
         "estado": 1,
         "nPersonas": 80,
         "Puerta": {

@@ -25,11 +25,8 @@
   <!-- endbuild -->
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT9L237"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div class="body-bg"></div>
+
 <main ng-if="$pageFinishedLoading" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }">
 
   <ba-sidebar></ba-sidebar>
@@ -57,6 +54,7 @@
 
   <back-top></back-top>
 </main>
+
 
 <div id="preloader" ng-show="!$pageFinishedLoading">
   <div></div>

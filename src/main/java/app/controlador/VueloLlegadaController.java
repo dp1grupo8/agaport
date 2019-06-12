@@ -111,6 +111,7 @@ public class VueloLlegadaController{
 	public @ResponseBody String eliminarVueloLlegada (@RequestParam int idVueloLlegada){
 		VueloLlegada v = vueloLlegadaRepo.findById(idVueloLlegada).get();
 		v.setBorrado(1);
+		vueloLlegadaRepo.save(v);
 		return "Eliminado";
 	}
 
@@ -128,16 +129,20 @@ public class VueloLlegadaController{
             	RestTemplate restTemplate = new RestTemplate();
             	String url = "http://200.16.7.178/AGAPYTHON/agapython/encolarVuelo";
             	System.out.println("entrada2");
+            	/*
+				JSONObject myObj = {"idVuelo":null, "TiempoLlegada":null, "NPersonas":null, "NPrioridad":null};
+				myObj.idVuelo = vl.getIdVuelo();
+				myObj.TiempoLlegada = vl.getHoraLlegadaReal();
+				myObj.nPersonas = vl.getNPersonas();
+				myObj.NPrioridad = 1;
+
             	String respuesta = restTemplate.postForObject(url,vl,String.class);
             	System.out.println("entrada3");
+
                 listaVuelosNoAsignados.add(vl);
+                */
             }
         }
-
-
-
-
-
 
 		
 		return "hola";
@@ -150,7 +155,7 @@ public class VueloLlegadaController{
 		//con esto se lee el json que manda python
 		RestTemplate restTemplate = new RestTemplate();
 		//String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
-		String fooResourceUrl = "http://demo4498234.mockable.io/listarAsignaciones/";
+		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
 		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 		String jsonInput = response.getBody();
 		

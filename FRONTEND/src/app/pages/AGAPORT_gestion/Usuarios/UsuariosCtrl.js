@@ -57,12 +57,13 @@
 
     $scope.open = function (page, size,dni) {
       $uibModal.open({
+        controller: 'UsuariosEliminarCtrl',
         animation: true,
         templateUrl: page,
         size: size,
         resolve: {
-          items: function () {
-            return $scope.items;
+          usuarioEliminar: function () {
+            return $scope.usuarioSeleccionado;
           }
         }
       });
@@ -71,7 +72,8 @@
 
     $scope.seleccionarUsuario = function(usuario){
       $scope.usuarioSeleccionado=usuario;
-    }
+    };
+    
   }
 
   angular.module('Agaport.gestion.usuarios')
@@ -155,6 +157,16 @@
       {label: 'Option 3', value: 3},
       {label: 'Option 4', value: 4}
     ];
+  }
+
+  angular.module('Agaport.gestion.usuarios')
+      .controller('UsuariosEliminarCtrl', UsuariosEliminarCtrl);
+
+  /** @ngInject */
+  function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal){
+    $scope.confirmarEliminado = function (){
+      console.log(usuarioEliminar);
+    }
   }
 
 })();

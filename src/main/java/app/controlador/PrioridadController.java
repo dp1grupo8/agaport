@@ -58,6 +58,7 @@ public class PrioridadController{
 	public @ResponseBody String eliminarPrioridad (@RequestParam int idPrioridad){
 		Prioridad p = prioridadRepo.findById(idPrioridad).get(); 
 		p.setBorrado(1);
+		prioridadRepo.save(p);
 		return "Eliminado";
 	}
 } 

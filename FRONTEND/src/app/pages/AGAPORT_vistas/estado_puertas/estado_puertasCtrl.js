@@ -7,6 +7,8 @@
   /** @ngInject */
   function estado_puertasCtrl($scope, $http) {
 
+    $scope.puertaSeleccionada = false;
+
     $scope.range = function (num) {
       return new Array(num);
     }
@@ -20,97 +22,182 @@
         *           Solo se obtendrán vuelos en estado 2 y 3
         * -Objeto: Puerta
         *      -idPuerta: corresponde al numero del gate/zona
-        *      -distanciaSalida
+        *      -distanciaASalida
         *      -flujoPersonas
-        *      -tipo: 0:manga(gate), 1:zona
+        *      -tipo: 1:manga(gate), 0:zona
         *      -estado: 0: deshabilitada. 1: habilitada. 2: en uso. 3: programada
         * -Objeto: Avion
         *      -placa
         *      -aerolinea
         * -clase: clase del vuelo (string)
     */
-    // $('document').ready(function () {
-    //   var div_zonas = document.getElementsByClassName("zona");
-    //   for (var i = 0; i < div_zonas.length; i++) {
-    //     div_zonas[i].style.backgroundColor = "#E9E9E9";
-    //   }
-    //   var div_gates = document.getElementsByClassName("gate");
-    //   for (var i = 0; i < div_gates.length; i++) {
-    //     div_gates[i].style.backgroundColor = "#E9E9E9";
-    //   }
-    // });
-    $http.get('/app/pages/AGAPORT_vistas/estado_puertas/data/puertas.json').then(function successCallback(response) {
-      var div_zonas = document.getElementsByClassName("zona");
-      for (var i = 0; i < div_zonas.length; i++) {
-        div_zonas[i].style.backgroundColor = "#E9E9E9";
-      }
-      var div_gates = document.getElementsByClassName("gate");
-      for (var i = 0; i < div_gates.length; i++) {
-        div_gates[i].style.backgroundColor = "#E9E9E9";
-      }
-      $scope.puertas = response.data;
-      var puertas = $scope.puertas;
-      var i;
-      for (i = 0; i < puertas.length; i++) {
-        var puerta = puertas[i].Puerta;
-        var tipo;
-        if (puerta.tipo == 0) {
-          tipo = 'gate';
-        } else {
-          tipo = 'zona';
-        }
-        var divId = tipo + '-' + puerta.idPuerta;
-        if (puerta.estado == 1) {
-          document.getElementById(divId).style.backgroundColor = "#FFFFFF"
-        }
-      }
-    }, function errorCallback(response) {
-      // console.log(response);
-    });
-    $http.get('/app/pages/AGAPORT_vistas/estado_puertas/data/vuelos-llegada.json').then(function successCallback(response) {
-      var div_zonas = document.getElementsByClassName("zona");
-      for (var i = 0; i < div_zonas.length; i++) {
-        div_zonas[i].style.backgroundColor = "#E9E9E9";
-      }
-      var div_gates = document.getElementsByClassName("gate");
-      for (var i = 0; i < div_gates.length; i++) {
-        div_gates[i].style.backgroundColor = "#E9E9E9";
-      }
-      $scope.vuelos = response.data;
-      var vuelos = $scope.vuelos;
-      var i;
-      for (i = 0; i < vuelos.length; i++) {
-        var puerta = vuelos[i].Puerta;
-        var tipo;
-        if (puerta.tipo == 0) {
-          tipo = 'gate';
-        } else {
-          tipo = 'zona';
-        }
-        var divId = tipo + '-' + puerta.idPuerta;
-        if (puerta.estado == 2) {
-          var src = document.getElementById(divId);
-          src.style.backgroundColor = "#F1C232";
-          //agregar icono de avion          
-          var img = document.createElement("img");
-          var width = Math.floor(src.offsetWidth*0.5);
-          console.log(width);
-          img.width = width;
-          img.height = width;
-          img.src = "/../../../../assets/pictures/aiga_departingflights-512.png";          
+    
+    $scope.vuelos = [];
+    $scope.puertas = [];
+    $scope.urlImagen = [];
 
-          src.appendChild(img);
-        } else {
-          document.getElementById(divId).style.backgroundColor = "#F1C232";
-        }
-      }
-    }, function errorCallback(response) {
-      console.log(response);
-    });
+    $scope.leerData = function () {
+      console.log('leyendo data');
+      // console.log($scope.vuelos);
+      // console.log($scope.puertas);
 
-    $scope.detalle = function (tipo, puerta) {
-      console.log(tipo, puerta);
+      // Crear un array de url de imágenes para asignar a cada puerta
+      // Por defecto es una imagen transparente pequeña
+      for (var i = 0; i < 40; i++) {
+        $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
+      }
+
+      $http.get('http://200.16.7.178/backendAGAPORT/puertas/listarTodasPuertas').then(function successCallback(response) {
+        // Hace que todas las puertas aparezcan de color gris
+
+        // var div_zonas = document.getElementsByClassName("zona");
+        // for (var i = 0; i < div_zonas.length; i++) {
+        //   div_zonas[i].style.backgroundColor = "#E9E9E9";
+        // }
+        // var div_gates = document.getElementsByClassName("gate");
+        // for (var i = 0; i < div_gates.length; i++) {
+        //   div_gates[i].style.backgroundColor = "#E9E9E9";
+        // }
+
+        //Almacenar data de todas las puertas
+        $scope.puertas = response.data;
+        console.log($scope.puertas);
+        var puertas = $scope.puertas;
+        for (var i = 0; i < puertas.length; i++) {
+          var puerta = puertas[i];
+          var tipo;
+          if (puerta.tipo == 1) {
+            tipo = 'gate';
+          } else {
+            tipo = 'zona';
+          }
+          var divId = tipo + '-' + puerta.idPuerta;
+          if (puerta.estado == 1) {
+            // Pintar puerta de color blanco
+            document.getElementById(divId).style.backgroundColor = "#FFFFFF"
+          }
+          if (puerta.estado == 0) {
+            // Pintar puerta de color gris
+            document.getElementById(divId).style.backgroundColor = "#E9E9E9"
+          }
+        }
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+      $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listarAsignaciones').then(function successCallback(response) {
+        //Almacena data de todos los vuelos no "muertos"
+        $scope.vuelos = response.data;
+        console.log($scope.vuelos);
+        var vuelos = $scope.vuelos;
+        for (var i = 0; i < vuelos.length; i++) {
+          var puerta = vuelos[i].puerta;
+          var tipo;
+          if (puerta.tipo == 1) {
+            tipo = 'gate';
+          } else {
+            tipo = 'zona';
+          }
+          var divId = tipo + '-' + puerta.idPuerta;
+          if (puerta.estado == 2) {
+            var src = document.getElementById(divId);
+            src.style.backgroundColor = "#F1C232";
+            //agregar icono de avion
+            $scope.urlImagen[puerta.idPuerta] = '/../../../../assets/pictures/aiga_departingflights-512.png'
+          } else {
+            document.getElementById(divId).style.backgroundColor = "#F1C232";
+          }
+        }
+      }, function errorCallback(response) {
+        console.log(response);
+      });
     }
+
+    //función que llama a otra función cada 30 seg
+    $scope.leerData();
+    setInterval($scope.leerData, 30000);
+
+    $scope.detalle = function (tipo, idPuerta) {
+      $scope.puertaSeleccionada = true;
+      $scope.puerta = $scope.vuelos.filter(function (e) { return e.puerta.idPuerta === idPuerta; })[0];
+      if ($scope.puerta == undefined) {
+        $scope.puerta = $scope.puertas.filter(function (e) { return e.idPuerta === idPuerta; })[0];
+        console.log($scope.puerta);
+
+        switch ($scope.puerta.tipo) {
+          case 0:
+            $scope.puerta.strTipo = 'Zona';
+            break;
+          case 1:
+            $scope.puerta.strTipo = 'Gate';
+            break;
+        }
+
+        switch ($scope.puerta.estado) {
+          case 0:
+            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
+            break;
+          case 1:
+            $scope.puerta.strEstadoPuerta = 'Habilitado';
+            break;
+          case 2:
+            $scope.puerta.strEstadoPuerta = 'En uso';
+            break;
+          case 3:
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            break;
+        }
+
+        if ($scope.puerta.distanciaASalida !== undefined) {
+          $scope.puerta.strDistancia = $scope.puerta.distanciaASalida + ' ' + 'metros';
+        } else {
+          $scope.puerta.strDistancia = '';
+        }
+        if ($scope.puerta.flujoPersonas !== undefined) {
+          $scope.puerta.strFlujo = $scope.puerta.flujoPersonas + ' ' + 'personas por minuto';
+        } else {
+          $scope.puerta.strFlujo = '';
+        }
+
+      } else {
+        console.log($scope.puerta);
+
+        switch ($scope.puerta.puerta.tipo) {
+          case 0:
+            $scope.puerta.strTipo = 'Zona';
+            break;
+          case 1:
+            $scope.puerta.strTipo = 'Gate';
+            break;
+        }
+
+        switch ($scope.puerta.puerta.estado) {
+          case 0:
+            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
+            break;
+          case 1:
+            $scope.puerta.strEstadoPuerta = 'Habilitado';
+            break;
+          case 2:
+            $scope.puerta.strEstadoPuerta = 'En uso';
+            break;
+          case 3:
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            break;
+        }
+
+        if ($scope.puerta.puerta.distanciaASalida !== undefined) {
+          $scope.puerta.strDistancia = $scope.puerta.puerta.distanciaASalida + ' ' + 'metros';
+        } else {
+          $scope.puerta.strDistancia = '';
+        }
+        if ($scope.puerta.puerta.flujoPersonas !== undefined) {
+          $scope.puerta.strFlujo = $scope.puerta.puerta.flujoPersonas + ' ' + 'personas por minuto';
+        } else {
+          $scope.puerta.strFlujo = '';
+        }
+      }
+    }
+
   }
 
 })();

@@ -58,6 +58,7 @@ public class ClaseVueloController {
 	public @ResponseBody String eliminarClaseVuelo(@RequestParam int idClaseVuelo) {
         ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();	
         c.setBorrado(1);
+        claseVueloRepo.save(c);
         return "Eliminado";
     }    
 }
