@@ -3,16 +3,15 @@
         <div class="form-group">
             <label for="aerolineaModificarAvion" class="col-sm-4">Aerolínea: </label>
             <div class="col-sm-8">
-                <ui-select ng-model="selectedItem.selected"
+                <ui-select ng-model="aerolineaSeleccionada.selected"
                 class="btn-group bootstrap-select form-control"
-                ng-disabled="false"
                 append-to-body="true"
                 search-enabled="false">
-                    <ui-select-match placeholder="Tipo de puerta">
-                        <span> {{$select.selected.label}}</span>
+                    <ui-select-match placeholder="Aerolínea">
+                        <span> {{$select.selected.nombre}}</span>
                     </ui-select-match>
-                    <ui-select-choices repeat="standardItem in standardSelectItems | filter: $select.search">
-                        <span ng-bind-html="standardItem.label"></span>
+                    <ui-select-choices repeat="aerolinea in aerolineasSelect">
+                        <span ng-bind-html="aerolinea.nombre"></span>
                     </ui-select-choices>
                 </ui-select>
             </div>
