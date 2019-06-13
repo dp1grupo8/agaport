@@ -6,19 +6,19 @@
                 <input ng-init="dniNuevo=usuarioSeleccionadoModificar.dni" ng-model="dniNuevo" maxlength="8" type="text" class="form-control" id="dniModificarUsuario" placeholder="DNI del usuario">
             </div>
         </div>
+
         <div class="form-group">
             <label for="permisosModificarUsuario" class="col-sm-4">Permisos: </label>
             <div class="col-sm-8">
-                <ui-select ng-model="selectedItem.selected"
+                <ui-select ng-model="usuarioSeleccionada.selected"
                 class="btn-group bootstrap-select form-control"
-                ng-disabled="false"
                 append-to-body="true"
                 search-enabled="false">
                     <ui-select-match placeholder="Permisos">
-                        <span> {{$select.selected.label}}</span>
+                        <span> {{$select.selected.descripcion}}</span> <
                     </ui-select-match>
-                    <ui-select-choices repeat="standardItem in standardSelectItems | filter: $select.search">
-                        <span ng-bind-html="standardItem.label"></span>
+                    <ui-select-choices repeat="usuario in usuarioSelect">
+                        <span ng-bind-html="usuario.descripcion"></span>
                     </ui-select-choices>
                 </ui-select>
             </div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarUsuario(dniNuevo,2,nombresNuevo,contrasenaNuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
+            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarUsuario(dniNuevo,usuarioSeleccionada.selected.idPermiso,nombresNuevo,contrasenaNuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
             <div class="col-xs-2"><a ui-sref="agaport_gestion.usuarios"><button type="button" class="btn btn-default">Cancelar</button></a></div>
         </div>
     </form>

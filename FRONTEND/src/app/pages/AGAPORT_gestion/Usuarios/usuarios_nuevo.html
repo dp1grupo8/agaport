@@ -9,16 +9,16 @@
 		<div class="form-group">
 			<label for="permisosNuevoUsuario" class="col-sm-4">Permisos: </label>
 			<div class="col-sm-8">
-				<ui-select ng-model="holss"
+				<ui-select ng-model="usuarioSeleccionada.selected"
 				class="btn-group bootstrap-select form-control"
 				ng-disabled="false"
 				append-to-body="true"
 				search-enabled="false">
 					<ui-select-match placeholder="Permisos">
-						<span> {{$select.selected.label}}</span>
+						<span> {{$select.selected.permiso.idpermiso}}</span>
 					</ui-select-match>
-					<ui-select-choices repeat="standardItem in standardSelectItems | filter: $select.search">
-						<span ng-bind-html="standardItem.label"></span>
+					<ui-select-choices repeat="usuario in usuarioSelect">
+						<span ng-bind-html="usuario.permiso.idpermiso"></span> <!-- not sure -->
 					</ui-select-choices>
 				</ui-select>
 			</div>

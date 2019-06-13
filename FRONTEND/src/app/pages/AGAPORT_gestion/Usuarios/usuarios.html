@@ -1,5 +1,16 @@
 <ui-view autoscroll="true" autoscroll-body-top>
 
+<div class="row" style="margin-bottom:20px">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<label for="busquedaUsuario" class="col-sm-4" style="margin-top:10px">Buscar usuario: </label>
+			<div class="col-sm-8">
+					<input ng-model="busquedaUsuario.$" type="text" class="form-control" id="busquedaUsuario" placeholder="Inserte información del usuario">
+			</div>
+		</div>
+	</div>
+</div>
+
 <div ba-panel ba-panel-title="Lista de Usuarios" ba-panel-class="with-scroll table-panel">
 	<div class="row">
 		<div class="col-md-12">
@@ -15,7 +26,7 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    <tr ng-repeat="item in datosUsuarios" ng-click="seleccionarUsuario(item);">
+			    <tr ng-repeat="item in datosUsuarios | filter:busquedaUsuario" ng-click="seleccionarUsuario(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.dni}}</td>
 			      <td>{{item.nombres}}</td>

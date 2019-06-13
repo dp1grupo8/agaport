@@ -109,9 +109,11 @@
     /** @ngInject */
     function AerolineasModificarCtrl($scope, $state, $stateParams,  $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador modificar');
-      
       $scope.aerolineaSeleccionadoModificar=angular.copy($stateParams);
       console.log($scope.aerolineaSeleccionadoModificar);
+
+
+
       $scope.modificarAerolinea= function (idAerolinea,  nombre, idPrioridad){
 
         var variable_entrega={"idAerolinea":idAerolinea,"Nombre":nombre,"idPrioridad": idPrioridad};
