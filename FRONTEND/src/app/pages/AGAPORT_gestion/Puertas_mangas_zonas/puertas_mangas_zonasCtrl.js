@@ -81,29 +81,22 @@
   
     /** @ngInject */
     function PuertasMangasZonasNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-      console.log('controlador nuevo');
-      
-      var contro = this;
+        console.log('controlador nuevo');
+        $scope.puertaSeleccionada={};
 
-      $scope.disabled = undefined;
-      $scope.hols='hola';
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/puertas/listar'
+        }).then(function successCallback(response) {
+          $scope.puertaSelect = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener data de puerta de ' + globalBackendLink);
+        });
 
-      $scope.standardItem = {};
-      $scope.standardSelectItems = [
-        {label: 'Option 1', value: 1},
-        {label: 'Option 2', value: 2},
-        {label: 'Option 3', value: 3},
-        {label: 'Option 4', value: 4}
-      ];
         $scope.registrarPuertas=function(tipo,distancia,flujoPer,estado){
         var link_header='http://200.16.7.178:8080';
         var variable_entrega={"Tipo":tipo,"distanciaASalida": distancia,"flujoPersonas": flujoPer,"Estado": estado};
-        // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
-        //   console.log('post usuario success');
-        //   console.log(response);
-        //   $state.go('agaport_gestion.usuarios');
-        // });
-
+     
         $http({
           url: link_header + '/puertas/insertar',
           method: 'POST',
@@ -130,6 +123,20 @@
       console.log('controlador modificar');
       $scope.puertaSeleccionadoModificar=angular.copy($stateParams);
       console.log($scope.puertaSeleccionadoModificar);
+
+      $scope.puertaSeleccionada={};
+
+      //se carga el comboBox
+      $http({
+        method:'GET',
+        url: globalBackendLink + '/puertas/listar'
+      }).then(function successCallback(response) {
+        $scope.puertaSelect = response.data;
+        $scope.puertaSeleccionada.selected = $scope.puertaSelect.find(puerta => puerta.tipo==$scope.puertaSeleccionadoModificar.tipo);
+      },function errorCallback(response) {
+        console.log('error en obtener data de puertas de ' + globalBackendLink);
+      });
+
       $scope.modificarPuerta= function (idPuerta,tipo,distanciaASalida,flujoPersonas,estado){
 
         var variable_entrega={"idPuerta":idPuerta,"Tipo": tipo,"distanciaASalida": distanciaASalida,"flujoPersonas": flujoPersonas,"Estado":estado};
@@ -150,16 +157,7 @@
         });
       }
 
-      $scope.disabled = undefined;
-      $scope.hols='hola';
-
-      $scope.standardItem = {};
-      $scope.standardSelectItems = [
-        {label: 'Option 1', value: 1},
-        {label: 'Option 2', value: 2},
-        {label: 'Option 3', value: 3},
-        {label: 'Option 4', value: 4}
-      ];
+  
     }
 
     angular.module('Agaport.gestion.puertas_mangas_zonas')
