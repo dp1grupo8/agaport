@@ -11,6 +11,16 @@
     $scope.usuarioSeleccionado=[];
 
     $scope.datosUsuarios='';
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      $http({
+        method:'GET',
+        url: globalBackendLink + '/usuarios/listar'
+      }).then(function successCallback(response) {
+        $scope.datosUsuarios = response.data;
+      },function errorCallback(response) {
+        console.log('error en obtener usuarios de '+globalBackendLink);
+      });
+    });
 
     $http({
       method:'GET',
@@ -20,20 +30,6 @@
     },function errorCallback(response) {
       console.log('error en obtener usuarios de '+globalBackendLink);
     });
-
-    $scope.removeUser = function(index) {
-      $scope.users.splice(index, 1);
-    };
-
-    $scope.addUser = function() {
-      $scope.inserted = {
-        id: $scope.users.length+1,
-        name: '',
-        status: null,
-        group: null
-      };
-      $scope.users.push($scope.inserted);
-    };
 
     $scope.eliminarUsuario = function(dni) {
       var variable_entrega={"DNI":dni};

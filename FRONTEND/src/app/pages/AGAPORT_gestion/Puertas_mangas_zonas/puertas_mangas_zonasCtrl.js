@@ -11,6 +11,16 @@
 	    $scope.puertaseleccionada=[];
       $scope.datosPuertas='';
       
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/puertas/listar'
+        }).then(function successCallback(response) {
+          $scope.datosPuertas = response.data;
+        },function errorCallback(response) {
+          console.log('error al obtener datos de puertas en ' + globalBackendLink);
+        });
+      });
   
       $http({
         method:'GET',
@@ -20,20 +30,6 @@
       },function errorCallback(response) {
         console.log('error al obtener datos de puertas en ' + globalBackendLink);
       });
-  
-      $scope.removePuerta = function(index) {
-        $scope.users.splice(index, 1);
-      };
-  
-      $scope.addPuerta = function() {
-        $scope.inserted = {
-          id: $scope.users.length+1,
-          name: '',
-          status: null,
-          group: null
-        };
-        $scope.users.push($scope.inserted);
-      };
 
       $scope.eliminarAerolinea = function(idPuerta) {
         var variable_entrega={"idPuerta":idPuerta};
@@ -117,6 +113,7 @@
         },function(response){
           console.log('error POST');
           console.log(response);
+          $state.go('agaport_gestion.puertas');
         });
 
       }

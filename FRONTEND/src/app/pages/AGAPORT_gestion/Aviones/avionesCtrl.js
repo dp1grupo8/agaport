@@ -9,7 +9,18 @@
   
       $scope.smartTablePageSize = 10;
  	    $scope.avionSeleccionado=[];
-      $scope.datosAviones='';           
+			$scope.datosAviones='';
+			
+			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $http({
+					method:'GET',
+					url: globalBackendLink + '/aviones/listar'
+				}).then(function successCallback(response) {
+					$scope.datosAviones = response.data;
+				},function errorCallback(response) {
+					console.log('error al obtener datos de aviones de ' + globalBackendLink);
+				});
+      });
   
       $http({
         method:'GET',
@@ -19,20 +30,6 @@
       },function errorCallback(response) {
         console.log('error al obtener datos de aviones de ' + globalBackendLink);
       });
-  
-      $scope.removePuerta = function(index) {
-        $scope.users.splice(index, 1);
-      };
-  
-      $scope.addPuerta = function() {
-        $scope.inserted = {
-          id: $scope.users.length+1,
-          name: '',
-          status: null,
-          group: null
-        };
-        $scope.users.push($scope.inserted);
-      };
 
       $scope.eliminarUsuario = function(idAvion) {
 				var variable_entrega={"idAvion":idAvion};
@@ -112,6 +109,7 @@
 				},function(response){
 					console.log('error POST');
 					console.log(response);
+					$state.go('agaport_gestion.aviones');
 				});
 			}
 
@@ -153,7 +151,6 @@
 	        }
 	      }).success(function(data, status, headers, config) {
 	        console.log('post aviones success');
-
 	        $state.go('agaport_gestion.aviones');
 	      }).error(function(data, status, headers, config){
 	        $state.go('agaport_gestion.aviones');
@@ -186,7 +183,7 @@
         }).success(function(data, status, headers, config) {
           console.log('post aviones success');
   
-          $state.go('agaport_gestion.usuarios');
+          $state.go('agaport_gestion.aviones');
         }).error(function(data, status, headers, config){
           console.log("data");
           console.log(data);

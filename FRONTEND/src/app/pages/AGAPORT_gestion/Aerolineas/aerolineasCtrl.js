@@ -12,29 +12,26 @@
       
       $scope.datosUsuarios='';
 
-      $http({
-        method:'GET',
-        url: globalBackendLink + '/aerolineas/listar'
-      }).then(function successCallback(response) {
-        $scope.datosAerolineas = response.data;
-
-      },function errorCallback(response) {
-        console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/aerolineas/listar'
+        }).then(function successCallback(response) {
+          $scope.datosAerolineas = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+        });
       });
-  
-      $scope.removePuerta = function(index) {
-        $scope.users.splice(index, 1);
-      };
-  
-      $scope.addPuerta = function() {
-        $scope.inserted = {
-          id: $scope.users.length+1,
-          name: '',
-          status: null,
-          group: null
-        };
-        $scope.users.push($scope.inserted);
-      };
+
+      $http({
+          method:'GET',
+          url: globalBackendLink + '/aerolineas/listar'
+        }).then(function successCallback(response) {
+          $scope.datosAerolineas = response.data;
+
+        },function errorCallback(response) {
+          console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+      });
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
@@ -100,6 +97,7 @@
         },function(response){
           console.log('error POST');
           console.log(response);
+          $state.go('agaport_gestion.aerolineas');
         });
       }
 
@@ -127,7 +125,6 @@
           }
         }).success(function(data, status, headers, config) {
           console.log('post aerolinea success');
-
           $state.go('agaport_gestion.aerolineas');
         }).error(function(data, status, headers, config){
           $state.go('agaport_gestion.aerolineas');
