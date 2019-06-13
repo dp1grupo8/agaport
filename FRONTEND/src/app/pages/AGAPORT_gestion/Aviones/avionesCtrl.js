@@ -140,8 +140,8 @@
 				console.log('error en obtener data de aerolineas de ' + globalBackendLink);
 			});
 
-	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax){
-	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax};
+	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax,idAerolinea){
+	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax,"idAerolinea":idAerolinea};
 	      console.log("se envia la variable ");
 	      console.log(variable_entrega);
 	      $http({
