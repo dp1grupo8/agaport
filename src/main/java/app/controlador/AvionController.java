@@ -59,12 +59,14 @@ public class AvionController {
     @PostMapping(path="/modificar")
 	public @ResponseBody String modificarAvion(@RequestParam int idAvion, @RequestParam String Placa, 
 												@RequestParam int CapacidadMax, @RequestParam int CargaMax, 
-												@RequestParam int CombustibleMax) {
+												@RequestParam int CombustibleMax, @RequestParam int idAerolinea) {
         Avion a = avionRepo.findById(idAvion).get();
+        Aerolinea p = aerolineaRepo.findById(idAerolinea).get();
         a.setPlaca(Placa);
         a.setCapacidadMax(CapacidadMax);
         a.setCargaMax(CargaMax);
         a.setCombustibleMax(CombustibleMax);
+        a.setAerolinea(p);
         avionRepo.save(a);
         return "Modificado";
     }
