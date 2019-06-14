@@ -98,7 +98,7 @@
       .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
 
   /** @ngInject */
-  function UsuariosNuevoCtrl($scope,$filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador nuevo');
     $scope.usuarioSeleccionada={};
 
