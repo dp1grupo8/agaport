@@ -114,11 +114,11 @@
       });
 
       $scope.registrarPuertas=function(tipo,distancia,flujoPer,estado){
-        var link_header='http://200.16.7.178:8080';
+     
         var variable_entrega={"Tipo":tipo,"distanciaASalida": distancia,"flujoPersonas": flujoPer,"Estado": estado};
     
         $http({
-          url: link_header + '/puertas/insertar',
+          url: globalBackendLink + '/puertas/insertar',
           method: 'POST',
           data: $.param(variable_entrega),
           headers:{
