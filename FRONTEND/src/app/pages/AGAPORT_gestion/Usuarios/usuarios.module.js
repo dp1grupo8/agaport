@@ -24,6 +24,7 @@
         }).state('agaport_gestion.usuarios.modificar', {
           url: '/modificar',
           params:{
+            idPermiso: null,
             dni: null,
             nombres: null,
           },

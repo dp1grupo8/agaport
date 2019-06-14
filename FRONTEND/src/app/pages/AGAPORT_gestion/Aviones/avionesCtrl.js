@@ -9,7 +9,18 @@
   
       $scope.smartTablePageSize = 10;
  	    $scope.avionSeleccionado=[];
-      $scope.datosAviones='';           
+			$scope.datosAviones='';
+			
+			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $http({
+					method:'GET',
+					url: globalBackendLink + '/aviones/listar'
+				}).then(function successCallback(response) {
+					$scope.datosAviones = response.data;
+				},function errorCallback(response) {
+					console.log('error al obtener datos de aviones de ' + globalBackendLink);
+				});
+      });
   
       $http({
         method:'GET',
@@ -19,20 +30,6 @@
       },function errorCallback(response) {
         console.log('error al obtener datos de aviones de ' + globalBackendLink);
       });
-  
-      $scope.removePuerta = function(index) {
-        $scope.users.splice(index, 1);
-      };
-  
-      $scope.addPuerta = function() {
-        $scope.inserted = {
-          id: $scope.users.length+1,
-          name: '',
-          status: null,
-          group: null
-        };
-        $scope.users.push($scope.inserted);
-      };
 
       $scope.eliminarUsuario = function(idAvion) {
 				var variable_entrega={"idAvion":idAvion};
@@ -65,7 +62,25 @@
               return $scope.avionSeleccionado;
             }
           }
-        });
+        }).result.then(function(){
+					$http({
+						method:'GET',
+						url: globalBackendLink + '/aviones/listar'
+					}).then(function successCallback(response) {
+						$scope.datosAviones = response.data;
+					},function errorCallback(response) {
+						console.log('error al obtener datos de aviones de ' + globalBackendLink);
+					});
+				},function(){
+					$http({
+						method:'GET',
+						url: globalBackendLink + '/aviones/listar'
+					}).then(function successCallback(response) {
+						$scope.datosAviones = response.data;
+					},function errorCallback(response) {
+						console.log('error al obtener datos de aviones de ' + globalBackendLink);
+					});
+				});
       };
       $scope.openProgressDialog = baProgressModal.open; 
 			$scope.seleccionarAvion=function(avion){
@@ -77,46 +92,44 @@
 		  .controller('AvionesNuevoCtrl', AvionesNuevoCtrl);
 
 	  /** @ngInject */
-	  function AvionesNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-		console.log('controlador nuevo');
-		
-		var contro = this;
+	  function AvionesNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+			console.log('controlador nuevo');
+			$scope.aerolineaSeleccionada={};
+			//se carga el comboBox
+			$http({
+				method:'GET',
+				url: globalBackendLink + '/aerolineas/listar'
+			}).then(function successCallback(response) {
+				$scope.aerolineasSelect = response.data;
+			},function errorCallback(response) {
+				console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+			});
 
-		$scope.disabled = undefined;
-		$scope.hols='hola';
+			/*placaAvion,maxPasajero,maxNuevoAv,combNuevoAv,23*/
+			$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAerolinea){
+				var variable_entrega={"Placa":placa,"CapacidadMax": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAerolinea":idAerolinea};
+				// $http.post(globalBackendLink+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
+				//   console.log('post usuario success');
+				//   console.log(response);
+				//   $state.go('agaport_gestion.usuarios');
+				// });
 
-		$scope.standardItem = {};
-		$scope.standardSelectItems = [
-		  {label: 'Option 1', value: 1},
-		  {label: 'Option 2', value: 2},
-		  {label: 'Option 3', value: 3},
-		  {label: 'Option 4', value: 4}
-		];
-/*placaAvion,maxPasajero,maxNuevoAv,combNuevoAv,23*/
-		$scope.registrarAvion=function(placa,maxpasajeros,cargamax,combMax,idAerolinea){
-		  var variable_entrega={"Placa":placa,"CapacidadMax": maxpasajeros,"CargaMax": cargamax,"CombustibleMax": combMax,"idAerolinea":idAerolinea};
-		  // $http.post(globalBackendLink+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
-		  //   console.log('post usuario success');
-		  //   console.log(response);
-		  //   $state.go('agaport_gestion.usuarios');
-		  // });
-
-		  $http({
-				url: globalBackendLink + '/aviones/insertar',
-				method: 'POST',
-				data: $.param(variable_entrega),
-				headers:{
-					'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-				}
-		  }).then(function() {
-				console.log('post avion success');
-				$state.go('agaport_gestion.aviones');
-		  },function(response){
-				console.log('error POST');
-				console.log(response);
-		  });
-
-		}
+				$http({
+					url: globalBackendLink + '/aviones/insertar',
+					method: 'POST',
+					data: $.param(variable_entrega),
+					headers:{
+						'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+					}
+				}).then(function() {
+					console.log('post avion success');
+					$state.go('agaport_gestion.aviones');
+				},function(response){
+					console.log('error POST');
+					console.log(response);
+					$state.go('agaport_gestion.aviones');
+				});
+			}
 
 	  }
 
@@ -125,14 +138,26 @@
 
 	  /** @ngInject */
 	  function AvionModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-		console.log('controlador modificar');
-		
-		$scope.avionSeleccionadoModificar=angular.copy($stateParams);
-		console.log($scope.avionSeleccionadoModificar);
+			console.log('controlador modificar');
+			$scope.avionSeleccionadoModificar=angular.copy($stateParams);
+			console.log($scope.avionSeleccionadoModificar);
 
-	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax){
+			$scope.aerolineaSeleccionada={};
 
-	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax};
+			//se carga el comboBox
+			$http({
+				method:'GET',
+				url: globalBackendLink + '/aerolineas/listar'
+			}).then(function successCallback(response) {
+				$scope.aerolineasSelect = response.data;
+				//como es modificar, se toma la aerolinea que tiene el id que recibimos. Para eso, es que se utiliza la funcion find()
+				$scope.aerolineaSeleccionada.selected = $scope.aerolineasSelect.find(aerolinea => aerolinea.idAerolinea==$scope.avionSeleccionadoModificar.idAerolinea);
+			},function errorCallback(response) {
+				console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+			});
+
+	    $scope.modificarAvion= function (idAvion,placa,capacidadMax,cargaMax,combustibleMax,idAerolinea){
+	      var variable_entrega={"idAvion":idAvion,"Placa": placa,"CapacidadMax": capacidadMax,"CargaMax": cargaMax,"CombustibleMax":combustibleMax,"idAerolinea":idAerolinea};
 	      console.log("se envia la variable ");
 	      console.log(variable_entrega);
 	      $http({
@@ -144,23 +169,14 @@
 	        }
 	      }).success(function(data, status, headers, config) {
 	        console.log('post aviones success');
-
 	        $state.go('agaport_gestion.aviones');
 	      }).error(function(data, status, headers, config){
 	        $state.go('agaport_gestion.aviones');
-	      });
+				});
+				
+				console.log($scope.aerolineaSeleccionada.selected);
 	    }
 
-			$scope.disabled = undefined;
-			$scope.hols='hola';
-
-			$scope.standardItem = {};
-			$scope.standardSelectItems = [
-				{label: 'Option 1', value: 1},
-				{label: 'Option 2', value: 2},
-				{label: 'Option 3', value: 3},
-				{label: 'Option 4', value: 4}
-			];
 	  }
 
 		angular.module('Agaport.gestion.aviones')
@@ -184,14 +200,8 @@
           }
         }).success(function(data, status, headers, config) {
           console.log('post aviones success');
-  
-          $state.go('agaport_gestion.usuarios');
+          $state.go('agaport_gestion.aviones');
         }).error(function(data, status, headers, config){
-          console.log("data");
-          console.log(data);
-          console.log("status");
-          console.log(status);
-          console.log($uibModal);
           $state.go('agaport_gestion.aviones');
         });
 			}

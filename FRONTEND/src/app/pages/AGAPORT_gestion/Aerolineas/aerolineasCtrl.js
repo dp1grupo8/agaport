@@ -12,29 +12,26 @@
       
       $scope.datosUsuarios='';
 
-      $http({
-        method:'GET',
-        url: globalBackendLink + '/aerolineas/listar'
-      }).then(function successCallback(response) {
-        $scope.datosAerolineas = response.data;
-
-      },function errorCallback(response) {
-        console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/aerolineas/listar'
+        }).then(function successCallback(response) {
+          $scope.datosAerolineas = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+        });
       });
-  
-      $scope.removePuerta = function(index) {
-        $scope.users.splice(index, 1);
-      };
-  
-      $scope.addPuerta = function() {
-        $scope.inserted = {
-          id: $scope.users.length+1,
-          name: '',
-          status: null,
-          group: null
-        };
-        $scope.users.push($scope.inserted);
-      };
+
+      $http({
+          method:'GET',
+          url: globalBackendLink + '/aerolineas/listar'
+        }).then(function successCallback(response) {
+          $scope.datosAerolineas = response.data;
+
+        },function errorCallback(response) {
+          console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+      });
   
       editableOptions.theme = 'bs3';
       editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
@@ -51,6 +48,26 @@
               return $scope.aerolineaSeleccionado;
             }
           }
+        }).result.then(function(){
+          console.log("Se cerro el popup 1");
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/aerolineas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosAerolineas = response.data;
+          },function errorCallback(response) {
+            console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+          });
+        },function(){
+          console.log("Se cerro el popup 2");
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/aerolineas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosAerolineas = response.data;
+          },function errorCallback(response) {
+            console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+          });
         });
       };
       $scope.openProgressDialog = baProgressModal.open;
@@ -68,19 +85,8 @@
     function AerolineasNuevoCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
 
-      $scope.disabled = undefined;
-      $scope.hols='hola';
-
-      $scope.standardItem = {};
-      $scope.standardSelectItems = [
-        {label: 'Option 1', value: 1},
-        {label: 'Option 2', value: 2},
-        {label: 'Option 3', value: 3},
-        {label: 'Option 4', value: 4}
-      ];
-
       $scope.registrarAerolinea=function(nombres,prioridad){
-        var link_header='http://200.16.7.178:8080';
+   
         var variable_entrega={"Nombre": nombres,"idPrioridad":prioridad};
         // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
         //   console.log('post usuario success');
@@ -88,7 +94,7 @@
         //   $state.go('agaport_gestion.usuarios');
         // });
         $http({
-          url: link_header + '/aerolineas/insertar',
+          url: globalBackendLink  + '/aerolineas/insertar',
           method: 'POST',
           data: $.param(variable_entrega),
           headers:{
@@ -100,6 +106,7 @@
         },function(response){
           console.log('error POST');
           console.log(response);
+          $state.go('agaport_gestion.aerolineas');
         });
       }
 
@@ -111,9 +118,11 @@
     /** @ngInject */
     function AerolineasModificarCtrl($scope, $state, $stateParams,  $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador modificar');
-      
       $scope.aerolineaSeleccionadoModificar=angular.copy($stateParams);
       console.log($scope.aerolineaSeleccionadoModificar);
+
+
+
       $scope.modificarAerolinea= function (idAerolinea,  nombre, idPrioridad){
 
         var variable_entrega={"idAerolinea":idAerolinea,"Nombre":nombre,"idPrioridad": idPrioridad};
@@ -127,7 +136,6 @@
           }
         }).success(function(data, status, headers, config) {
           console.log('post aerolinea success');
-
           $state.go('agaport_gestion.aerolineas');
         }).error(function(data, status, headers, config){
           $state.go('agaport_gestion.aerolineas');

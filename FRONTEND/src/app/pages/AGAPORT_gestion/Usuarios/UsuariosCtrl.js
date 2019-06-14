@@ -66,6 +66,24 @@
             return $scope.usuarioSeleccionado;
           }
         }
+      }).result.then(function(){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/usuarios/listar'
+        }).then(function successCallback(response) {
+          $scope.datosUsuarios = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener usuarios de '+globalBackendLink);
+        });
+      },function(){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/usuarios/listar'
+        }).then(function successCallback(response) {
+          $scope.datosUsuarios = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener usuarios de '+globalBackendLink);
+        });
       });
     };
     $scope.openProgressDialog = baProgressModal.open; 
@@ -80,18 +98,19 @@
       .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
 
   /** @ngInject */
-  function UsuariosNuevoCtrl($scope, $state, $location, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosNuevoCtrl($scope,$filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador nuevo');
-    
-    $scope.disabled = undefined;
+    $scope.usuarioSeleccionada={};
 
-    $scope.standardItem = {};
-    $scope.standardSelectItems = [
-      {label: 'Option 1', value: 1},
-      {label: 'Option 2', value: 2},
-      {label: 'Option 3', value: 3},
-      {label: 'Option 4', value: 4}
-    ];
+    $http({
+        method:'GET',
+        url: globalBackendLink + '/permisos/listar'
+      }).then(function successCallback(response) {
+        $scope.usuarioSelect = response.data;
+      },function errorCallback(response) {
+        console.log('error en obtener data de usuario de ' + globalBackendLink);
+      });
+
 
     $scope.registrarUsuario=function(dni,idPermiso,nombres,contrasena){
       var variable_entrega={"DNI":dni,"Password": contrasena,"Nombres": nombres,"idPermiso": idPermiso};
@@ -103,18 +122,13 @@
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
-      }).success(function(data, status, headers, config) {
-        console.log('post usuario success');
-
-        $state.go('agaport_gestion.usuarios');
-      }).error(function(data, status, headers, config){
-        console.log("data");
-        console.log(data);
-        console.log("status");
-        console.log(status);
-        console.log($uibModal);
-        $state.go('agaport_gestion.usuarios');
-      });
+      }).then(function() {
+          console.log('post usuario success');
+          $state.go('agaport_gestion.usuarios');
+        },function(response){
+          console.log('error POST');
+          console.log(response);
+        });
 
     }
 
@@ -127,6 +141,20 @@
   function UsuariosModificarCtrl($scope, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
     console.log('controlador modificar');
     $scope.usuarioSeleccionadoModificar=angular.copy($stateParams);
+
+    $scope.usuarioSeleccionada={};
+
+      //se carga el comboBox
+      $http({
+        method:'GET',
+        url: globalBackendLink + '/permisos/listar'
+      }).then(function successCallback(response) {
+        $scope.usuarioSelect = response.data;
+        //como es modificar, se toma la aerolinea que tiene el id que recibimos. Para eso, es que se utiliza la funcion find()
+        $scope.usuarioSeleccionada.selected = $scope.usuarioSelect.find(usuario => usuario.permiso.idPermiso==$scope.usuarioSeleccionadoModificar.permiso.idPermiso);
+      },function errorCallback(response) {
+        console.log('error en obtener data de usuarios de ' + globalBackendLink);
+      });
 
     $scope.modificarUsuario= function (dniNuevo,idPermiso,nombresNuevo,contrasenaNuevo){
 
@@ -147,25 +175,32 @@
         $state.go('agaport_gestion.usuarios');
       });
     }
-    $scope.disabled = undefined;
-    $scope.hols='hola';
-
-    $scope.standardItem = {};
-    $scope.standardSelectItems = [
-      {label: 'Option 1', value: 1},
-      {label: 'Option 2', value: 2},
-      {label: 'Option 3', value: 3},
-      {label: 'Option 4', value: 4}
-    ];
+  
   }
 
   angular.module('Agaport.gestion.usuarios')
       .controller('UsuariosEliminarCtrl', UsuariosEliminarCtrl);
 
   /** @ngInject */
-  function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal){
+  function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal){
     $scope.confirmarEliminado = function (){
       console.log(usuarioEliminar);
+
+        var variable_entrega={"DNI":usuarioEliminar.dni};
+
+        $http({
+          url: globalBackendLink + '/usuarios/eliminar',
+          method: 'POST',
+          data: $.param(variable_entrega),
+          headers:{
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }).success(function(data, status, headers, config) {
+          console.log('post usuarios success');
+          $state.go('agaport_gestion.usuarios');
+        }).error(function(data, status, headers, config){
+          $state.go('agaport_gestion.usuarios');
+        });
     }
   }
 
