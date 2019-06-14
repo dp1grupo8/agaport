@@ -65,19 +65,8 @@
     function AerolineasNuevoCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
       console.log('controlador nuevo');
 
-      $scope.disabled = undefined;
-      $scope.hols='hola';
-
-      $scope.standardItem = {};
-      $scope.standardSelectItems = [
-        {label: 'Option 1', value: 1},
-        {label: 'Option 2', value: 2},
-        {label: 'Option 3', value: 3},
-        {label: 'Option 4', value: 4}
-      ];
-
       $scope.registrarAerolinea=function(nombres,prioridad){
-        var link_header='http://200.16.7.178:8080';
+   
         var variable_entrega={"Nombre": nombres,"idPrioridad":prioridad};
         // $http.post(link_header+'/usuarios/insertar',variable_entrega,{responseType:'text'}).success(function(response){
         //   console.log('post usuario success');
@@ -85,7 +74,7 @@
         //   $state.go('agaport_gestion.usuarios');
         // });
         $http({
-          url: link_header + '/aerolineas/insertar',
+          url: globalBackendLink  + '/aerolineas/insertar',
           method: 'POST',
           data: $.param(variable_entrega),
           headers:{
