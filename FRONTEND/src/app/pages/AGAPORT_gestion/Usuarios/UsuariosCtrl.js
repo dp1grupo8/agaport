@@ -82,7 +82,7 @@
 
     $http({
         method:'GET',
-        url: globalBackendLink + '/usuarios/listar'
+        url: globalBackendLink + '/permisos/listar'
       }).then(function successCallback(response) {
         $scope.usuarioSelect = response.data;
       },function errorCallback(response) {
@@ -106,6 +106,7 @@
         },function(response){
           console.log('error POST');
           console.log(response);
+          $state.go('agaport_gestion.usuarios');
         });
 
     }
@@ -129,7 +130,7 @@
       }).then(function successCallback(response) {
         $scope.usuarioSelect = response.data;
         //como es modificar, se toma la aerolinea que tiene el id que recibimos. Para eso, es que se utiliza la funcion find()
-        $scope.usuarioSeleccionada.selected = $scope.usuarioSelect.find(usuario => usuario.permiso.idPermiso==$scope.usuarioSeleccionadoModificar.permiso.idPermiso);
+        $scope.usuarioSeleccionada.selected = $scope.usuarioSelect.find(permiso => permiso.idPermiso==$scope.usuarioSeleccionadoModificar.idPermiso);
       },function errorCallback(response) {
         console.log('error en obtener data de usuarios de ' + globalBackendLink);
       });
@@ -163,6 +164,26 @@
   function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal){
     $scope.confirmarEliminado = function (){
       console.log(usuarioEliminar);
+      var variable_entrega={"DNI":usuarioEliminar.dni};
+
+      $http({
+        url: globalBackendLink + '/usuarios/eliminar',
+        method: 'POST',
+        data: $.param(variable_entrega),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }).success(function(data, status, headers, config) {
+        console.log('post puertas success');
+        $state.go('agaport_gestion.puertas_mangas_zonas');
+      }).error(function(data, status, headers, config){
+        console.log("data");
+        console.log(data);
+        console.log("status");
+        console.log(status);
+        console.log($uibModal);
+        $state.go('agaport_gestion.usuarios');
+      });
     }
   }
 

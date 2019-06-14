@@ -28,10 +28,10 @@
 			    <tbody>
 			    <tr ng-repeat="item in datosPuertas | filter:busquedaPuerta" ng-click="seleccionarPuerta(item);">
 			      <td class="table-id">{{$index + 1}}</td>
-			      <td>{{item.tipo}}</td>
+			      <td>{{item.tipo==1? 'Manga':'Zona'}}</td>
 			      <td>{{item.distanciaASalida}}</td>
 			      <td>{{item.flujoPersonas}}</td>
-				  <td>{{item.estado==1? 'Disponible':'Ocupado'}}</td>
+				  	<td>{{item.estado==1? 'Habilitado':'Deshabilitado'}}</td>
 			    </tr>
 			    </tbody>
 			  </table>

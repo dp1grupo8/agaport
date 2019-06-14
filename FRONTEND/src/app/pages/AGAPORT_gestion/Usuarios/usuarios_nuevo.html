@@ -15,10 +15,10 @@
 				append-to-body="true"
 				search-enabled="false">
 					<ui-select-match placeholder="Permisos">
-						<span> {{$select.selected.permiso.idpermiso}}</span>
+						<span> {{$select.selected.descripcion}}</span>
 					</ui-select-match>
 					<ui-select-choices repeat="usuario in usuarioSelect">
-						<span ng-bind-html="usuario.permiso.idpermiso"></span> <!-- not sure -->
+						<span ng-bind-html="usuario.descripcion"></span> <!-- not sure -->
 					</ui-select-choices>
 				</ui-select>
 			</div>
@@ -38,7 +38,7 @@
 
 		<div class="row">
 			<div class="col-xs-offset-4 col-xs-2">
-				<a ng-click="registrarUsuario(dni_usuario,1,nombre_usuario,contra_usuario)">
+				<a ng-click="registrarUsuario(dni_usuario,usuarioSeleccionada.selected.idPermiso,nombre_usuario,contra_usuario)">
 					<button type="button" class="btn btn-default">
 						Aceptar
 					</button>

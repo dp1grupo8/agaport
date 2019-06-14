@@ -76,23 +76,29 @@
         .controller('PuertasMangasZonasNuevoCtrl', PuertasMangasZonasNuevoCtrl);
   
     /** @ngInject */
-    function PuertasMangasZonasNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
-        console.log('controlador nuevo');
-        $scope.puertaSeleccionada={};
+    function PuertasMangasZonasNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+      console.log('controlador nuevo');
+      $scope.puertaSeleccionada={};
 
-        $http({
-          method:'GET',
-          url: globalBackendLink + '/puertas/listar'
-        }).then(function successCallback(response) {
-          $scope.puertaSelect = response.data;
-        },function errorCallback(response) {
-          console.log('error en obtener data de puerta de ' + globalBackendLink);
-        });
+      //se carga el comboBox
+      $scope.tiposSelect = [{tipo:1,nombre:'Manga'},{tipo:0,nombre:'Zona'}];
+      $scope.estadosSelect=[{estado:0,nombre:'Deshabilitada'},{estado:1,nombre:'Habilitada'}];
+      $scope.tipoPuertaSeleccionada={};
+      $scope.estadoPuertaSeleccionada={};
 
-        $scope.registrarPuertas=function(tipo,distancia,flujoPer,estado){
+      $http({
+        method:'GET',
+        url: globalBackendLink + '/puertas/listar'
+      }).then(function successCallback(response) {
+        $scope.puertaSelect = response.data;
+      },function errorCallback(response) {
+        console.log('error en obtener data de puerta de ' + globalBackendLink);
+      });
+
+      $scope.registrarPuertas=function(tipo,distancia,flujoPer,estado){
         var link_header='http://200.16.7.178:8080';
         var variable_entrega={"Tipo":tipo,"distanciaASalida": distancia,"flujoPersonas": flujoPer,"Estado": estado};
-     
+    
         $http({
           url: link_header + '/puertas/insertar',
           method: 'POST',
@@ -102,11 +108,11 @@
           }
         }).then(function() {
           console.log('post puertas success');
-          $state.go('agaport_gestion.puertas');
+          $state.go('agaport_gestion.puertas_mangas_zonas');
         },function(response){
           console.log('error POST');
           console.log(response);
-          $state.go('agaport_gestion.puertas');
+          $state.go('agaport_gestion.puertas_mangas_zonas');
         });
 
       }
@@ -122,6 +128,15 @@
       console.log($scope.puertaSeleccionadoModificar);
 
       $scope.puertaSeleccionada={};
+      $scope.tipoPuertaSeleccionada={};
+      $scope.estadoPuertaSeleccionada={};
+      //se carga el comboBox
+      
+      $scope.tiposSelect = [{tipo:1,nombre:'Manga'},{tipo:0,nombre:'Zona'}];
+      $scope.estadosSelect=[{estado:0,nombre:'Deshabilitada'},{estado:1,nombre:'Habilitada'}];
+      $scope.tipoPuertaSeleccionada.selected=$scope.tiposSelect.find(tipo => tipo.tipo==$scope.puertaSeleccionadoModificar.tipo);
+      console.log($scope.puertaSeleccionadoModificar.tipo);
+      $scope.estadoPuertaSeleccionada.selected=$scope.estadosSelect.find(estado => estado.estado==$scope.puertaSeleccionadoModificar.estado);
 
       //se carga el comboBox
       $http({
@@ -150,7 +165,7 @@
 
           $state.go('agaport_gestion.puertas');
         }).error(function(data, status, headers, config){
-          $state.go('agaport_gestion.puertas');
+          $state.go('agaport_gestion.puertas_mangas_zonas');
         });
       }
 
@@ -180,14 +195,14 @@
           }).success(function(data, status, headers, config) {
             console.log('post puertas success');
     
-            $state.go('agaport_gestion.puertas');
+            $state.go('agaport_gestion.puertas_mangas_zonas');
           }).error(function(data, status, headers, config){
             console.log("data");
             console.log(data);
             console.log("status");
             console.log(status);
             console.log($uibModal);
-            $state.go('agaport_gestion.puertas');
+            $state.go('agaport_gestion.puertas_mangas_zonas');
           });
         }
       }

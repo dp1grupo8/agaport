@@ -74,7 +74,7 @@
 		  .controller('AvionesNuevoCtrl', AvionesNuevoCtrl);
 
 	  /** @ngInject */
-	  function AvionesNuevoCtrl($scope, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionesNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
 			console.log('controlador nuevo');
 			$scope.aerolineaSeleccionada={};
 			//se carga el comboBox
@@ -182,14 +182,8 @@
           }
         }).success(function(data, status, headers, config) {
           console.log('post aviones success');
-  
           $state.go('agaport_gestion.aviones');
         }).error(function(data, status, headers, config){
-          console.log("data");
-          console.log(data);
-          console.log("status");
-          console.log(status);
-          console.log($uibModal);
           $state.go('agaport_gestion.aviones');
         });
 			}

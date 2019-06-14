@@ -3,15 +3,15 @@
         <div class="form-group">
             <label for="tipoModificarPuerta" class="col-sm-4">Tipo: </label>
             <div class="col-sm-8">
-                <ui-select ng-model="puertaSeleccionada.selected"
+                <ui-select ng-model="tipoPuertaSeleccionada.selected"
                 class="btn-group bootstrap-select form-control"
                 append-to-body="true"
                 search-enabled="false">
                     <ui-select-match placeholder="Tipo de puerta">
-                        <span> {{$select.selected.tipo}}</span>
+                        <span> {{$select.selected.nombre}}</span>
                     </ui-select-match>
-                    <ui-select-choices repeat="puerta in puertaSelect">
-                        <span ng-bind-html="puerta.tipo"></span>
+                    <ui-select-choices repeat="tipo in tiposSelect">
+                        <span ng-bind-html="tipo.nombre"></span>
                     </ui-select-choices>
                 </ui-select>
             </div>
@@ -33,22 +33,22 @@
         <div class="form-group">
             <label for="estadoModificarPuerta" class="col-sm-4">Estado: </label>
             <div class="col-sm-8">
-                <ui-select ng-model="puertaSeleccionada.selected"
+                <ui-select ng-model="estadoPuertaSeleccionada.selected"
                 class="btn-group bootstrap-select form-control"
                 append-to-body="true"
                 search-enabled="false">
                     <ui-select-match placeholder="Estado de la puerta">
-                        <span> {{$select.selected.estado}}</span>
+                        <span> {{$select.selected.nombre}}</span>
                     </ui-select-match>
-                    <ui-select-choices repeat="puerta in puertaSelect">
-                        <span ng-bind-html="puerta.estado"></span>
+                    <ui-select-choices repeat="estado in estadosSelect">
+                        <span ng-bind-html="estado.nombre"></span>
                     </ui-select-choices>
                 </ui-select>
             </div>
             </div>
 
         <div class="row">
-            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarPuerta(puertaSeleccionadoModificar.idPuerta,puertaSeleccionadoModificar.selected.tipo,distanciaASalidanuevo,flujopersonasnuevo,puertaSeleccionadoModificar.selected.estado)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
+            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarPuerta(puertaSeleccionadoModificar.idPuerta,tipoPuertaSeleccionada.selected.tipo,distanciaASalidanuevo,flujopersonasnuevo,estadoPuertaSeleccionada.selected.estado)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
             <div class="col-xs-2"><a ui-sref="agaport_gestion.puertas_mangas_zonas"><button type="button" class="btn btn-default">Cancelar</button></a></div>
         </div>
     </form>
