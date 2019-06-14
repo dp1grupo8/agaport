@@ -212,7 +212,6 @@
             }
           }).success(function(data, status, headers, config) {
             console.log('post puertas success');
-    
             $state.go('agaport_gestion.puertas_mangas_zonas');
           }).error(function(data, status, headers, config){
             console.log("data");
