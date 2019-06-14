@@ -128,6 +128,7 @@
         },function(response){
           console.log('error POST');
           console.log(response);
+          $state.go('agaport_gestion.usuarios');
         });
 
     }
