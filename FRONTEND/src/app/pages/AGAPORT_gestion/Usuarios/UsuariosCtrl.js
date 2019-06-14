@@ -62,6 +62,24 @@
             return $scope.usuarioSeleccionado;
           }
         }
+      }).result.then(function(){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/usuarios/listar'
+        }).then(function successCallback(response) {
+          $scope.datosUsuarios = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener usuarios de '+globalBackendLink);
+        });
+      },function(){
+        $http({
+          method:'GET',
+          url: globalBackendLink + '/usuarios/listar'
+        }).then(function successCallback(response) {
+          $scope.datosUsuarios = response.data;
+        },function errorCallback(response) {
+          console.log('error en obtener usuarios de '+globalBackendLink);
+        });
       });
     };
     $scope.openProgressDialog = baProgressModal.open; 
@@ -182,7 +200,6 @@
         console.log("status");
         console.log(status);
         console.log($uibModal);
-        $state.go('agaport_gestion.usuarios');
       });
     }
   }

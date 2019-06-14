@@ -62,7 +62,25 @@
               return $scope.avionSeleccionado;
             }
           }
-        });
+        }).result.then(function(){
+					$http({
+						method:'GET',
+						url: globalBackendLink + '/aviones/listar'
+					}).then(function successCallback(response) {
+						$scope.datosAviones = response.data;
+					},function errorCallback(response) {
+						console.log('error al obtener datos de aviones de ' + globalBackendLink);
+					});
+				},function(){
+					$http({
+						method:'GET',
+						url: globalBackendLink + '/aviones/listar'
+					}).then(function successCallback(response) {
+						$scope.datosAviones = response.data;
+					},function errorCallback(response) {
+						console.log('error al obtener datos de aviones de ' + globalBackendLink);
+					});
+				});
       };
       $scope.openProgressDialog = baProgressModal.open; 
 			$scope.seleccionarAvion=function(avion){

@@ -48,6 +48,26 @@
               return $scope.aerolineaSeleccionado;
             }
           }
+        }).result.then(function(){
+          console.log("Se cerro el popup 1");
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/aerolineas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosAerolineas = response.data;
+          },function errorCallback(response) {
+            console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+          });
+        },function(){
+          console.log("Se cerro el popup 2");
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/aerolineas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosAerolineas = response.data;
+          },function errorCallback(response) {
+            console.log('error en obtener data de aerolineas de ' + globalBackendLink);
+          });
         });
       };
       $scope.openProgressDialog = baProgressModal.open;

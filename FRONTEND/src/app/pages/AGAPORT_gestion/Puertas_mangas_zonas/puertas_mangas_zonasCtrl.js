@@ -62,6 +62,24 @@
               return $scope.puertaseleccionada;
             }
           }
+        }).result.then(function(){
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/puertas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosPuertas = response.data;
+          },function errorCallback(response) {
+            console.log('error al obtener datos de puertas en ' + globalBackendLink);
+          });
+        },function(){
+          $http({
+            method:'GET',
+            url: globalBackendLink + '/puertas/listar'
+          }).then(function successCallback(response) {
+            $scope.datosPuertas = response.data;
+          },function errorCallback(response) {
+            console.log('error al obtener datos de puertas en ' + globalBackendLink);
+          });
         });
       };
       $scope.openProgressDialog = baProgressModal.open; 
