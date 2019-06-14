@@ -12,6 +12,17 @@
 
     $scope.datosUsuarios='';
 
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      $http({
+        method:'GET',
+        url: globalBackendLink + '/usuarios/listar'
+      }).then(function successCallback(response) {
+        $scope.datosUsuarios = response.data;
+      },function errorCallback(response) {
+        console.log('error en obtener usuarios de '+globalBackendLink);
+      });
+    });
+
     $http({
       method:'GET',
       url: globalBackendLink + '/usuarios/listar'
