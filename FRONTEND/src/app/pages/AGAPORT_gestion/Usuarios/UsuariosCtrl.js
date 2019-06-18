@@ -54,7 +54,8 @@
         data: $.param(variable_entrega),
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-        }
+        },
+        responseType:"json",
       }).then(function successCallback(response) {
         console.log("exito");
       },function errorCallback(response) {
@@ -109,7 +110,7 @@
       .controller('UsuariosNuevoCtrl', UsuariosNuevoCtrl);
 
   /** @ngInject */
-  function UsuariosNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal,toastr) {
     console.log('controlador nuevo');
     $scope.usuarioSeleccionada={};
 
@@ -132,13 +133,21 @@
         data: $.param(variable_entrega),
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-        }
+        },
+        responseType:"json",
       }).then(function() {
           console.log('post usuario success');
+          toastr.success("El usuario se registró correctamete");
           $state.go('agaport_gestion.usuarios');
         },function(response){
-          console.log('error POST');
-          console.log(response);
+          if(response && response.data){
+            toastr.error("No se pudo almacenar el usuario correctamente. Intente nuevamente", 'Error');
+					}
+					else{
+            console.log(response);
+						toastr.error("No se pudo establecer una conexión con el servidor", 'ERROR DEL SISTEMA');
+          }
+
           $state.go('agaport_gestion.usuarios');
         });
 
@@ -150,20 +159,20 @@
       .controller('UsuariosModificarCtrl', UsuariosModificarCtrl);
 
   /** @ngInject */
-  function UsuariosModificarCtrl($scope, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+  function UsuariosModificarCtrl($scope, $state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal,toastr) {
     console.log('controlador modificar');
     $scope.usuarioSeleccionadoModificar=angular.copy($stateParams);
 
-    $scope.usuarioSeleccionada={};
+    $scope.permisoSeleccionada={};
 
       //se carga el comboBox
       $http({
         method:'GET',
         url: globalBackendLink + '/permisos/listar'
       }).then(function successCallback(response) {
-        $scope.usuarioSelect = response.data;
+        $scope.permisoSelect = response.data;
         //como es modificar, se toma la aerolinea que tiene el id que recibimos. Para eso, es que se utiliza la funcion find()
-        $scope.usuarioSeleccionada.selected = $scope.usuarioSelect.find(usuario => usuario.permiso.idPermiso==$scope.usuarioSeleccionadoModificar.permiso.idPermiso);
+        $scope.permisoSeleccionada.selected = $scope.permisoSelect.find(permiso => permiso.idPermiso==$scope.usuarioSeleccionadoModificar.idPermiso);
       },function errorCallback(response) {
         console.log('error en obtener data de usuarios de ' + globalBackendLink);
       });
@@ -178,12 +187,13 @@
         data: $.param(variable_entrega),
         headers:{
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-        }
+        },
+        responseType:"json",
       }).success(function(data, status, headers, config) {
-        console.log('post usuario success');
-
+        toastr.success("El usuario se modificó correctamete");
         $state.go('agaport_gestion.usuarios');
       }).error(function(data, status, headers, config){
+        toastr.error("No se pudo modificar el usuario correctamente. Intente nuevamente", 'Error');
         $state.go('agaport_gestion.usuarios');
       });
     }
@@ -194,7 +204,7 @@
       .controller('UsuariosEliminarCtrl', UsuariosEliminarCtrl);
 
   /** @ngInject */
-  function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal){
+  function UsuariosEliminarCtrl($scope, usuarioEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModalInstance,baProgressModal,toastr){
     $scope.confirmarEliminado = function (){
       console.log(usuarioEliminar);
 
@@ -206,12 +216,15 @@
           data: $.param(variable_entrega),
           headers:{
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-          }
+          },
+          responseType:"json",
         }).success(function(data, status, headers, config) {
-          console.log('post usuarios success');
+          toastr.success("El usuario se eliminó correctamete");
+          $uibModalInstance.close();
           $state.go('agaport_gestion.usuarios');
         }).error(function(data, status, headers, config){
-          $state.go('agaport_gestion.usuarios');
+          toastr.error("No se pudo eliminar el usuario correctamente. Intente nuevamente", 'Error');
+          $uibModalInstance.close();
         });
     }
   }
