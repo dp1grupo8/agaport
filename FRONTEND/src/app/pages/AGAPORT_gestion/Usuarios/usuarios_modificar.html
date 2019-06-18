@@ -10,15 +10,15 @@
         <div class="form-group">
             <label for="permisosModificarUsuario" class="col-sm-4">Permisos: </label>
             <div class="col-sm-8">
-                <ui-select ng-model="usuarioSeleccionada.selected"
+                <ui-select ng-model="permisoSeleccionada.selected"
                 class="btn-group bootstrap-select form-control"
                 append-to-body="true"
                 search-enabled="false">
                     <ui-select-match placeholder="Permisos">
                         <span> {{$select.selected.descripcion}}</span>
                     </ui-select-match>
-                    <ui-select-choices repeat="usuario in usuarioSelect">
-                        <span ng-bind-html="usuario.descripcion"></span>
+                    <ui-select-choices repeat="permiso in permisoSelect">
+                        <span ng-bind-html="permiso.descripcion"></span>
                     </ui-select-choices>
                 </ui-select>
             </div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarUsuario(dniNuevo,usuarioSeleccionada.selected.idPermiso,nombresNuevo,contrasenaNuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
+            <div class="col-xs-offset-4 col-xs-2"><a ng-click="modificarUsuario(dniNuevo,permisoSeleccionada.selected.idPermiso,nombresNuevo,contrasenaNuevo)"><button type="button" class="btn btn-default">Aceptar</button></a></div>
             <div class="col-xs-2"><a ui-sref="agaport_gestion.usuarios"><button type="button" class="btn btn-default">Cancelar</button></a></div>
         </div>
     </form>

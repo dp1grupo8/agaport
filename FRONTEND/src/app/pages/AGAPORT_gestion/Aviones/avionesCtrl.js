@@ -39,9 +39,9 @@
 					data: $.param(variable_entrega),
 					headers:{
 						'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-					}
+					},
 				}).then(function successCallback(response) {
-					console.log("exito");
+					console.log("ejkiminar raraso");
 				},function errorCallback(response) {
 					console.log('error en obtener aviones de '+globalBackendLink);
 				});
@@ -92,7 +92,7 @@
 		  .controller('AvionesNuevoCtrl', AvionesNuevoCtrl);
 
 	  /** @ngInject */
-	  function AvionesNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionesNuevoCtrl($scope, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal,toastr) {
 			console.log('controlador nuevo');
 			$scope.aerolineaSeleccionada={};
 			//se carga el comboBox
@@ -120,13 +120,20 @@
 					data: $.param(variable_entrega),
 					headers:{
 						'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-					}
+					},
+					responseType:"json",
 				}).then(function() {
-					console.log('post avion success');
+					toastr.success("El avión se almacenó correctamente");
 					$state.go('agaport_gestion.aviones');
 				},function(response){
-					console.log('error POST');
-					console.log(response);
+					if(response && response.data){
+						toastr.error("No se pudo almacenar el avión correctamente. Intente nuevamente", 'Error');
+					}
+					else{
+						console.log(response);
+						toastr.error("No se pudo establecer una conexión con el servidor", 'ERROR DEL SISTEMA');
+					}
+
 					$state.go('agaport_gestion.aviones');
 				});
 			}
@@ -137,7 +144,7 @@
 		  .controller('AvionModificarCtrl', AvionModificarCtrl);
 
 	  /** @ngInject */
-	  function AvionModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionModificarCtrl($scope,$state, $stateParams, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal,toastr) {
 			console.log('controlador modificar');
 			$scope.avionSeleccionadoModificar=angular.copy($stateParams);
 			console.log($scope.avionSeleccionadoModificar);
@@ -166,9 +173,10 @@
 	        data: $.param(variable_entrega),
 	        headers:{
 	          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-	        }
+					},
+					responseType:"json",
 	      }).success(function(data, status, headers, config) {
-	        console.log('post aviones success');
+	        toastr.success("El avión se modificó correctamente");
 	        $state.go('agaport_gestion.aviones');
 	      }).error(function(data, status, headers, config){
 	        $state.go('agaport_gestion.aviones');
@@ -183,7 +191,7 @@
 			.controller('AvionesEliminarCtrl', AvionesEliminarCtrl);
 			
 		/** @ngInject */
-	  function AvionesEliminarCtrl($scope, avionEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,baProgressModal) {
+	  function AvionesEliminarCtrl($scope, avionEliminar, $state, $filter, editableOptions, editableThemes,$http,$uibModal,$uibModalInstance,baProgressModal,toastr) {
 			console.log('controlador eliminar');
 			
 			$scope.confirmarEliminado=function(){
@@ -197,12 +205,15 @@
           data: $.param(variable_entrega),
           headers:{
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-          }
+					},
+					responseType:"json",
         }).success(function(data, status, headers, config) {
-          console.log('post aviones success');
+					toastr.success("El avión se eliminó correctamente");
+					$uibModalInstance.close();
           $state.go('agaport_gestion.aviones');
         }).error(function(data, status, headers, config){
-          $state.go('agaport_gestion.aviones');
+					$state.go('agaport_gestion.aviones');
+					$uibModalInstance.close();
         });
 			}
 	  }
