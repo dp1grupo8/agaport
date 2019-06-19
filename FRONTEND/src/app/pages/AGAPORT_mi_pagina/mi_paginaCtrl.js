@@ -10,15 +10,15 @@
         $scope.llamarSimulacion = function () {
             console.log('iniciando simulación 2');
             $http.get('http://200.16.7.178/backendAGAPORT/simulacion/iniciar').then(function successCallback(response) {
-                console.log('simulacion iniciada');
+                //console.log('simulacion iniciada');
             }, function errorCallback(response) {
                 console.log(response);
             });
         }
 
         $scope.iniciarSimulacion = function () {
-            console.log('iniciando simulación 1');
             if (!$scope.simulacionIni) {
+                //console.log('iniciando simulación 1');
                 $scope.simulacionIni = true;
                 $scope.llamarSimulacion();
                 setInterval($scope.llamarSimulacion, 60000);
@@ -26,7 +26,9 @@
         }
 
         $scope.progressFunction = function () {
-            return $timeout(function () { }, 3000);
+            if (!$scope.simulacionIni) {
+                return $timeout(function () { }, 3000);
+            }
         };
     }
 
