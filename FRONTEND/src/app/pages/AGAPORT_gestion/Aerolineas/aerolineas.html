@@ -23,7 +23,7 @@
 			      <th>Prioridad</th>
 			    </tr>
 			    </thead>
-			    <tbody>
+			    <tbody id="cuerpoTablaAerolineas">
 			    <tr ng-repeat="item in datosAerolineas| filter:busquedaAerolinea" ng-click="seleccionarAerolinea(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.nombre}}</td>
