@@ -25,7 +25,7 @@
                   <th>Estado</th>
 			    </tr>
 			    </thead>
-			    <tbody>
+			    <tbody id="cuerpoTablaPuertas">
 			    <tr ng-repeat="item in datosPuertas | filter:busquedaPuerta" ng-click="seleccionarPuerta(item);">
 			      <td class="table-id">{{$index + 1}}</td>
 			      <td>{{item.tipo==1? 'Manga':'Zona'}}</td>
