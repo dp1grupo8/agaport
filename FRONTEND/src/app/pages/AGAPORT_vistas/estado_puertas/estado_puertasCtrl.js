@@ -209,12 +209,6 @@
           case 1:
             $scope.puerta.strEstadoPuerta = 'Habilitado';
             break;
-          case 2:
-            $scope.puerta.strEstadoPuerta = 'En uso';
-            break;
-          case 3:
-            $scope.puerta.strEstadoPuerta = 'Uso programado';
-            break;
         }
 
         if ($scope.puerta.distanciaASalida !== undefined) {
@@ -240,18 +234,12 @@
             break;
         }
 
-        switch ($scope.puerta.puerta.estado) {
-          case 0:
-            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
-            break;
-          case 1:
-            $scope.puerta.strEstadoPuerta = 'Habilitado';
-            break;
+        switch ($scope.puerta.estado) {
           case 2:
-            $scope.puerta.strEstadoPuerta = 'En uso';
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
             break;
           case 3:
-            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            $scope.puerta.strEstadoPuerta = 'En uso';
             break;
         }
 
