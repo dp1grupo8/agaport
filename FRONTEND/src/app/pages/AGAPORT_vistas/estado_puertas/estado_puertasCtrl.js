@@ -5,8 +5,49 @@
     .controller('estado_puertasCtrl', estado_puertasCtrl);
 
   /** @ngInject */
-  function estado_puertasCtrl($scope, $http) {
+  function estado_puertasCtrl($scope, $http, $timeout) {
 
+    $scope.simulacionIni = false;
+    $scope.llamarSimulacion = function () {
+      console.log('iniciando simulación 2');
+      $http.get('http://200.16.7.178/backendAGAPORT/simulacion/iniciar').then(function successCallback(response) {
+        //console.log('simulacion iniciada');
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+    }
+
+    $scope.iniciarSimulacion = function () {
+      if (!$scope.simulacionIni) {
+        //console.log('iniciando simulación 1');
+        $scope.simulacionIni = true;
+        $scope.llamarSimulacion();
+        setInterval($scope.llamarSimulacion, 60000);
+      }
+    }
+
+    $scope.detenerSimulacion = function () {
+      if ($scope.simulacionIni) {
+        $scope.simulacionIni = false;
+        console.log('detener simulación');
+        $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
+          //console.log('simulacion iniciada');
+        }, function errorCallback(response) {
+          console.log(response);
+        });
+      }
+    }
+
+    $scope.progressFunction = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 3000);
+      }
+    };
+    $scope.progressFunction2 = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 0);
+      }
+    };
     $scope.puertaSeleccionada = false;
 
     $scope.range = function (num) {
@@ -25,13 +66,13 @@
         *      -distanciaASalida
         *      -flujoPersonas
         *      -tipo: 1:manga(gate), 0:zona
-        *      -estado: 0: deshabilitada. 1: habilitada. 2: en uso. 3: programada
+        *      -estado: 0: deshabilitada. 1: habilitada. 2: en uso. "3: programada (del vuelo)"
         * -Objeto: Avion
         *      -placa
         *      -aerolinea
         * -clase: clase del vuelo (string)
     */
-    
+
     $scope.vuelos = [];
     $scope.puertas = [];
     $scope.urlImagen = [];
@@ -46,7 +87,7 @@
       for (var i = 0; i < 40; i++) {
         $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
       }
-
+      var divId = "";
       $http.get('http://200.16.7.178/backendAGAPORT/puertas/listarTodasPuertas').then(function successCallback(response) {
         // Hace que todas las puertas aparezcan de color gris
 
@@ -61,24 +102,29 @@
 
         //Almacenar data de todas las puertas
         $scope.puertas = response.data;
+        console.log("data dentro de puertas: ");
         console.log($scope.puertas);
         var puertas = $scope.puertas;
+        console.log("numero de puertas: " + puertas.length);
+        var puerta;
+        var tipo;
         for (var i = 0; i < puertas.length; i++) {
-          var puerta = puertas[i];
-          var tipo;
+          puerta = puertas[i];
           if (puerta.tipo == 1) {
             tipo = 'gate';
           } else {
             tipo = 'zona';
           }
-          var divId = tipo + '-' + puerta.idPuerta;
+          divId = tipo + '-' + puerta.idPuerta;
           if (puerta.estado == 1) {
             // Pintar puerta de color blanco
-            document.getElementById(divId).style.backgroundColor = "#FFFFFF"
+            console.log(divId + " blanco");
+            document.getElementById(divId).style.backgroundColor = "#FFFFFF";
           }
           if (puerta.estado == 0) {
             // Pintar puerta de color gris
-            document.getElementById(divId).style.backgroundColor = "#E9E9E9"
+            console.log(divId + " gris");
+            document.getElementById(divId).style.backgroundColor = "#E9E9E9";
           }
         }
       }, function errorCallback(response) {
@@ -87,23 +133,28 @@
       $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listarAsignaciones').then(function successCallback(response) {
         //Almacena data de todos los vuelos no "muertos"
         $scope.vuelos = response.data;
+        console.log("data dentro de vuelos: ");
         console.log($scope.vuelos);
         var vuelos = $scope.vuelos;
+        var puerta;
+        var tipo;
         for (var i = 0; i < vuelos.length; i++) {
-          var puerta = vuelos[i].puerta;
-          var tipo;
+          puerta = vuelos[i].puerta;
+          tipo;
           if (puerta.tipo == 1) {
             tipo = 'gate';
           } else {
             tipo = 'zona';
           }
-          var divId = tipo + '-' + puerta.idPuerta;
+          divId = tipo + '-' + puerta.idPuerta;
           if (puerta.estado == 2) {
+            console.log(divId + "color naranja");
             var src = document.getElementById(divId);
             src.style.backgroundColor = "#F1C232";
             //agregar icono de avion
             $scope.urlImagen[puerta.idPuerta] = '/../../../../assets/pictures/aiga_departingflights-512.png'
           } else {
+            console.log(divId + "dibujar avion");
             document.getElementById(divId).style.backgroundColor = "#F1C232";
           }
         }

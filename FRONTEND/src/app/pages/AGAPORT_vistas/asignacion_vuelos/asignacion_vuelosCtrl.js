@@ -5,7 +5,48 @@
     .controller('asignacion_vuelosCtrl', asignacion_vuelosCtrl);
 
   /** @ngInject */
-  function asignacion_vuelosCtrl($scope, $http) {
+  function asignacion_vuelosCtrl($scope, $http, $timeout) {
+    $scope.simulacionIni = false;
+    $scope.llamarSimulacion = function () {
+      console.log('iniciando simulación 2');
+      $http.get('http://200.16.7.178/backendAGAPORT/simulacion/iniciar').then(function successCallback(response) {
+        //console.log('simulacion iniciada');
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+    }
+
+    $scope.iniciarSimulacion = function () {
+      if (!$scope.simulacionIni) {
+        //console.log('iniciando simulación 1');
+        $scope.simulacionIni = true;
+        $scope.llamarSimulacion();
+        setInterval($scope.llamarSimulacion, 60000);
+      }
+    }
+
+    $scope.detenerSimulacion = function () {
+      if ($scope.simulacionIni) {
+        $scope.simulacionIni = false;
+        console.log('detener simulación');
+        $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
+          //console.log('simulacion iniciada');
+        }, function errorCallback(response) {
+          console.log(response);
+        });
+      }
+    }
+
+    $scope.progressFunction = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 3000);
+      }
+    };
+    $scope.progressFunction2 = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 0);
+      }
+    };
 
     $scope.leerVuelos = function () {
       $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listarAsignaciones').then(function successCallback(response) {
@@ -14,10 +55,10 @@
           //escribir el nombre de la puerta asignada
           switch ($scope.vuelos[i].puerta.tipo) {
             case 0:
-              $scope.vuelos[i].strPuerta = 'Gate ' + $scope.vuelos[i].puerta.idPuerta;
+              $scope.vuelos[i].strPuerta = 'Zona ' + $scope.vuelos[i].puerta.idPuerta;
               break;
             case 1:
-              $scope.vuelos[i].strPuerta = 'Zona ' + $scope.vuelos[i].puerta.idPuerta;
+              $scope.vuelos[i].strPuerta = 'Gate ' + $scope.vuelos[i].puerta.idPuerta;
               break;
           }
           //escribir el estado del vuelo
