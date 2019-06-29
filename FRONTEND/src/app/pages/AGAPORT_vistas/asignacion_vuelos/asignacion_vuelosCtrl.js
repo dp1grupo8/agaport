@@ -49,7 +49,7 @@
     };
 
     $scope.leerVuelos = function () {
-      $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listarAsignaciones').then(function successCallback(response) {
+      $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listar').then(function successCallback(response) {
         $scope.vuelos = response.data;
         for (var i = 0; i < $scope.vuelos.length; i++) {
           //escribir el nombre de la puerta asignada
@@ -63,10 +63,10 @@
           }
           //escribir el estado del vuelo
           switch ($scope.vuelos[i].estado) {
-            case 0:
+            case 2:
               $scope.vuelos[i].strEstado = 'En camino';
               break;
-            case 1:
+            case 3:
               $scope.vuelos[i].strEstado = 'Aterrizado';
               break;
           }
