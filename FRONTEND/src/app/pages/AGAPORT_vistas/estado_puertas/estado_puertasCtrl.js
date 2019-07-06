@@ -19,16 +19,17 @@
 
     $scope.iniciarSimulacion = function () {
       if (!$scope.simulacionIni) {
-        //console.log('iniciando simulación 1');
+        console.log('iniciando simulación 1');
         $scope.simulacionIni = true;
         $scope.llamarSimulacion();
-        setInterval($scope.llamarSimulacion, 60000);
+        $scope.simulacion = setInterval($scope.llamarSimulacion, 3000);
       }
     }
 
     $scope.detenerSimulacion = function () {
       if ($scope.simulacionIni) {
         $scope.simulacionIni = false;
+        clearInterval($scope.simulacion);
         console.log('detener simulación');
         $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
           //console.log('simulacion iniciada');
@@ -182,9 +183,9 @@
       });
     }
 
-    //función que llama a otra función cada 30 seg
+    //función que llama a otra función cada 60 seg
     $scope.leerData();
-    setInterval($scope.leerData, 30000);
+    setInterval($scope.leerData, 60000);
 
     $scope.detalle = function (tipo, idPuerta) {
       $scope.puertaSeleccionada = true;
