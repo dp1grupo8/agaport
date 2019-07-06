@@ -25,6 +25,10 @@ public class Puerta {
         return Tipo;
     }
 
+    public int getIdPuerta() {
+        return idPuerta;
+    }
+
     public int getBorrado() {
         return borrado;
     }

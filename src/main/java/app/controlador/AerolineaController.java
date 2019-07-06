@@ -59,6 +59,7 @@ public class AerolineaController {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setNombre(Nombre);
         a.setPrioridad(p);
+        aerolineaRepo.save(a);
         return "Modificado";
     }    
     @CrossOrigin
@@ -66,6 +67,7 @@ public class AerolineaController {
 	public @ResponseBody String eliminarAerolinea(@RequestParam int idAerolinea) {
         Aerolinea a = aerolineaRepo.findById(idAerolinea).get();	
         a.setBorrado(1);
+        aerolineaRepo.save(a);
         return "Eliminado";
     }    
 }

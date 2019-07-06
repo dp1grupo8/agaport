@@ -25,11 +25,8 @@
   <!-- endbuild -->
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT9L237"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div class="body-bg"></div>
+
 <main ng-if="$pageFinishedLoading" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }">
 
   <ba-sidebar></ba-sidebar>
@@ -46,17 +43,18 @@
     <!-- <div class="al-footer-right">Created with <i class="ion-heart"></i></div> -->
     <div class="al-footer-main clearfix">
       <div class="al-copy">AGAPORT 2019</div>
-      <ul class="al-share clearfix">
+      <!-- <ul class="al-share clearfix">
         <li><i class="socicon socicon-facebook"></i></li>
         <li><i class="socicon socicon-twitter"></i></li>
         <li><i class="socicon socicon-google"></i></li>
         <li><i class="socicon socicon-github"></i></li>
-      </ul>
+      </ul> -->
     </div>
   </footer>
 
   <back-top></back-top>
 </main>
+
 
 <div id="preloader" ng-show="!$pageFinishedLoading">
   <div></div>

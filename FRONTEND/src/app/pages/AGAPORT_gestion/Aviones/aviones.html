@@ -1,5 +1,17 @@
 <ui-view autoscroll="true" autoscroll-body-top>
 
+<div class="row" style="margin-bottom:20px">
+	<div class="col-xs-12">
+		<div class="form-group">
+			<label for="busquedaAvion" class="col-sm-4" style="margin-top:10px">Buscar avión: </label>
+			<div class="col-sm-8">
+					<input ng-model="busquedaAvion.$" type="text" class="form-control" id="busquedaAvion" placeholder="Inserte información del avión">
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div ba-panel ba-panel-title="Lista de Aviones" ba-panel-class="with-scroll table-panel">
 	<div class="row">
 		<div class="col-md-12">
@@ -16,12 +28,12 @@
 				  <th>Combustible máximo (litros)</th>
 			    </tr>
 			    </thead>
-			    <tbody>
-			    <tr ng-repeat="item in datosAviones" ng-click="seleccionarAvion(item);">
-			      <td class="table-id">{{$index + 1}}</td>
-			      <td>{{item.Placa}}</td>
-			      <td>{{item.Placa}}</td>
-			      <td>{{item.capacidadMax}}</td>
+			    <tbody id="cuerpoTablaAviones">
+			    <tr ng-repeat="item in datosAviones | filter:busquedaAvion" ng-click="seleccionarAvion(item);">
+			    <td class="table-id">{{$index + 1}}</td>
+			    <td>{{item.placa}}</td>
+			    <td>{{item.aerolinea.nombre}}</td>
+			    <td>{{item.capacidadMax}}</td>
 				  <td>{{item.cargaMax}}</td>
 				  <td>{{item.combustibleMax}}</td>
 			    </tr>
@@ -39,8 +51,8 @@
 	<div>Capacidad Maxima del avion seleccionado: {{avionSeleccionado.capacidadMax}}</div>
 </div>
 <div class="row form-inline">
-	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aviones/popupEliminarAvion.html','md')">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.modificar({avionSeleccionado:avionSeleccionado})"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Aviones/popupEliminarAvion.html','md',avionSeleccionado.idavion)">Eliminar</button></a></div>
+	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.modificar({idAvion:avionSeleccionado.idAvion,placa:avionSeleccionado.placa,capacidadMax:avionSeleccionado.capacidadMax,cargaMax:avionSeleccionado.cargaMax,combustibleMax:avionSeleccionado.combustibleMax,idAerolinea:avionSeleccionado.aerolinea.idAerolinea})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.aviones.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 

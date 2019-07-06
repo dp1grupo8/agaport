@@ -1,0 +1,30 @@
+[
+    {
+        "idPuerta": 3,
+        "tipo": 1,
+        "distanciaASalida": 20,
+        "flujoPersonas": 10,
+        "estado": 1
+    },
+    {
+        "idPuerta": 9,
+        "tipo": 0,
+        "distanciaASalida": 20,
+        "flujoPersonas": 10,
+        "estado": 1
+    },
+    {
+        "idPuerta": 12,
+        "tipo": 0,
+        "distanciaASalida": 20,
+        "flujoPersonas": 10,
+        "estado": 1
+    },
+    {
+        "idPuerta": 33,
+        "tipo": 1,
+        "distanciaASalida": 20,
+        "flujoPersonas": 10,
+        "estado": 1
+    }
+]

@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity // Le dice a Hibernate hacer una tabla de esta clase
 @Table(name="aerolineas")
-public class Aerolinea {
+public class Aerolinea implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idAerolinea;

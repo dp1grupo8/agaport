@@ -50,6 +50,7 @@ public class ClaseVueloController {
         ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();
         c.setDescripcion(Descripcion);
         c.setNPrioridad(NPrioridad);
+        claseVueloRepo.save(c);
         return "Modificado";
     }    
     @CrossOrigin
@@ -57,6 +58,7 @@ public class ClaseVueloController {
 	public @ResponseBody String eliminarClaseVuelo(@RequestParam int idClaseVuelo) {
         ClaseVuelo c = claseVueloRepo.findById(idClaseVuelo).get();	
         c.setBorrado(1);
+        claseVueloRepo.save(c);
         return "Eliminado";
     }    
 }

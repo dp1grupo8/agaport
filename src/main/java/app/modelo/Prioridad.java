@@ -23,6 +23,11 @@ public class Prioridad {
         return Descripcion;
     }
 
+    public int getIdPrioridad() {
+        return idPrioridad;
+    }
+
+
     public int getBorrado() {
         return borrado;
     }
