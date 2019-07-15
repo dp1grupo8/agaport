@@ -18,17 +18,22 @@
 			  <table class="table table-hover">
 			    <thead>
 			    <tr class="black-muted-bg">
-			      <th class="table-id">#</th>
+			    
+			      <th>idAerolinea</th>
 			      <th>Aerolinea</th>
 			      <th>Prioridad</th>
 			    </tr>
 			    </thead>
 			    <tbody id="cuerpoTablaAerolineas">
 			    <tr ng-repeat="item in datosAerolineas| filter:busquedaAerolinea" ng-click="seleccionarAerolinea(item);">
-			      <td class="table-id">{{$index + 1}}</td>
+			 
+			      <td>{{item.idAerolinea}}</td>
 			      <td>{{item.nombre}}</td>
 				  <td>{{item.prioridad.descripcion}}</td>
 			    </tr>
+
+
+			    
 			    </tbody>
 			  </table>
 			  <div ng-show="datosAerolineas.length==0">

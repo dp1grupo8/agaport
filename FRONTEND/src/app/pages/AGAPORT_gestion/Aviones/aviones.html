@@ -20,7 +20,8 @@
 			  <table class="table table-hover">
 			    <thead>
 			    <tr class="black-muted-bg">
-			      <th class="table-id">#</th>
+			    <!--   <th class="table-id">#</th> -->
+			      <th>idAvion</th>
 			      <th>Placa</th>
 			      <th>Aerolínea</th>
 				  <th>Máximo de Pasajeros</th>
@@ -30,7 +31,8 @@
 			    </thead>
 			    <tbody id="cuerpoTablaAviones">
 			    <tr ng-repeat="item in datosAviones | filter:busquedaAvion" ng-click="seleccionarAvion(item);">
-			    <td class="table-id">{{$index + 1}}</td>
+			<!--     <td class="table-id">{{$index + 1}}</td> -->
+			    <td>{{item.idAvion}}</td>
 			    <td>{{item.placa}}</td>
 			    <td>{{item.aerolinea.nombre}}</td>
 			    <td>{{item.capacidadMax}}</td>

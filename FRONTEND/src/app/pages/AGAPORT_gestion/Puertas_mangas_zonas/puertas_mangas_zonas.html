@@ -18,7 +18,8 @@
 			  <table class="table table-hover">
 			    <thead>
 			    <tr class="black-muted-bg">
-			      <th class="table-id">#</th>
+			    <!--   <th class="table-id">#</th> -->
+			      <th>idPuerta</th>
 			      <th>Tipo</th>
 			      <th>Distancia a salida (m)</th>
                   <th>Flujo de Personas</th>
@@ -27,7 +28,8 @@
 			    </thead>
 			    <tbody id="cuerpoTablaPuertas">
 			    <tr ng-repeat="item in datosPuertas | filter:busquedaPuerta" ng-click="seleccionarPuerta(item);">
-			      <td class="table-id">{{$index + 1}}</td>
+			  <!--     <td class="table-id">{{$index + 1}}</td> -->
+			  	  <td>{{item.idPuerta}}</td>
 			      <td>{{item.tipo==1? 'Manga':'Zona'}}</td>
 			      <td>{{item.distanciaASalida}}</td>
 			      <td>{{item.flujoPersonas}}</td>
