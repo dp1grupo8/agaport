@@ -4,7 +4,7 @@
   angular.module('Agaport.vistas', [
       'Agaport.vistas.asignacion_vuelos',
       'Agaport.vistas.estado_puertas',
-      'Agaport.vistas.historico_mangas_zonas',
+      // 'Agaport.vistas.historico_mangas_zonas',
     ])
       .config(routeConfig);
 

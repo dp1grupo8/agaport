@@ -21,7 +21,7 @@
           abstract: true,
           title: 'Gestión',
           sidebarMeta: {
-            icon: 'ion-gear-a',
+            // icon: 'ion-gear-a',
             order: 1000,
           },
         });
