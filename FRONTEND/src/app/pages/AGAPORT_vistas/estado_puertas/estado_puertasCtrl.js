@@ -89,15 +89,15 @@
         $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
       }
       // Crear un array de id de puertas que pueden existir
-      var puertasDisponibles = [];
+      $scope.puertasDisponibles = [];
       for (var i = 1; i <= 7; i++) {
-        puertasDisponibles.push(i);
+        $scope.puertasDisponibles.push(i);
       }
       for (var i = 8; i <= 26; i++) {
-        puertasDisponibles.push(i);
+        $scope.puertasDisponibles.push(i);
       }
       for (var i = 29; i <= 39; i++) {
-        puertasDisponibles.push(i);
+        $scope.puertasDisponibles.push(i);
       }
       var divId = "";
       $http.get('http://200.16.7.178/backendAGAPORT/puertas/listarTodasPuertas').then(function successCallback(response) {
@@ -122,7 +122,7 @@
         var tipo;
         for (var i = 0; i < puertas.length; i++) {
           puerta = puertas[i];
-          if (puertasDisponibles.includes(puerta.idPuerta) > 0) {
+          if ($scope.puertasDisponibles.includes(puerta.idPuerta) > 0) {
             if (puerta.tipo == 1) {
               tipo = 'gate';
             } else {
@@ -143,9 +143,21 @@
             console.log("puerta: " + puerta.idPuerta + " no existe");
           }
         }
+        
+        $scope.pintarPuertasUsadas();
+        console.log('fin: leer data')
       }, function errorCallback(response) {
         console.log(response);
-      });
+      });      
+    }
+
+    //función que llama a otra función cada 60 seg
+    $scope.leerData();
+    setInterval($scope.leerData, 60000);
+
+    //pintar puertas amarillas y aviones
+    $scope.pintarPuertasUsadas = function () {
+      console.log('pintar puertas usadas')
       $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listar').then(function successCallback(response) {
         //Almacena data de todos los vuelos no "muertos"
         $scope.vuelos = response.data;
@@ -156,14 +168,14 @@
         var tipo;
         for (var i = 0; i < vuelos.length; i++) {
           puerta = vuelos[i].puerta;
-          if (puertasDisponibles.includes(puerta.idPuerta) > 0) {
+          if ($scope.puertasDisponibles.includes(puerta.idPuerta) > 0) {
             tipo;
             if (puerta.tipo == 1) {
               tipo = 'gate';
             } else {
               tipo = 'zona';
             }
-            divId = tipo + '-' + puerta.idPuerta;
+            var divId = tipo + '-' + puerta.idPuerta;
             if (vuelos[i].estado == 3) {
               // console.log(divId + " dibujar avion");
               var src = document.getElementById(divId);
@@ -182,10 +194,6 @@
         console.log(response);
       });
     }
-
-    //función que llama a otra función cada 60 seg
-    $scope.leerData();
-    setInterval($scope.leerData, 60000);
 
     $scope.detalle = function (tipo, idPuerta) {
       $scope.puertaSeleccionada = true;
