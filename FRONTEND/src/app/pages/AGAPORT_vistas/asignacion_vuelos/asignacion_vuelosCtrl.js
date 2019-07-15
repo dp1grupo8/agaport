@@ -10,7 +10,7 @@
     $scope.llamarSimulacion = function () {
       console.log('iniciando simulación 2');
       $http.get('http://200.16.7.178/backendAGAPORT/simulacion/iniciar').then(function successCallback(response) {
-        //console.log('simulacion iniciada');
+        console.log('simulacion iniciada');
       }, function errorCallback(response) {
         console.log(response);
       });
@@ -18,16 +18,17 @@
 
     $scope.iniciarSimulacion = function () {
       if (!$scope.simulacionIni) {
-        //console.log('iniciando simulación 1');
+        console.log('iniciando simulación 1');
         $scope.simulacionIni = true;
         $scope.llamarSimulacion();
-        setInterval($scope.llamarSimulacion, 60000);
+        $scope.simulacion = setInterval($scope.llamarSimulacion, 3000);
       }
     }
 
     $scope.detenerSimulacion = function () {
       if ($scope.simulacionIni) {
         $scope.simulacionIni = false;
+        clearInterval($scope.simulacion);
         console.log('detener simulación');
         $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
           //console.log('simulacion iniciada');
@@ -78,7 +79,7 @@
     }
 
     $scope.leerVuelos();
-    setInterval($scope.leerVuelos, 30000);
+    setInterval($scope.leerVuelos, 60000);
 
     // $http.get('/app/pages/AGAPORT_vistas/asignacion_vuelos/data/vuelos-llegada.json').then(function successCallback(response) {
     //   $scope.vuelos = response.data;
