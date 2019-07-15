@@ -149,6 +149,7 @@ public class VueloLlegadaController{
 			String fechaActualString = dateFormat.format(fechaActual);
 
 			for (String elementName : elementNames){
+				//corroboracion de que no existe el vuel
 
 				if(elementName.equals("arrivalTime")){
 					String value = objectInArray.getString(elementName);
@@ -158,7 +159,7 @@ public class VueloLlegadaController{
 					SimpleDateFormat formatter2=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 					try{
 						Date horaLlegada = formatter2.parse(horaLlegadaString);
-						System.out.println(horaLlegadaString);
+						//System.out.println(horaLlegadaString);
 						horasLlegada.add(horaLlegada);
 					}catch (Exception e){
 						System.out.println(e);
@@ -167,26 +168,66 @@ public class VueloLlegadaController{
 
 				if(elementName.equals("flightNumber")){
 					String codVuelo = objectInArray.getString(elementName);
-					System.out.println(codVuelo);
+					//System.out.println(codVuelo);
 					codLlegada.add(codVuelo);
 				}
 				if(elementName.equals("airplaneCode")){
 					String codAvion = objectInArray.getString(elementName);
-					System.out.println(codAvion);
+					//System.out.println(codAvion);
 					avionesLlegada.add(codAvion);
 				}
 				if(elementName.equals("passengerNumber")){
 					Integer cantidad = objectInArray.getInt(elementName);
-					System.out.println(cantidad);
+					//System.out.println(cantidad);
 					pasajerosLlegada.add(cantidad);
 				}
 			}		
 			
 		}
 
-		for (int i = 0; i<codLlegada.size(); i++){
+		//corroboracion de que no existen los vuelos
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+        ArrayList<VueloLlegada> listaExistentes = new ArrayList<VueloLlegada>();
+        ArrayList<Integer> idsEliminar = new ArrayList<Integer>();
 
-			Avion a = avionRepo.findById(Integer.parseInt(avionesLlegada.get(i))).get();
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getBorrado()==0 && vl.getEstado()!=4){
+            	Avion a = vl.getAvion();
+            	Integer codAvion = a.getIdAvion();
+            	//System.out.println(codAvion);
+
+            	for(int i= 0; i<avionesLlegada.size();i++){
+            		if((Integer.parseInt(avionesLlegada.get(i))) == codAvion){
+            			idsEliminar.add(i);
+            			pasajerosLlegada.set(i,0);
+            		}
+            	}
+
+                listaExistentes.add(vl);
+            }
+        }
+
+        ArrayList<Date> hLlegada = new ArrayList<Date>();
+		ArrayList<String> cLlegada = new ArrayList<String>();
+		ArrayList<String> aLlegada = new ArrayList<String>();
+		ArrayList<Integer> pLlegada = new ArrayList<Integer>();
+
+        for (int i = 0; i<pasajerosLlegada.size(); i++){
+        	if(pasajerosLlegada.get(i) !=0){
+        		hLlegada.add(horasLlegada.get(i));
+        		cLlegada.add(codLlegada.get(i));
+        		aLlegada.add(avionesLlegada.get(i));
+        		pLlegada.add(pasajerosLlegada.get(i));
+        	}
+        }
+
+        System.out.println(hLlegada.size());
+
+       	//mandarlos a encolar
+        
+		for (int i = 0; i<cLlegada.size(); i++){
+
+			Avion a = avionRepo.findById(Integer.parseInt(aLlegada.get(i))).get();
 			Aerolinea aero = a.getAerolinea();
 			Prioridad pri = aero.getPrioridad();
 			double randomDouble = Math.random();
@@ -195,20 +236,21 @@ public class VueloLlegadaController{
 			System.out.println(randomInt);
 			ClaseVuelo cv = claseVueloRepo.findById(randomInt).get();
 			VueloLlegada v = new VueloLlegada();
-			v.setHoraLlegadaReal(horasLlegada.get(i));
-			v.setEstado(2);
+			v.setHoraLlegadaReal(hLlegada.get(i));
+			v.setEstado(0);
 			v.setAvion(a);
 			v.setClaseVuelo(cv);
-			v.setNPersonas(pasajerosLlegada.get(i));
+			v.setNPersonas(pLlegada.get(i));
 			vueloLlegadaRepo.save(v);
 
 			DateFormat dateFormat1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String fechaString = dateFormat1.format(horasLlegada.get(i));
+			String fechaString = dateFormat1.format(hLlegada.get(i));
 
-			String respuesta = encolarVuelo (v.getIdVuelo(),fechaString,Integer.toString(pasajerosLlegada.get(i))
+			String respuesta = encolarVuelo (v.getIdVuelo(),fechaString,Integer.toString(pLlegada.get(i))
 												,Integer.toString(pri.getIdPrioridad()));
 
 		}
+		
 
 
 
@@ -268,6 +310,43 @@ public class VueloLlegadaController{
 	}
 
 	@CrossOrigin
+	@GetMapping(path="/asignarAterrizaje")
+	public @ResponseBody String asignarAterrizaje(){
+		//obtener fecha actual del sistema
+		SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
+		Date fechaActual = new Date(System.currentTimeMillis());
+		//convertir fecha actual a string
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		String fechaActualString = dateFormat.format(fechaActual);
+
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getBorrado()==0 && vl.getEstado()==2){
+            	Date horaLlegada = vl.getHoraLlegadaReal();
+            	if(fechaActual.compareTo(horaLlegada) >= 0){
+            		vl.setEstado(3);
+            		vueloLlegadaRepo.save(vl);
+            		Puerta p = vl.getPuerta();
+            		int idPuerta = p.getIdPuerta();
+            		Puerta p1 = new Puerta();
+            		p1 = puertaRepo.findById(idPuerta).get();
+	      			p1.setEstado(2);
+	      			puertaRepo.save(p1);     			
+
+            	}
+            }
+        }
+
+        return "OK";
+	}
+
+	@CrossOrigin
+	@GetMapping(path="/eliminarVuelos")
+	public @ResponseBody void eliminarVuelos(){
+	}
+
+	@CrossOrigin
 	@GetMapping(path="/listarAsignaciones")
 	public @ResponseBody Iterable<VueloLlegada> prueba (){
 		//con esto se lee el json que manda python
@@ -324,7 +403,9 @@ public class VueloLlegadaController{
 	      			//System.out.println("puerta");
 	      			//System.out.println(idPuerta);
 	      			p = puertaRepo.findById(idPuerta).get();
-	      			v.setEstado(3);
+	      			p.setEstado(3);
+	      			puertaRepo.save(p);
+	      			v.setEstado(2);
 	      			v.setPuerta(p);
 	      			vueloLlegadaRepo.save(v);
 	      			vuelosAsignados.add(v);
@@ -348,5 +429,7 @@ public class VueloLlegadaController{
 
 		return vuelosAsignados;
 	}
+
+
 
 } 
