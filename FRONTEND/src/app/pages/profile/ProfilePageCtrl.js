@@ -9,13 +9,13 @@
     .controller('ProfilePageCtrl', ProfilePageCtrl);
 
   /** @ngInject */
-  function ProfilePageCtrl($scope, fileReader, $filter, $uibModal) {
+ /* function ProfilePageCtrl($scope, fileReader, $filter, $uibModal) {
     $scope.picture = $filter('profilePicture')('Nasta');
 
     $scope.removePicture = function () {
       $scope.picture = $filter('appImage')('theme/no-photo.png');
       $scope.noPicture = true;
-    };
+    };*/
 
     $scope.uploadPicture = function () {
       var fileInput = document.getElementById('uploadFile');
