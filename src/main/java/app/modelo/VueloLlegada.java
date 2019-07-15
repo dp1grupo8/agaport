@@ -1,6 +1,6 @@
 package app.modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +30,7 @@ public class VueloLlegada implements Serializable{
     private int Estado;
     private int borrado;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_puerta", nullable = false)
+    @JoinColumn(name = "id_puerta", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
     private Puerta puertaAsignada;
 
