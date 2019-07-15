@@ -79,7 +79,7 @@
     $scope.urlImagen = [];
 
     $scope.leerData = function () {
-      console.log('leyendo data');
+      // console.log('leyendo data');
       // console.log($scope.vuelos);
       // console.log($scope.puertas);
 
@@ -145,7 +145,7 @@
         }
         
         $scope.pintarPuertasUsadas();
-        console.log('fin: leer data')
+        // console.log('fin: leer data')
       }, function errorCallback(response) {
         console.log(response);
       });      
@@ -157,7 +157,6 @@
 
     //pintar puertas amarillas y aviones
     $scope.pintarPuertasUsadas = function () {
-      console.log('pintar puertas usadas')
       $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listar').then(function successCallback(response) {
         //Almacena data de todos los vuelos no "muertos"
         $scope.vuelos = response.data;
