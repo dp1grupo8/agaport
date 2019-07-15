@@ -8,7 +8,7 @@
       'Agaport.gestion.aerolineas',
       'Agaport.gestion.aviones',
       'Agaport.gestion.puertas_mangas_zonas',
-      'Agaport.gestion.usuarios',
+      //'Agaport.gestion.usuarios',
     ])
       .config(routeConfig);
 
