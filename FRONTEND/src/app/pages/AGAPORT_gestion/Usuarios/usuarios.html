@@ -43,8 +43,8 @@
 	<div>Nombres del usuario seleccionado: {{usuarioSeleccionado.nombres}}</div>
 </div>
 <div class="row form-inline">
-	<div class="col-xs-offset-9 col-xs-1"><a><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Usuarios/popupEliminarUsuario.html','md',usuarioSeleccionado.dni)">Eliminar</button></a></div>
-	<div class="col-xs-1"><a ui-sref="agaport_gestion.usuarios.modificar({idPermiso:usuarioSeleccionado.permiso.idPermiso,dni:usuarioSeleccionado.dni,nombres:usuarioSeleccionado.nombres})"><button type="button" class="btn btn-default">Modificar</button></a></div>
+	<div class="col-xs-offset-9 col-xs-1"><a ng-if="usuarioSeleccionado.dni!=null"><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/AGAPORT_gestion/Usuarios/popupEliminarUsuario.html','md',usuarioSeleccionado.dni)">Eliminar</button></a></div>
+	<div class="col-xs-1"><a ng-if="usuarioSeleccionado.dni!=null" ui-sref="agaport_gestion.usuarios.modificar({idPermiso:usuarioSeleccionado.permiso.idPermiso,dni:usuarioSeleccionado.dni,nombres:usuarioSeleccionado.nombres})"><button type="button" class="btn btn-default">Modificar</button></a></div>
 	<div class="col-xs-1"><a ui-sref="agaport_gestion.usuarios.nuevo"><button type="button" class="btn btn-default">Nuevo</button></a></div>
 </div>
 </ui-view>
