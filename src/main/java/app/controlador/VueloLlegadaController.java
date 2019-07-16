@@ -313,10 +313,10 @@ public class VueloLlegadaController{
 	@GetMapping(path="/asignarAterrizaje")
 	public @ResponseBody String asignarAterrizaje(){
 		//obtener fecha actual del sistema
-		SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss HH:mm:ss");
 		Date fechaActual = new Date(System.currentTimeMillis());
 		//convertir fecha actual a string
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss HH:mm:ss");
 		String fechaActualString = dateFormat.format(fechaActual);
 
 		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
@@ -344,6 +344,31 @@ public class VueloLlegadaController{
 	@CrossOrigin
 	@GetMapping(path="/eliminarVuelos")
 	public @ResponseBody void eliminarVuelos(){
+		//obtener fecha actual del sistema
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss HH:mm:ss");
+		Date fechaActual = new Date(System.currentTimeMillis());
+
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getBorrado()==0 && vl.getEstado()==3){
+            	Date horaLlegada = vl.getHoraLlegadaReal();
+            	long diff = fechaActual.getTime() - horaLlegada.getTime();
+            	long diffSeconds = diff / 1000;
+
+            	if(diffSeconds >= 2700.00){
+            		vl.setEstado(4);
+            		vueloLlegadaRepo.save(vl);
+            		Puerta p = vl.getPuerta();
+            		int idPuerta = p.getIdPuerta();
+            		Puerta p1 = new Puerta();
+            		p1 = puertaRepo.findById(idPuerta).get();
+	      			p1.setEstado(1);
+	      			puertaRepo.save(p1);  
+
+            	}
+            }
+        }
 	}
 
 	@CrossOrigin
