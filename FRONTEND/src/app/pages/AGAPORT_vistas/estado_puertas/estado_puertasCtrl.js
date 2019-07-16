@@ -147,7 +147,7 @@
               document.getElementById(divId).style.backgroundColor = "#E9E9E9";
             }
           } else {
-            //console.log("puerta: " + puerta.idPuerta + " no existe");
+            console.log("puerta: " + puerta.idPuerta + " no existe");
           }
         }
         
