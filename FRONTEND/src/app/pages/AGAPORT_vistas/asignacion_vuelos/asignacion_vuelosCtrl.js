@@ -21,7 +21,8 @@
         console.log('iniciando simulación 1');
         $scope.simulacionIni = true;
         $scope.llamarSimulacion();
-        $scope.simulacion = setInterval($scope.llamarSimulacion, 3000);
+        clearInterval($scope.simulacion);
+        $scope.simulacion = setInterval($scope.leerData, 3000);
       }
     }
 
@@ -29,6 +30,7 @@
       if ($scope.simulacionIni) {
         $scope.simulacionIni = false;
         clearInterval($scope.simulacion);
+        $scope.simulacion = setInterval($scope.leerData, 30000);
         console.log('detener simulación');
         $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
           //console.log('simulacion iniciada');
@@ -37,6 +39,11 @@
         });
       }
     }
+
+    $scope.$on('$destroy', function() {
+      // detener la simulación si se cambia de pantalla
+      $scope.detenerSimulacion();
+    });
 
     $scope.progressFunction = function () {
       if (!$scope.simulacionIni) {
@@ -79,7 +86,7 @@
     }
 
     $scope.leerVuelos();
-    setInterval($scope.leerVuelos, 60000);
+    $scope.simulacion = setInterval($scope.leerVuelos, 30000);
 
     // $http.get('/app/pages/AGAPORT_vistas/asignacion_vuelos/data/vuelos-llegada.json').then(function successCallback(response) {
     //   $scope.vuelos = response.data;

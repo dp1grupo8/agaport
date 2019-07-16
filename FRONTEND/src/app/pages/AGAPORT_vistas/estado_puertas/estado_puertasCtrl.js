@@ -22,7 +22,8 @@
         console.log('iniciando simulación 1');
         $scope.simulacionIni = true;
         $scope.llamarSimulacion();
-        $scope.simulacion = setInterval($scope.llamarSimulacion, 3000);
+        clearInterval($scope.simulacion);
+        $scope.simulacion = setInterval($scope.leerData, 3000);
       }
     }
 
@@ -30,6 +31,7 @@
       if ($scope.simulacionIni) {
         $scope.simulacionIni = false;
         clearInterval($scope.simulacion);
+        $scope.simulacion = setInterval($scope.leerData, 30000);
         console.log('detener simulación');
         $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
           //console.log('simulacion iniciada');
@@ -38,6 +40,11 @@
         });
       }
     }
+
+    $scope.$on('$destroy', function() {
+      // detener la simulación si se cambia de pantalla
+      $scope.detenerSimulacion();
+    });
 
     $scope.progressFunction = function () {
       if (!$scope.simulacionIni) {
@@ -140,7 +147,7 @@
               document.getElementById(divId).style.backgroundColor = "#E9E9E9";
             }
           } else {
-            console.log("puerta: " + puerta.idPuerta + " no existe");
+            //console.log("puerta: " + puerta.idPuerta + " no existe");
           }
         }
         
@@ -153,7 +160,7 @@
 
     //función que llama a otra función cada 60 seg
     $scope.leerData();
-    setInterval($scope.leerData, 60000);
+    $scope.simulacion = setInterval($scope.leerData, 30000);
 
     //pintar puertas amarillas y aviones
     $scope.pintarPuertasUsadas = function () {
