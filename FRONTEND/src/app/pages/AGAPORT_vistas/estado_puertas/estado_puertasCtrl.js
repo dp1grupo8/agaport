@@ -5,8 +5,50 @@
     .controller('estado_puertasCtrl', estado_puertasCtrl);
 
   /** @ngInject */
-  function estado_puertasCtrl($scope, $http) {
+  function estado_puertasCtrl($scope, $http, $timeout) {
 
+    $scope.simulacionIni = false;
+    $scope.llamarSimulacion = function () {
+      console.log('iniciando simulación 2');
+      $http.get('http://200.16.7.178/backendAGAPORT/simulacion/iniciar').then(function successCallback(response) {
+        //console.log('simulacion iniciada');
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+    }
+
+    $scope.iniciarSimulacion = function () {
+      if (!$scope.simulacionIni) {
+        console.log('iniciando simulación 1');
+        $scope.simulacionIni = true;
+        $scope.llamarSimulacion();
+        $scope.simulacion = setInterval($scope.llamarSimulacion, 3000);
+      }
+    }
+
+    $scope.detenerSimulacion = function () {
+      if ($scope.simulacionIni) {
+        $scope.simulacionIni = false;
+        clearInterval($scope.simulacion);
+        console.log('detener simulación');
+        $http.get('http://200.16.7.178/backendAGAPORT/simulacion/detener').then(function successCallback(response) {
+          //console.log('simulacion iniciada');
+        }, function errorCallback(response) {
+          console.log(response);
+        });
+      }
+    }
+
+    $scope.progressFunction = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 30000);
+      }
+    };
+    $scope.progressFunction2 = function () {
+      if (!$scope.simulacionIni) {
+        return $timeout(function () { }, 0);
+      }
+    };
     $scope.puertaSeleccionada = false;
 
     $scope.range = function (num) {
@@ -25,13 +67,13 @@
         *      -distanciaASalida
         *      -flujoPersonas
         *      -tipo: 1:manga(gate), 0:zona
-        *      -estado: 0: deshabilitada. 1: habilitada. 2: en uso. 3: programada
+        *      -estado: 0: deshabilitada. 1: habilitada. 2: en uso. "3: programada (del vuelo)"
         * -Objeto: Avion
         *      -placa
         *      -aerolinea
         * -clase: clase del vuelo (string)
     */
-    
+
     $scope.vuelos = [];
     $scope.puertas = [];
     $scope.urlImagen = [];
@@ -46,7 +88,18 @@
       for (var i = 0; i < 40; i++) {
         $scope.urlImagen[i] = '/../../../../assets/pictures/no-image.png';
       }
-
+      // Crear un array de id de puertas que pueden existir
+      $scope.puertasDisponibles = [];
+      for (var i = 1; i <= 7; i++) {
+        $scope.puertasDisponibles.push(i);
+      }
+      for (var i = 8; i <= 26; i++) {
+        $scope.puertasDisponibles.push(i);
+      }
+      for (var i = 29; i <= 39; i++) {
+        $scope.puertasDisponibles.push(i);
+      }
+      var divId = "";
       $http.get('http://200.16.7.178/backendAGAPORT/puertas/listarTodasPuertas').then(function successCallback(response) {
         // Hace que todas las puertas aparezcan de color gris
 
@@ -61,60 +114,86 @@
 
         //Almacenar data de todas las puertas
         $scope.puertas = response.data;
-        console.log($scope.puertas);
+        // console.log("data dentro de puertas: ");
+        // console.log($scope.puertas);
         var puertas = $scope.puertas;
+        // console.log("numero de puertas: " + puertas.length);
+        var puerta;
+        var tipo;
         for (var i = 0; i < puertas.length; i++) {
-          var puerta = puertas[i];
-          var tipo;
-          if (puerta.tipo == 1) {
-            tipo = 'gate';
+          puerta = puertas[i];
+          if ($scope.puertasDisponibles.includes(puerta.idPuerta) > 0) {
+            if (puerta.tipo == 1) {
+              tipo = 'gate';
+            } else {
+              tipo = 'zona';
+            }
+            divId = tipo + '-' + puerta.idPuerta;
+            if (puerta.estado == 1) {
+              // Pintar puerta de color blanco
+              // console.log(divId + " blanco");
+              document.getElementById(divId).style.backgroundColor = "#FFFFFF";
+            }
+            if (puerta.estado == 0) {
+              // Pintar puerta de color gris
+              // console.log(divId + " gris");
+              document.getElementById(divId).style.backgroundColor = "#E9E9E9";
+            }
           } else {
-            tipo = 'zona';
-          }
-          var divId = tipo + '-' + puerta.idPuerta;
-          if (puerta.estado == 1) {
-            // Pintar puerta de color blanco
-            document.getElementById(divId).style.backgroundColor = "#FFFFFF"
-          }
-          if (puerta.estado == 0) {
-            // Pintar puerta de color gris
-            document.getElementById(divId).style.backgroundColor = "#E9E9E9"
+            console.log("puerta: " + puerta.idPuerta + " no existe");
           }
         }
+        
+        $scope.pintarPuertasUsadas();
+        console.log('fin: leer data')
       }, function errorCallback(response) {
         console.log(response);
-      });
-      $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listarAsignaciones').then(function successCallback(response) {
+      });      
+    }
+
+    //función que llama a otra función cada 60 seg
+    $scope.leerData();
+    setInterval($scope.leerData, 60000);
+
+    //pintar puertas amarillas y aviones
+    $scope.pintarPuertasUsadas = function () {
+      console.log('pintar puertas usadas')
+      $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/listar').then(function successCallback(response) {
         //Almacena data de todos los vuelos no "muertos"
         $scope.vuelos = response.data;
-        console.log($scope.vuelos);
+        // console.log("data dentro de vuelos: ");
+        // console.log($scope.vuelos);
         var vuelos = $scope.vuelos;
+        var puerta;
+        var tipo;
         for (var i = 0; i < vuelos.length; i++) {
-          var puerta = vuelos[i].puerta;
-          var tipo;
-          if (puerta.tipo == 1) {
-            tipo = 'gate';
+          puerta = vuelos[i].puerta;
+          if ($scope.puertasDisponibles.includes(puerta.idPuerta) > 0) {
+            tipo;
+            if (puerta.tipo == 1) {
+              tipo = 'gate';
+            } else {
+              tipo = 'zona';
+            }
+            var divId = tipo + '-' + puerta.idPuerta;
+            if (vuelos[i].estado == 3) {
+              // console.log(divId + " dibujar avion");
+              var src = document.getElementById(divId);
+              src.style.backgroundColor = "#F1C232";
+              //agregar icono de avion
+              $scope.urlImagen[puerta.idPuerta] = '/../../../../assets/pictures/aiga_departingflights-512.png'
+            } else {
+              // console.log(divId + " color naranja");
+              document.getElementById(divId).style.backgroundColor = "#F1C232";
+            }
           } else {
-            tipo = 'zona';
-          }
-          var divId = tipo + '-' + puerta.idPuerta;
-          if (puerta.estado == 2) {
-            var src = document.getElementById(divId);
-            src.style.backgroundColor = "#F1C232";
-            //agregar icono de avion
-            $scope.urlImagen[puerta.idPuerta] = '/../../../../assets/pictures/aiga_departingflights-512.png'
-          } else {
-            document.getElementById(divId).style.backgroundColor = "#F1C232";
+            console.log("puerta: " + puerta.idPuerta + " no existe");
           }
         }
       }, function errorCallback(response) {
         console.log(response);
       });
     }
-
-    //función que llama a otra función cada 30 seg
-    $scope.leerData();
-    setInterval($scope.leerData, 30000);
 
     $scope.detalle = function (tipo, idPuerta) {
       $scope.puertaSeleccionada = true;
@@ -139,12 +218,6 @@
           case 1:
             $scope.puerta.strEstadoPuerta = 'Habilitado';
             break;
-          case 2:
-            $scope.puerta.strEstadoPuerta = 'En uso';
-            break;
-          case 3:
-            $scope.puerta.strEstadoPuerta = 'Uso programado';
-            break;
         }
 
         if ($scope.puerta.distanciaASalida !== undefined) {
@@ -159,7 +232,7 @@
         }
 
       } else {
-        console.log($scope.puerta);
+        //console.log($scope.puerta);
 
         switch ($scope.puerta.puerta.tipo) {
           case 0:
@@ -170,18 +243,12 @@
             break;
         }
 
-        switch ($scope.puerta.puerta.estado) {
-          case 0:
-            $scope.puerta.strEstadoPuerta = 'Deshabilitado';
-            break;
-          case 1:
-            $scope.puerta.strEstadoPuerta = 'Habilitado';
-            break;
+        switch ($scope.puerta.estado) {
           case 2:
-            $scope.puerta.strEstadoPuerta = 'En uso';
+            $scope.puerta.strEstadoPuerta = 'Uso programado';
             break;
           case 3:
-            $scope.puerta.strEstadoPuerta = 'Uso programado';
+            $scope.puerta.strEstadoPuerta = 'En uso';
             break;
         }
 

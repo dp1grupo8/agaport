@@ -1,3 +1,15 @@
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.center-text{
+    text-align: center;
+}
 .info{
   text-align: center;
 }
@@ -6,7 +18,6 @@
 }
 .mapa {
   width: 80%;
-  border: 1px solid black;
   box-sizing: border-box;
   position: relative;
   margin: auto;
@@ -162,7 +173,7 @@
     width: 50%;
   }
   .zonas-der2 {
-    top: 90%;
+    top: 95%;
     right: 0.74%;
     position: absolute;
     width: 50%;
@@ -170,7 +181,7 @@
 
   div[id^="zona-"] {
     width: 8.98%;
-    height: 6%;
+    height: 10.37%;
     border: 1px solid black;
     box-sizing: border-box;
     margin: 12px 5px;

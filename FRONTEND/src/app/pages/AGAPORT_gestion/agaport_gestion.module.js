@@ -8,7 +8,7 @@
       'Agaport.gestion.aerolineas',
       'Agaport.gestion.aviones',
       'Agaport.gestion.puertas_mangas_zonas',
-      'Agaport.gestion.usuarios',
+      //'Agaport.gestion.usuarios',
     ])
       .config(routeConfig);
 
@@ -21,7 +21,7 @@
           abstract: true,
           title: 'Gestión',
           sidebarMeta: {
-            icon: 'ion-gear-a',
+            // icon: 'ion-gear-a',
             order: 1000,
           },
         });
