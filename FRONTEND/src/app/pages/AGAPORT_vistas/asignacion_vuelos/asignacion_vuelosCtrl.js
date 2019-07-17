@@ -77,7 +77,10 @@
             case 3:
               $scope.vuelos[i].strEstado = 'Aterrizado';
               break;
-          }
+          }          
+          var fecha = new Date($scope.vuelos[i].horaLlegadaReal);
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          $scope.vuelos[i].hora = fecha.toLocaleDateString("es-ES", options) + ", " + fecha.toLocaleTimeString('en-US')
         }
         console.log($scope.vuelos);
       }, function errorCallback(response) {
