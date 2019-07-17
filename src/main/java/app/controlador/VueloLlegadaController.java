@@ -116,7 +116,7 @@ public class VueloLlegadaController{
         Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
         ArrayList<VueloLlegada> listaExistentes = new ArrayList<VueloLlegada>();
         for(VueloLlegada vl: listarVuelosLlegada){
-            if (vl.getBorrado()==0 && (vl.getPuerta() != null) && vl.getEstado!=4){
+            if (vl.getBorrado()==0 && (vl.getPuerta() != null) && vl.getEstado() != 4){
                 listaExistentes.add(vl);
             }
         }
