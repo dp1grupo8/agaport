@@ -60,6 +60,8 @@ public class VueloLlegadaController{
     @Autowired
     private RepositorioClaseVuelo claseVueloRepo;
 
+    private int habilitadoServicio = 0;
+
     private static final Logger logger = LoggerFactory.getLogger(VueloLlegadaController.class);
 	@CrossOrigin
     @PostMapping(path="/insertar")
@@ -352,16 +354,35 @@ public class VueloLlegadaController{
         return "OK";
 	}
 
-	/*
+	
 	@CrossOrigin
 	@GetMapping(path="/rVuelos")
 	@Scheduled(fixedDelay =4000)
 	public @ResponseBody void rVuelos(){
 		//int rVuelo = registrarVuelos();
+		/*
 		String respuestaA= asignarAterrizaje();
 		System.out.println("respuestaA");
 		eliminarVuelos();
 		System.out.println("servicio2");
+		*/
+		if (habilitadoServicio == 1){
+			System.out.println("corriendoServicio");
+		}
+	}
+
+	@CrossOrigin
+	@GetMapping(path="/empiezaServicio")
+	public @ResponseBody void empiezaServicio(){
+		habilitadoServicio=1;
+
+	}
+
+	@CrossOrigin
+	@GetMapping(path="/terminaServicio")
+	public @ResponseBody void terminaServicio(){
+		habilitadoServicio=0;
+
 	}
 	
 	/*
