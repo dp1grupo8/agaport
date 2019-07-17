@@ -130,7 +130,18 @@ public class VueloLlegadaController{
 		vueloLlegadaRepo.save(v);
 		return "Eliminado";
 	}
-
+	@CrossOrigin
+	@GetMapping(path="/listarVuelosEnCola")
+	public @ResponseBody ArrayList<VueloLlegada> listarVueloEncolados(){
+		Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
+        ArrayList<VueloLlegada> listaExistentes = new ArrayList<VueloLlegada>();
+        for(VueloLlegada vl: listarVuelosLlegada){
+            if (vl.getBorrado()==0 && (vl.getEstado() == 0)){
+                listaExistentes.add(vl);
+            }
+        }
+        return listaExistentes;
+	}
 
 	@CrossOrigin
 	@GetMapping(path="/registrarVuelos")
@@ -356,9 +367,27 @@ public class VueloLlegadaController{
 
 	
 	@CrossOrigin
-	@GetMapping(path="/rVuelos")
+	@GetMapping(path="/rVuelosNormal")
+	@Scheduled(fixedDelay =3000000)
+	public @ResponseBody void rVuelosNormal(){
+		//int rVuelo = registrarVuelos();
+		/*
+		String respuestaA= asignarAterrizaje();
+		System.out.println("respuestaA");
+		eliminarVuelos();
+		System.out.println("servicio2");
+		*/
+		if (habilitadoServicio == 0){
+			System.out.println("corriendoServicioNormal");
+			Integer correcto = registrarVuelos();
+			ArrayList<VueloLlegada> vuelosAsignados = prueba();
+		}
+	}
+
+	@CrossOrigin
+	@GetMapping(path="/rVuelosSimulacion")
 	@Scheduled(fixedDelay =4000)
-	public @ResponseBody void rVuelos(){
+	public @ResponseBody void rVuelosSimulacion(){
 		//int rVuelo = registrarVuelos();
 		/*
 		String respuestaA= asignarAterrizaje();
@@ -367,9 +396,22 @@ public class VueloLlegadaController{
 		System.out.println("servicio2");
 		*/
 		if (habilitadoServicio == 1){
-			System.out.println("corriendoServicio");
+			System.out.println("corriendoServicioSimulacion");
+			Integer correcto = registrarVuelos();
+			ArrayList<VueloLlegada> vuelosAsignados = prueba();			
 		}
 	}
+
+	@CrossOrigin
+	@GetMapping(path="/ServicioDos")
+	@Scheduled(fixedDelay =10000000)
+	public @ResponseBody void rVuelosDos(){
+		String respuestaA= asignarAterrizaje();
+		//System.out.println("respuestaA");
+		eliminarVuelos();
+		//System.out.println("servicio2");
+	}
+
 
 	@CrossOrigin
 	@GetMapping(path="/empiezaServicio")
@@ -385,23 +427,7 @@ public class VueloLlegadaController{
 
 	}
 	
-	/*
-	@CrossOrigin
-	@GetMapping(path="/aVuelos")
-	@Scheduled(fixedRate = 60000)
-	public @ResponseBody void aVuelos(){
-		asignarPuertas();
-		//System.out.println("aiuda");
-	}
-
-	@CrossOrigin
-	@GetMapping(path="/flujo")
-	public @ResponseBody String flujoVuelo(){
-		rVuelos();
-		aVuelos();
-		return "oks";
-	}
-	*/
+	
 
 	@CrossOrigin
 	@GetMapping(path="/eliminarVuelos")
@@ -435,11 +461,11 @@ public class VueloLlegadaController{
 
 	@CrossOrigin
 	@GetMapping(path="/listarAsignaciones")
-	public @ResponseBody Iterable<VueloLlegada> prueba (){
+	public @ResponseBody ArrayList<VueloLlegada> prueba (){
 		//con esto se lee el json que manda python
 		RestTemplate restTemplate = new RestTemplate();
-		String fooResourceUrl = "http://demo4498234.mockable.io/listarAsignaciones/";
-		//String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
+		//String fooResourceUrl = "http://demo4498234.mockable.io/listarAsignaciones/";
+		String fooResourceUrl = "http://200.16.7.178/AGAPYTHON/agapython/listarAsignaciones";
 		ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 		String jsonInput = response.getBody();
 		
@@ -449,65 +475,71 @@ public class VueloLlegadaController{
 		JSONObject outerObject = new JSONObject(jsonInput);
 		JSONArray jsonArray = outerObject.getJSONArray("asignaciones");
 
+		ArrayList<VueloLlegada> vul = listarVueloEncolados();
+
 		for (int i = 0, size = jsonArray.length(); i < size; i++){
       		JSONObject objectInArray = jsonArray.getJSONObject(i);	      
 	    	String[] elementNames = JSONObject.getNames(objectInArray);
 	    	prueba.add(elementNames.length);
 
-	    	Integer idPuerta;
-	    	Integer idVueloAsignado;
+	    	Integer idPuerta = 0;
+	    	Integer idVueloAsignado = 0;
 	    	Puerta p = new Puerta();
-	    	VueloLlegada v = new VueloLlegada();
-
+	    	VueloLlegada vx = new VueloLlegada();
+	    	int vefP = 0;
+	    	String vAdentro;
 	      	for (String elementName : elementNames){
 	      		
-	      		Integer value = objectInArray.getInt(elementName);
+	      		//String valorAdentro = objectInArray.getString(elementName);
 	      		System.out.println(elementName);
-	      		System.out.println(value);
+	      		//System.out.println(value);
 	      		
-	      		/*
-	      		//Integer value = Integer.parseInt(valueString);
+	      		
+	      		
 	      		if(elementName.equals("idPuerta")){
-	      			idPuerta = value;
-	      			System.out.println("puerta");
-	      			System.out.println(idPuerta);
-	      			p = puertaRepo.findById(idPuerta).get();
-
-	      		}
-	      		if(elementName.equals("idVueloAsignado")){
-	      			idVueloAsignado = value;
-	      			System.out.println("vuelo");
-	      			System.out.println(idVueloAsignado);
-	      			v = vueloLlegadaRepo.findById(idVueloAsignado).get();
-	      			v.setPuerta(p);
-	      			vueloLlegadaRepo.save(v);
-	      			vuelosAsignados.add(v);
-	      		}
-	      		*/
-	      	
-	      		if(elementName.equals("idPuerta")){
-	      			idPuerta = value;
-	      			//System.out.println("puerta");
-	      			//System.out.println(idPuerta);
-	      			p = puertaRepo.findById(idPuerta).get();
-	      			p.setEstado(3);
-	      			puertaRepo.save(p);
-	      			v.setEstado(2);
-	      			v.setPuerta(p);
-	      			vueloLlegadaRepo.save(v);
-	      			vuelosAsignados.add(v);
-
-	      		}
-
-	      		if(elementName.equals("idVueloAsignado")){
-	      			idVueloAsignado = value;
-	      			System.out.println("vuelo");
-	      			System.out.println(idVueloAsignado);
-	      			v = vueloLlegadaRepo.findById(idVueloAsignado).get();
-	      			System.out.println("vueloEncontrado");
+	      			if(vefP == 0){
+	      				vefP =0;
+	      			}
+	      			else{
+	      				int value1 = objectInArray.getInt(elementName);
+		      			idPuerta = value1;
+		      			System.out.println("puerta");
+		      			System.out.println(idPuerta);
+		      			p = puertaRepo.findById(idPuerta).get();
+		      			p.setEstado(3);
+		      			puertaRepo.save(p);
+		      			vx.setEstado(2);
+		      			vx.setPuerta(p);
+		      			vueloLlegadaRepo.save(vx);
+		      			vuelosAsignados.add(vx);
+		      			vefP=0;
+	      			}
 	      			
 	      		}
 
+	      		if(elementName.equals("idVueloAsignado")){
+	      			
+	      			try{
+	      				
+	      				Integer value2 = objectInArray.getInt(elementName);
+	      				System.out.println("paso");
+		      			idVueloAsignado = value2;
+		      			System.out.println("vuelo");
+		      			System.out.println(idVueloAsignado);
+		      			//ver si el vuelo ya esta asignado o si existe
+		      			 for(VueloLlegada vll: vul){
+				            if (vll.getIdVuelo() == idVueloAsignado){
+				                vefP = 1;
+				                vx = vll;
+				            }
+				        }	      				
+	      			}catch(Exception e){
+	      				//String valorAdentro = objectInArray.getString(elementName);
+	      			}		
+	      			
+	      			
+	      		}
+				
 	      		
 	        //System.out.printf("name=%s, value=%s\n", elementName, value);
 	      	}
