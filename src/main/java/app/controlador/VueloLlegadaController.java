@@ -116,7 +116,7 @@ public class VueloLlegadaController{
         Iterable<VueloLlegada> listarVuelosLlegada = vueloLlegadaRepo.findAll();
         ArrayList<VueloLlegada> listaExistentes = new ArrayList<VueloLlegada>();
         for(VueloLlegada vl: listarVuelosLlegada){
-            if (vl.getBorrado()==0 && (vl.getPuerta() != null)){
+            if (vl.getBorrado()==0 && (vl.getPuerta() != null) && vl.getEstado!=4){
                 listaExistentes.add(vl);
             }
         }
@@ -368,7 +368,7 @@ public class VueloLlegadaController{
 	
 	@CrossOrigin
 	@GetMapping(path="/rVuelosNormal")
-	@Scheduled(fixedDelay =3000000)
+	@Scheduled(fixedDelay =4000)
 	public @ResponseBody void rVuelosNormal(){
 		//int rVuelo = registrarVuelos();
 		/*
@@ -386,7 +386,7 @@ public class VueloLlegadaController{
 
 	@CrossOrigin
 	@GetMapping(path="/rVuelosSimulacion")
-	@Scheduled(fixedDelay =4000)
+	@Scheduled(fixedDelay =60000)
 	public @ResponseBody void rVuelosSimulacion(){
 		//int rVuelo = registrarVuelos();
 		/*
@@ -402,16 +402,17 @@ public class VueloLlegadaController{
 		}
 	}
 
+	/*
 	@CrossOrigin
 	@GetMapping(path="/ServicioDos")
-	@Scheduled(fixedDelay =10000000)
+	@Scheduled(fixedDelay =4000)
 	public @ResponseBody void rVuelosDos(){
 		String respuestaA= asignarAterrizaje();
 		//System.out.println("respuestaA");
 		eliminarVuelos();
-		//System.out.println("servicio2");
+		System.out.println("servicio2");
 	}
-
+	*/
 
 	@CrossOrigin
 	@GetMapping(path="/empiezaServicio")
@@ -491,7 +492,7 @@ public class VueloLlegadaController{
 	      	for (String elementName : elementNames){
 	      		
 	      		//String valorAdentro = objectInArray.getString(elementName);
-	      		System.out.println(elementName);
+	      		//System.out.println(elementName);
 	      		//System.out.println(value);
 	      		
 	      		
