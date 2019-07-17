@@ -21,7 +21,7 @@
       if (!$scope.simulacionIni) {
         console.log('iniciando simulación 1');
         $scope.simulacionIni = true;
-        $scope.llamarSimulacion();
+        //$scope.llamarSimulacion();
         clearInterval($scope.simulacion);
         $scope.simulacion = setInterval($scope.leerData, 3000);
       }
@@ -33,11 +33,11 @@
         clearInterval($scope.simulacion);
         $scope.simulacion = setInterval($scope.leerData, 30000);
         console.log('detener simulación');
-        $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/terminaServicio').then(function successCallback(response) {
-          //console.log('simulacion iniciada');
-        }, function errorCallback(response) {
-          console.log(response);
-        });
+        // $http.get('http://200.16.7.178/backendAGAPORT/VuelosLlegada/terminaServicio').then(function successCallback(response) {
+        //   //console.log('simulacion iniciada');
+        // }, function errorCallback(response) {
+        //   console.log(response);
+        // });
       }
     }
 
