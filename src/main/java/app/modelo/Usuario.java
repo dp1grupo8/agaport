@@ -19,7 +19,7 @@ public class Usuario implements Serializable{
     private String Password;
     private String Nombres;
     private int borrado;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_permiso", nullable = false)
     //@JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})     

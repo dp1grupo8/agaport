@@ -24,7 +24,7 @@ public class Avion implements Serializable{
     private int CargaMax;
     private int CombustibleMax;
     private int borrado;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_aerolinea", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
     private Aerolinea aerolinea;

@@ -21,7 +21,7 @@ public class Aerolinea implements Serializable{
     private String Nombre;
     private int borrado;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_prioridad", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
     private Prioridad prioridad;
