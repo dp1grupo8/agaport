@@ -251,6 +251,7 @@ public class VueloLlegadaController{
 			v.setAvion(a);
 			v.setClaseVuelo(cv);
 			v.setNPersonas(pLlegada.get(i));
+			v.setNumeroVuelo(cLlegada.get(i));
 			vueloLlegadaRepo.save(v);
 
 			DateFormat dateFormat1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
