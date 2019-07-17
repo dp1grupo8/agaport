@@ -365,7 +365,7 @@ public class VueloLlegadaController{
         return "OK";
 	}
 
-	
+	/*
 	@CrossOrigin
 	@GetMapping(path="/rVuelosNormal")
 	@Scheduled(fixedDelay =4000)
@@ -376,7 +376,7 @@ public class VueloLlegadaController{
 		System.out.println("respuestaA");
 		eliminarVuelos();
 		System.out.println("servicio2");
-		*/
+		
 		if (habilitadoServicio == 0){
 			System.out.println("corriendoServicioNormal");
 			Integer correcto = registrarVuelos();
@@ -394,13 +394,14 @@ public class VueloLlegadaController{
 		System.out.println("respuestaA");
 		eliminarVuelos();
 		System.out.println("servicio2");
-		*/
+		
 		if (habilitadoServicio == 1){
 			System.out.println("corriendoServicioSimulacion");
 			Integer correcto = registrarVuelos();
 			ArrayList<VueloLlegada> vuelosAsignados = prueba();			
 		}
 	}
+	*/
 
 	/*
 	@CrossOrigin
