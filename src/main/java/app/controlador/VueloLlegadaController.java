@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -350,15 +351,19 @@ public class VueloLlegadaController{
         return "OK";
 	}
 
-	/*	
+	/*
 	@CrossOrigin
 	@GetMapping(path="/rVuelos")
-	@Scheduled(fixedRate = 45000)
+	@Scheduled(fixedDelay =4000)
 	public @ResponseBody void rVuelos(){
-		int rVuelo = registrarVuelos();
-		//System.out.println("aiuda");
+		//int rVuelo = registrarVuelos();
+		String respuestaA= asignarAterrizaje();
+		System.out.println("respuestaA");
+		eliminarVuelos();
+		System.out.println("servicio2");
 	}
-
+	
+	/*
 	@CrossOrigin
 	@GetMapping(path="/aVuelos")
 	@Scheduled(fixedRate = 60000)
