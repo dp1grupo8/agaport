@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import app.modelo.VueloLlegada;
 import app.modelo.Puerta;
@@ -34,12 +39,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
-
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.json.*;
 
 
 @CrossOrigin
-@RestController    // Clase controlador
+@RestController
+@Configuration
+@EnableScheduling    // Clase controlador
 @RequestMapping(path="/VuelosLlegada") // URL del servicio comienza con /agaport
 public class VueloLlegadaController{
 
@@ -51,6 +59,8 @@ public class VueloLlegadaController{
     private RepositorioAvion avionRepo;
     @Autowired
     private RepositorioClaseVuelo claseVueloRepo;
+
+    private static final Logger logger = LoggerFactory.getLogger(VueloLlegadaController.class);
 	@CrossOrigin
     @PostMapping(path="/insertar")
 	public @ResponseBody String agregarVueloLlegada (@RequestParam Date horaLlegadaProg, @RequestParam Date horaLlegadaReal,
@@ -340,6 +350,36 @@ public class VueloLlegadaController{
 
         return "OK";
 	}
+
+	/*
+	@CrossOrigin
+	@GetMapping(path="/rVuelos")
+	@Scheduled(fixedDelay =4000)
+	public @ResponseBody void rVuelos(){
+		//int rVuelo = registrarVuelos();
+		String respuestaA= asignarAterrizaje();
+		System.out.println("respuestaA");
+		eliminarVuelos();
+		System.out.println("servicio2");
+	}
+	
+	/*
+	@CrossOrigin
+	@GetMapping(path="/aVuelos")
+	@Scheduled(fixedRate = 60000)
+	public @ResponseBody void aVuelos(){
+		asignarPuertas();
+		//System.out.println("aiuda");
+	}
+
+	@CrossOrigin
+	@GetMapping(path="/flujo")
+	public @ResponseBody String flujoVuelo(){
+		rVuelos();
+		aVuelos();
+		return "oks";
+	}
+	*/
 
 	@CrossOrigin
 	@GetMapping(path="/eliminarVuelos")

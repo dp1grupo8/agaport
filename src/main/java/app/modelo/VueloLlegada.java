@@ -29,6 +29,7 @@ public class VueloLlegada implements Serializable{
     private int KEquipaje;
     private int Estado;
     private int borrado;
+    private String numeroVuelo;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_puerta", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})   
@@ -49,6 +50,14 @@ public class VueloLlegada implements Serializable{
 
     public void setIdVuelo(int idVuelo) {
         this.idVuelo = idVuelo;
+    }
+
+    public String getNumeroVuelo() {
+        return numeroVuelo;
+    }
+
+    public void setNumeroVuelo(String nvuelo){
+        this.numeroVuelo = nvuelo;
     }
 
     public int getBorrado() {
